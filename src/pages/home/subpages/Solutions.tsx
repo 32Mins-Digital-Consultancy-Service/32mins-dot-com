@@ -1,3 +1,5 @@
+import Grid from "../../../components/grid";
+
 export const SolutionsPage = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-screen ">
@@ -31,7 +33,7 @@ export const SolutionsPage = () => {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center w-full gap-3">
-        <div className="w-fit bg-gradient-to-r from-[#1D1D1B]/50 via-white/50 to-[#1D1D1B]/50 backdrop-blur-md px-4 py-2 rounded-lg font-normal text-white text-lg  tracking-tigher">
+        <div className="w-fit border border-[#1B1B1B] bg-gradient-to-r from-[#1D1D1B]/50 via-white/50 to-[#1D1D1B]/50 backdrop-blur-md px-4 py-2 rounded-lg font-normal text-white text-lg  tracking-tigher">
           Our services
         </div>
         <div className="font-bold text-3xl tracking-tigher text-white">
@@ -44,6 +46,7 @@ export const SolutionsPage = () => {
         training programs that enhance knowledge delivery and learner
         engagement.
       </div>
+      <Grid />
     </div>
   );
 };
