@@ -1,5 +1,5 @@
 // Menu.tsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Badge from "../images/Badge.png";
 import CtaButton from "./CtaButton";
 
@@ -14,12 +14,34 @@ const menuItems = [
 
 export const Menu = () => {
   const [activeBrochure, setActiveBrochure] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="flex gap-30 items-center justify-center sticky top-0 z-50 bg-transparent">
+    <div className="flex gap-30 items-center justify-center fixed top-0 left-0 right-0 z-50 bg-transparent mt-6">
       <img src={Badge} alt="badge" className="w-15 h-20" />
-      <div className="flex gap-8 p-6 rounded-2xl  border border-[#1B1B1B] bg-gradient-to-r from-[#1D1D1B]/50 via-white/50 to-[#1D1D1B]/50 bg-blend-soft-light backdrop-blur-md">
+      <div
+        className={`flex gap-8 py-4 px-6 rounded-2xl transition-all duration-300 ${
+          isScrolled
+            ? "bg-white/10 backdrop-blur-sm shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/15"
+            : "bg-white/5 backdrop-blur-none hover:bg-white/10"
+        }`}
+      >
         {menuItems.map((item) => (
-          <a key={item.name} href={`#${item.id}`}>
+          <a
+            key={item.name}
+            href={`#${item.id}`}
+            className="text-white/90 hover:text-white transition-colors duration-200"
+          >
             {item.name}
           </a>
         ))}
