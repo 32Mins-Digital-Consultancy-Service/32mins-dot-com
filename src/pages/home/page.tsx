@@ -7,10 +7,11 @@ import { ClientsPage } from "./subpages/Client";
 import { WhyUsPage } from "./subpages/WhyUs";
 import { ContactUsPage } from "./subpages/ContactUs";
 import { Summary } from "../../components/Summary";
+import Footer from "../../components/Footer";
 
 export const HomePage = () => {
   return (
-    <div className="bg-linear-to-b from-[#000016] to-[#000C30]">
+    <div className="bg-linear-to-b from-[#000016] to-[#000C30] ">
       <Menu />
       <div className="flex flex-col items-center justify-center w-full bg-linear-to-b from-black via-black to-[#000000]/0">
         <div className="flex flex-col items-center justify-center  bg-[url('/bg-image.png')] bg-top bg-no-repeat w-full #000C30 ">
@@ -55,6 +56,7 @@ export const HomePage = () => {
       >
         <ContactUsPage />
       </section>
+      <Footer />
     </div>
   );
 };

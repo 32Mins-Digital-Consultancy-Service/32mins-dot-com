@@ -27,10 +27,10 @@ export const Menu = () => {
   }, []);
 
   return (
-    <div className="flex gap-30 items-center justify-center fixed top-0 left-0 right-0 z-50 bg-transparent mt-6">
+    <div className="flex gap-30 items-center justify-center fixed top-0 left-0 right-0 z-50 bg-transparent mt-9">
       <img src={Badge} alt="badge" className="w-15 h-20" />
       <div
-        className={`flex gap-8 py-4 px-6 rounded-2xl transition-all duration-300 ${
+        className={`flex gap-8 py-4 px-6 rounded-2xl transition-all duration-300 border border-[#1B1B1B] ${
           isScrolled
             ? "bg-white/10 backdrop-blur-sm shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] hover:bg-white/15"
             : "bg-white/5 backdrop-blur-none hover:bg-white/10"

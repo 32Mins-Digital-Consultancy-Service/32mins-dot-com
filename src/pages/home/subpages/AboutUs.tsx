@@ -1,3 +1,4 @@
+import CtaButton from "../../../components/CtaButton";
 import { SubpageHeader } from "../../../components/SubpageHeader";
 
 export const AboutUsPage = () => {
@@ -19,9 +20,9 @@ export const AboutUsPage = () => {
             barriers to learning by creating engaging education materials
             available to everyone.
           </p>
-          <button className="border border-[#8E8E8E] px-7.5 py-4 rounded-3xl text-[#8E8E8E] text-lg font-normal tracking-tigher ">
+          <CtaButton variant="tertiary" onClick={() => {}}>
             Know More →
-          </button>
+          </CtaButton>
         </div>
         <div className="flex items-center justify-center gap-6">
           <img src="/image1.png" alt="image1" className="pb-10" />
