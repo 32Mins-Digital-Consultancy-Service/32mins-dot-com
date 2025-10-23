@@ -45,8 +45,8 @@ const employees: Employee[] = [
 
 const EmployeeCard = ({ employee }: { employee: Employee }) => {
   return (
-    <div className="bg-[#0A0A0A] rounded-4xl p-4 flex flex-col items-center text-center gap-5 border border-[#1B1B1B]">
-      <div className="w-full h-62 rounded-4xl overflow-hidden">
+    <article className="bg-[#0A0A0A] rounded-4xl p-4 flex flex-col items-center text-center gap-5 border border-[#1B1B1B]">
+      <figure className="w-full h-62 rounded-4xl overflow-hidden">
         {employee.image ? (
           <img
             src={employee.image}
@@ -56,36 +56,38 @@ const EmployeeCard = ({ employee }: { employee: Employee }) => {
         ) : (
           <div className="w-full h-full bg-linear-to-b from-[#0A1956] to-[#2741F4]  rounded-4xl"></div>
         )}
-      </div>
-      <div>
+      </figure>
+      <header>
         <h3 className="text-white text-2xl font-semibold tracking-tighter">
           {employee.name}
         </h3>
         <p className="text-[#8E8E8E] text-sm font-normal tracking-tighter">
           {employee.position}
         </p>
-      </div>
-    </div>
+      </header>
+    </article>
   );
 };
 
 const EmployeesSection = () => {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 max-w-4xl mx-auto">
-      <SubpageHeader title="Our Team" />
-      <div className="text-white text-3xl font-bold tracking-tighter text-center">
-        Meet the Minds Behind 32Mins
-      </div>
-      <div className="text-[#8E8E8E] text-lg font-normal tracking-tighter text-center max-w-2xl">
-        We bring together technology and strategy to create tailor-made
-        solutions for you.
-      </div>
+    <section className="flex flex-col items-center justify-center gap-4 max-w-4xl mx-auto">
+      <header className="flex flex-col items-center justify-center gap-4">
+        <SubpageHeader title="Our Team" />
+        <h2 className="text-white text-3xl font-bold tracking-tighter text-center">
+          Meet the Minds Behind 32Mins
+        </h2>
+        <p className="text-[#8E8E8E] text-lg font-normal tracking-tighter text-center max-w-2xl">
+          We bring together technology and strategy to create tailor-made
+          solutions for you.
+        </p>
+      </header>
       <div className="grid grid-cols-3 gap-4 w-full">
         {employees.map((employee) => (
           <EmployeeCard key={employee.id} employee={employee} />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

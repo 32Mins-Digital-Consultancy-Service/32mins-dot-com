@@ -11,7 +11,7 @@ const Footer = () => {
   return (
     <footer className="bg-[#0A0A0A] w-full p-9 flex flex-col items-center justify-center gap-13">
       <div className="flex items-center justify-center gap-30">
-        <div className="flex flex-col items-center justify-center gap-6">
+        <address className="flex flex-col items-center justify-center gap-6 not-italic">
           <div className="text-base font-bold  text-white">
             32Mins Digital Consultancy Services Pvt. Ltd.
           </div>
@@ -37,11 +37,12 @@ const Footer = () => {
             <div className="text-2xl font-normal tracking-tigher text-[#8E8E8E]">
               Socials »
             </div>
-            <div className="flex gap-2.5">
+            <nav className="flex gap-2.5">
               {["insta", "linkedin", "twitter", "facebook"].map((i) => {
                 return (
-                  <div
+                  <a
                     key={i}
+                    href="#"
                     className="w-7.5 h-7.5 border border-[#8E8E8E] rounded-sm cursor-pointer transition-colors"
                   >
                     <img
@@ -59,12 +60,12 @@ const Footer = () => {
                       alt={`social-${i}`}
                       className="w-full h-full"
                     />
-                  </div>
+                  </a>
                 );
               })}
-            </div>
+            </nav>
           </div>
-        </div>
+        </address>
 
         <div className="flex justify-center items-center ">
           <img
@@ -74,27 +75,27 @@ const Footer = () => {
           />
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-6 border border-[#595959] p-8 rounded-2xl">
-          <div className="text-3xl font-bold tracking-tigher text-[#2147DE]">
+        <section className="flex flex-col items-center justify-center gap-6 border border-[#595959] p-8 rounded-2xl">
+          <h3 className="text-3xl font-bold tracking-tigher text-[#2147DE]">
             Request a Proposal
-          </div>
-          <div className="text-base font-normal tracking-tigher text-white">
+          </h3>
+          <p className="text-base font-normal tracking-tigher text-white">
             We would be delighted to serve you. Looking forward to your call!
-          </div>
+          </p>
           <CtaButton variant="secondary" onClick={() => {}}>
             <Schdule />
             Schedule a meet
           </CtaButton>
-        </div>
+        </section>
       </div>
 
-      <div className="flex items-center justify-center gap-4 text-[#8E8E8E] font-normal text-xs">
-        <div>Cookies </div>
-        <div>Privacy </div>
-        <div>Terms of Service</div>
-        <div>|</div>
+      <nav className="flex items-center justify-center gap-4 text-[#8E8E8E] font-normal text-xs">
+        <a href="#">Cookies</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms of Service</a>
+        <span>|</span>
         <div>©2025 32Mins Consultancy Services Pvt. Ltd.</div>
-      </div>
+      </nav>
     </footer>
   );
 };

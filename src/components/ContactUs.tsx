@@ -3,11 +3,11 @@ import RightArrow from "../assets/rightarrow.svg";
 
 export const ContactUsPage = () => {
   return (
-    <div className="relative bg-linear-to-b from-[#0A1953] to-[#2842F7] w-[1112px] h-[360px] rounded-2xl p-7.5 flex flex-col gap-6 items-center justify-center ">
+    <section className="relative bg-linear-to-b from-[#0A1953] to-[#2842F7] w-[1112px] h-[360px] rounded-2xl p-7.5 flex flex-col gap-6 items-center justify-center ">
       <h1 className="font-bold text-[320px] tracking-tigher text-white/16 text-center whitespace-nowrap absolute mix-blend-soft-light z-0">
         Reach Us
       </h1>
-      <div className="flex flex-col gap-4 items-center justify-center max-w-3xl z-10">
+      <header className="flex flex-col gap-4 items-center justify-center max-w-3xl z-10">
         <h2 className="font-bold text-3xl tracking-tigher text-white">
           Reach Us
         </h2>
@@ -21,8 +21,8 @@ export const ContactUsPage = () => {
             days.
           </p>
         </div>
-      </div>
-      <div className="relative w-[320px] h-[48px] z-10">
+      </header>
+      <form className="relative w-[320px] h-[48px] z-10">
         <input
           type="email"
           placeholder="Enter your email id here"
@@ -34,8 +34,8 @@ export const ContactUsPage = () => {
         <div className="absolute right-6 top-1/2 transform -translate-y-1/2">
           <RightArrow />
         </div>
-      </div>
-    </div>
+      </form>
+    </section>
   );
 };
 

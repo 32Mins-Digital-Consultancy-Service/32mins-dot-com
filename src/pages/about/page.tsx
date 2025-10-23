@@ -6,14 +6,14 @@ import EmployeesSection from "./subpage/EmployeesSection";
 
 export const AboutPage = () => {
   return (
-    <div className="w-full bg-[#000016] items-center justify-center ">
+    <div className="w-full bg-[#000016] items-center justify-center gap-24 flex flex-col">
       <Menu />
-      <div className="pt-36 flex flex-col items-center justify-center w-full gap-24">
+      <main className="pt-36 flex flex-col items-center justify-center w-full gap-24">
         <AboutUsSection />
         <EmployeesSection />
         <ContactUsPage />
-        <Footer />
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 };
