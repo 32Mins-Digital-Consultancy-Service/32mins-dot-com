@@ -28,11 +28,12 @@ export const HomePage = () => {
             alt="earth"
             className="mix-blend-lighten w-full rotate-90 absolute mt-40"
           />
-          <div className="absolute -bottom-5 bg-linear-to-t from-[#000000] to-[#000000]/0 w-full h-[200px] flex justify-center items-end"></div>
+          <div className="absolute bottom-0 bg-linear-to-t from-[#000000] to-[#000000]/0 w-full h-[200px] flex justify-center items-end"></div>
         </div>
         <Summary />
       </div>
       <SolutionsPage />
+      <AboutUsPage />
       <ContactUsPage />
       <Footer />
     </div>

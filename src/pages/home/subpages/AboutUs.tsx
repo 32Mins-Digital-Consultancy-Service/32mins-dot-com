@@ -3,9 +3,9 @@ import { SubpageHeader } from "../../../components/SubpageHeader";
 
 export const AboutUsPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="flex items-center justify-center gap-24 p-5 max-w-6xl">
-        <div className="flex flex-col gap-9">
+    <div className="flex flex-col items-center justify-center max-w-6xl gap-26">
+      <div className="flex items-center justify-center gap-24 ">
+        <div className="flex flex-col gap-9 max-w-xl">
           <div className="flex flex-col gap-3">
             <SubpageHeader title="About Us" />
             <h1 className="font-bold text-3xl tracking-tighter text-white">
@@ -25,11 +25,19 @@ export const AboutUsPage = () => {
           </CtaButton>
         </div>
         <div className="flex items-center justify-center gap-6">
-          <img src="/image1.png" alt="image1" className="pb-10" />
-          <img src="/image2.png" alt="image2" className="pt-10" />
+          <img
+            src="/image1.png"
+            alt="image1"
+            className="w-[232px] h-[321px] mb-10 rounded-lg"
+          />
+          <img
+            src="/image2.png"
+            alt="image2"
+            className="w-[232px] h-[321px] mt-10 rounded-lg"
+          />
         </div>
       </div>
-      <div className="max-w-3xl flex gap-4 p-3 rounded-4xl items-center justify-center   bg-gradient-to-r from-[#1D1D1B]/50 via-white/50 to-[#1D1D1B]/50  shadow-[0px_0px_0px_0px_rgba(255,255,255,0.25)]">
+      <div className="max-w-4xl flex gap-4 p-3 rounded-4xl items-center justify-center bg-gradient-to-r from-[#1D1D1B]/50 via-white/50 to-[#1D1D1B]/50  shadow-[0px_0px_0px_0px_rgba(255,255,255,0.25)]">
         <div className="text-lg font-normal tracking-tigher text-white text-center">
           <span className="font-bold">32Mins</span> was founded in the year
           2023, to

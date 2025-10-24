@@ -1,6 +1,6 @@
 export const Summary = () => {
   return (
-    <div className="absolute -bottom-5  w-fit  rounded-4xl   bg-gradient-to-r from-[#1D1D1B]/10 via-white/10 to-[#1D1D1B]/10  ">
+    <div className="absolute -bottom-3  w-fit  rounded-4xl   bg-gradient-to-r from-[#1D1D1B]/10 via-white/10 to-[#1D1D1B]/10  ">
       <div className="backdrop-blur-xs  border border-[#1B1B1B] flex items-center justify-center  gap-8 p-10.5 rounded-4xl">
         <div className="flex flex-col font-extrabold text-center">
           <h2 className="text-white text-3xl leading-[125%]">32Mins</h2>
