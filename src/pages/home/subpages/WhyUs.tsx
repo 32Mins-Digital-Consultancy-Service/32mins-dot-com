@@ -5,7 +5,7 @@ export const WhyUsPage = () => {
   return (
     <div className="flex flex-col max-w-6xl gap-4 px-[clamp(1rem,4vw,2.5rem)]">
       <SubpageHeader title="Why Us" />
-      <div className="flex flex-col lg:flex-row items-center justify-center gap-[clamp(2rem,5vw,6rem)] w-full px-[clamp(1rem,4vw,2.5rem)] max-w-6xl">
+      <div className="flex flex-col lg:flex-row items-center justify-center gap-[clamp(2rem,5vw,6rem)] w-full max-w-6xl px-8">
         <div className="flex flex-col gap-[clamp(1.5rem,3vw,2.25rem)] max-w-xl w-full lg:w-auto">
           <div className="flex flex-col gap-[clamp(0.5rem,1.5vw,0.75rem)] ">
             <h2 className="font-bold text-[clamp(1.25rem,4vw,1.875rem)] tracking-tigher text-white">

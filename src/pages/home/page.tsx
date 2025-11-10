@@ -46,7 +46,7 @@ export const HomePage = () => {
   }, []);
 
   return (
-    <div className="bg-linear-to-t from-[#000016] to-[#000C30] flex flex-col items-center justify-center gap-4 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20">
+    <div className="bg-linear-to-t from-[#000016] to-[#000C30] flex flex-col items-center justify-center gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20">
       <Menu />
       <div className="relative bg-[url('/bg-image.png')] bg-center bg-cover w-full bg-no-repeat flex flex-col items-center justify-center">
         <div className="absolute inset-0 bg-[#091951] w-full mix-blend-overlay "></div>

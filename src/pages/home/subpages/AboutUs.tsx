@@ -3,10 +3,10 @@ import { SubpageHeader } from "../../../components/SubpageHeader";
 
 export const AboutUsPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center max-w-6xl gap-[clamp(2rem,8vw,5rem)] px-[clamp(1rem,5vw,3rem)] py-[clamp(1.5rem,6vw,4rem)]">
+    <div className="flex flex-col items-center justify-center max-w-6xl gap-[clamp(2rem,8vw,5rem)] px-[clamp(1rem,5vw,3rem)]">
       <div className="flex flex-col gap-[clamp(1rem,4vw,2rem)]">
         <SubpageHeader title="About Us" />
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-[clamp(1.5rem,6vw,4rem)] lg:px-8">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-[clamp(1.5rem,6vw,4rem)] px-8">
           <div className="flex flex-col gap-[clamp(1rem,4vw,2.5rem)] max-w-xl w-full lg:w-auto">
             <div className="flex flex-col gap-2">
               <h1 className="font-bold text-[clamp(1.25rem,4vw,1.875rem)] tracking-tighter text-white">
@@ -40,8 +40,8 @@ export const AboutUsPage = () => {
         </div>
       </div>
       <div className="rounded-4xl bg-gradient-to-r from-[#1D1D1B]/20 via-white/20 to-[#1D1D1B]/20 max-w-4xl h-fit w-full">
-        <div className="backdrop-blur-3xl border border-[#1B1B1B] flex gap-[clamp(0.5rem,2.5vw,1.5rem)] p-[clamp(1.25rem,5vw,3rem)] rounded-4xl items-center justify-center">
-          <div className="text-[#8E8E8E] text-[clamp(2rem,6vw,6.25rem)] tracking-tigher font-extrabold leading-[clamp(2.5rem,8vw,7.5rem)] flex-shrink-0">
+        <div className="backdrop-blur-3xl border border-[#1B1B1B] flex gap-[clamp(0.5rem,2vw,1rem)] p-[clamp(1rem,3vw,2rem)] rounded-4xl items-center justify-center">
+          <div className="text-[#8E8E8E] text-[clamp(1.5rem,4vw,4rem)] tracking-tigher font-extrabold leading-[clamp(2rem,5vw,5rem)] flex-shrink-0">
             🙶
           </div>
           <div className="text-white text-[clamp(0.875rem,1.8vw,1.125rem)] tracking-tigher text-center">
@@ -52,7 +52,7 @@ export const AboutUsPage = () => {
             </span>
             &nbsp;that helps academics, corporates, and subject matter experts.
           </div>
-          <div className="text-[#8E8E8E] text-[clamp(2rem,6vw,6.25rem)] tracking-tigher font-extrabold leading-[clamp(2.5rem,8vw,7.5rem)] flex-shrink-0">
+          <div className="text-[#8E8E8E] text-[clamp(1.5rem,4vw,4rem)] tracking-tigher font-extrabold leading-[clamp(2rem,5vw,5rem)] flex-shrink-0">
             🙷
           </div>
         </div>

@@ -11,7 +11,7 @@ export const SolutionsPage = () => {
             Solutions that take your business to the next level
           </div>
         </div>
-        <div className="text-[#8E8E8E] text-base sm:text-lg tracking-tigher text-center px-2">
+        <div className="text-[#8E8E8E] text-base sm:text-lg tracking-tigher   text-center px-2">
           We specialise in educational video production, offering tailored
           content for course lectures, online learning, coaching, and
           industry-focused training programs that enhance knowledge delivery and
