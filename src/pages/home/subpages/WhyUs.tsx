@@ -3,7 +3,7 @@ import CtaButton from "../../../components/CtaButton";
 
 export const WhyUsPage = () => {
   return (
-    <div className="flex items-center justify-center gap-45 w-full ">
+    <div className="flex items-center justify-center gap-45 w-full px-50">
       <div className="flex flex-col  gap-9 max-w-xl h-full">
         <div className="flex flex-col  gap-3 w-3/5">
           <SubpageHeader title="Why Us" />

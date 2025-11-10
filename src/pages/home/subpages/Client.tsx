@@ -3,7 +3,7 @@ import Marquee from "../../../components/marquee";
 
 export const ClientsPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center w-full gap-10.5 ">
+    <div className="flex flex-col items-center justify-center w-full gap-10.5 px-15">
       <div className="flex flex-col items-center justify-center gap-3">
         <SubpageHeader title="Our Clients" />
         <div className="font-bold text-3xl tracking-tigher text-white">
@@ -11,13 +11,13 @@ export const ClientsPage = () => {
         </div>
       </div>
       <Marquee />
-      <div className="flex flex-col items-center justify-center gap-10.5">
+      <div className="flex flex-col items-center justify-center gap-10.5 px-10 w-full ">
         <h3 className="font-normal text-lg tracking-tigher text-[#8E8E8E]">
           Here’s what our &nbsp;
           <span className="text-white">satisfied clients</span>&nbsp;say
         </h3>
         <div className="flex  items-center justify-center gap-6">
-          <div className="bg-linear-to-r from-[#0A0A0A] via-[#707070] to-[#0A0A0A] p-9 rounded-2xl max-w-2xl">
+          <div className="bg-linear-to-r from-[#0A0A0A]/20 via-[#707070]/20 to-[#0A0A0A]/20 p-9 rounded-2xl max-w-2xl flex flex-col gap-4 border border-[#1B1B1B]">
             <h3 className="font-bold text-lg tracking-tigher text-white">
               A Testament to the Strength of Our Incubation Programs
             </h3>
@@ -32,7 +32,7 @@ export const ClientsPage = () => {
               IITM Pravartak
             </h4>
           </div>
-          <div className="bg-linear-to-r from-[#0A0A0A] via-[#707070] to-[#0A0A0A] p-9 rounded-2xl max-w-2xl">
+          <div className="bg-linear-to-r from-[#0A0A0A]/20 via-[#707070]/20 to-[#0A0A0A]/20 p-9 rounded-2xl max-w-2xl flex flex-col gap-4 border border-[#1B1B1B]">
             <h3 className="font-bold text-lg tracking-tigher text-white">
               Truly Transformational
             </h3>

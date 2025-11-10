@@ -105,7 +105,7 @@ const services: ServiceCard[] = [
 
 const Grid = () => {
   return (
-    <div className="w-full px-40">
+    <div className="w-full px-20">
       <div className="grid grid-cols-6 gap-4 auto-rows-[minmax(200px,auto)]">
         <div className="bg-[#0A0A0A] border border-[#1B1B1B] rounded-2xl p-7.5 flex flex-col justify-start row-span-1 col-span-3 items-start ">
           <ServiceCardContent

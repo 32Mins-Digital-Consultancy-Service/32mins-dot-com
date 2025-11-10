@@ -3,7 +3,7 @@ import { SubpageHeader } from "../../../components/SubpageHeader";
 
 export const AboutUsPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center max-w-6xl gap-26">
+    <div className="flex flex-col items-center justify-center max-w-6xl gap-26 ">
       <div className="flex items-center justify-center gap-24 ">
         <div className="flex flex-col gap-9 max-w-xl">
           <div className="flex flex-col gap-3">
@@ -37,14 +37,22 @@ export const AboutUsPage = () => {
           />
         </div>
       </div>
-      <div className="w-fit  rounded-4xl  bg-gradient-to-r from-[#1D1D1B]/10 via-white/10 to-[#1D1D1B]/10  ">
-        <div className="backdrop-blur-xs  border border-[#1B1B1B]   gap-8 p-10.5 rounded-4xl text-white text-lg tracking-tigher">
-          <span className="font-bold">32Mins</span> &nbsp;was founded in the
-          year 2023, to
-          <span className="font-bold">
-            &nbsp;create interactive and visually engaging content
-          </span>
-          &nbsp;that helps academics, corporates, and subject matter experts.
+      <div className="rounded-4xl  bg-gradient-to-r from-[#1D1D1B]/30 via-white/30 to-[#1D1D1B]/30  max-w-4xl h-fit">
+        <div className="backdrop-blur-3xl  border border-[#1B1B1B] flex  gap-4 p-4 rounded-4xl items-center justify-center">
+          <div className="text-[#8E8E8E] text-[100px] tracking-tigher font-extrabold leading-[120px]">
+            🙶
+          </div>
+          <div className="text-white text-lg tracking-tigher text-center ">
+            <span className="font-bold">32Mins</span> &nbsp;was founded in the
+            year 2023, to
+            <span className="font-bold">
+              &nbsp;create interactive and visually engaging content
+            </span>
+            &nbsp;that helps academics, corporates, and subject matter experts.
+          </div>
+          <div className="text-[#8E8E8E] text-[100px] tracking-tigher font-extrabold leading-[120px]">
+            🙷
+          </div>
         </div>
       </div>
     </div>

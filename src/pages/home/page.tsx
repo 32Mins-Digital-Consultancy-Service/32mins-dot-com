@@ -4,8 +4,8 @@ import { Menu } from "../../components/Menu";
 import { UpdatesPage } from "./subpages/Updates";
 import { SolutionsPage } from "./subpages/Solutions";
 import { AboutUsPage } from "./subpages/AboutUs";
-// import { ClientsPage } from "./subpages/Client";
-// import { WhyUsPage } from "./subpages/WhyUs";
+import { ClientsPage } from "./subpages/Client";
+import { WhyUsPage } from "./subpages/WhyUs";
 import { ContactUsPage } from "../../components/ContactUs";
 import { Summary } from "../../components/Summary";
 import Footer from "../../components/Footer";
@@ -73,6 +73,8 @@ export const HomePage = () => {
       </div>
       <SolutionsPage />
       <AboutUsPage />
+      <ClientsPage />
+      <WhyUsPage />
       <ContactUsPage />
       <Footer />
     </div>
