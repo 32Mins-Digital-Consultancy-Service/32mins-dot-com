@@ -17,7 +17,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-[#0A0A0A] w-full py-9 flex flex-col items-center justify-center gap-13">
-      <div className="flex items-center justify-center gap-30 max-w-6xl overflow-visible">
+      <div className="flex items-center justify-center gap-30 max-w-7xl overflow-visible">
         <address className="flex flex-col  gap-6 max-w-sm">
           <div className="text-base font-bold  text-white">
             32Mins Digital Consultancy Services Pvt. Ltd.
@@ -69,8 +69,8 @@ const Footer = () => {
           />
         </div>
 
-        <section className="flex flex-col  gap-6 border border-[#595959] p-8 rounded-2xl max-w-lg">
-          <h3 className="text-3xl font-bold tracking-tigher text-[#2147DE]">
+        <section className="flex flex-col  gap-6 border border-[#595959] p-8 rounded-2xl ">
+          <h3 className="text-3xl font-bold tracking-tigher text-[#2147DE] w-full">
             Request a Proposal
           </h3>
           <div>
