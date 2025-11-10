@@ -6,8 +6,9 @@ const ctaButtonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-transparent text-white border-white border font-normal",
-        secondary: "bg-[#2943FC] text-white font-semibold w-fit",
+        primary:
+          "bg-transparent text-white border-white border font-normal rounded-3xl w-fit",
+        secondary: "bg-[#2943FC] text-white font-semibold w-fit rounded-3xl",
         tertiary:
           "bg-transparent text-[#8E8E8E] border-[#8E8E8E] border font-normal text-lg w-fit",
       },
