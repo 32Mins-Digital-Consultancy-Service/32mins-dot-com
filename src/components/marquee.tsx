@@ -65,7 +65,7 @@ export default function Marquee() {
   ];
 
   return (
-    <div className="container mx-auto overflow-hidden select-none w-full ">
+    <div className="w-full max-w-full min-w-0 overflow-hidden select-none container mx-auto">
       <MarqueeItem images={images} from={0} to={"-100%"} />
     </div>
   );

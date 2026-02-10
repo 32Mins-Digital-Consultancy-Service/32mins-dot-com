@@ -1,26 +1,35 @@
 import Message from "../assets/Message.svg";
 import RightArrow from "../assets/rightarrow.svg";
+import { SectionRevealItem } from "./SectionReveal";
 
-export const ContactUsPage = () => {
+interface ContactUsPageProps {
+  isVisible?: boolean;
+}
+
+export const ContactUsPage = ({ isVisible = false }: ContactUsPageProps) => {
   return (
-    <section className="relative bg-linear-to-b from-[#0A1953] to-[#2842F7] w-9/10 h-[360px] rounded-2xl p-7.5 flex flex-col gap-6 items-center justify-center ">
-      <h1 className="font-bold text-[clamp(16px,25vw,320px)] tracking-tigher text-white/16 text-center whitespace-nowrap absolute mix-blend-soft-light z-0">
+    <section className="relative bg-linear-to-b from-[#0A1953] to-[#2842F7] w-[90%] max-w-full h-[360px] rounded-2xl p-7.5 flex flex-col gap-6 items-center justify-center overflow-hidden">
+      <h1 className="font-bold text-[clamp(96px,30vw,480px)] tracking-[-0.04em] text-white/16 text-center absolute mix-blend-soft-light z-0  left-1/2 -translate-x-1/2 whitespace-nowrap">
         Reach Us
       </h1>
       <header className="flex flex-col gap-4 items-center justify-center max-w-3xl z-10">
-        <h2 className="font-bold text-[clamp(1.5rem,4vw,3rem)] tracking-tigher text-white">
-          Reach Us
-        </h2>
-        <div className="flex flex-col ">
-          <p className="font-normal text-[clamp(1rem,2vw,1.25rem)] tracking-tigher text-white text-center">
-            Do you want to create interactive video content for your students or
-            employees?
-          </p>
-          <p className="font-normal text-[clamp(1rem,2vw,1.25rem)] tracking-tigher text-white text-center">
-            Please share your email, and we will connect with you in 2-3 working
-            days.
-          </p>
-        </div>
+        <SectionRevealItem isVisible={isVisible} index={0}>
+          <h2 className="font-bold text-[clamp(1.5rem,4vw,3rem)] tracking-tigher text-white">
+            Reach Us
+          </h2>
+        </SectionRevealItem>
+        <SectionRevealItem isVisible={isVisible} index={1}>
+          <div className="flex flex-col ">
+            <p className="font-normal text-[clamp(1rem,2vw,1.25rem)] tracking-tigher text-white text-center">
+              Do you want to create interactive video content for your students
+              or employees?
+            </p>
+            <p className="font-normal text-[clamp(1rem,2vw,1.25rem)] tracking-tigher text-white text-center">
+              Please share your email, and we will connect with you in 2-3
+              working days.
+            </p>
+          </div>
+        </SectionRevealItem>
       </header>
       <form className="relative w-[320px] h-[48px] z-10">
         <input

@@ -2,7 +2,7 @@ import type { VariantProps } from "class-variance-authority";
 import { cva, cx } from "class-variance-authority";
 
 const ctaButtonVariants = cva(
-  "px-6 py-4 rounded-3xl text-[clamp(1rem,4vw,1.5rem)] tracking-tighter flex items-center justify-center gap-3",
+  "px-7 py-2 rounded-4xl text-[clamp(1rem,4vw,1.5rem)] tracking-tighter flex items-center justify-center gap-3 cursor-pointer",
   {
     variants: {
       variant: {

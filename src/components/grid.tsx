@@ -7,6 +7,33 @@ interface ServiceCard {
   size: "small" | "medium" | "large" | "tall";
 }
 
+interface CardWrapperProps {
+  children: React.ReactNode;
+  className?: string;
+  index: number;
+  isVisible: boolean;
+  baseIndex: number;
+}
+
+const CardWrapper = ({
+  children,
+  className = "",
+  index,
+  isVisible,
+  baseIndex,
+}: CardWrapperProps) => {
+  const delay = (baseIndex + index) * 0.1;
+  return (
+    <div
+      className={`rounded-2xl p-[1px] bg-[#1B1B1B] relative overflow-hidden group ${isVisible ? "card-fade-in" : "opacity-0"} ${className}`}
+      style={isVisible ? { animationDelay: `${delay}s` } : undefined}
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-[#444] via-[#2a2a2a] to-[#444] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      {children}
+    </div>
+  );
+};
+
 interface ServiceCardContentProps {
   title: string;
   description: string;
@@ -103,48 +130,95 @@ const services: ServiceCard[] = [
   },
 ];
 
-const Grid = () => {
+interface GridProps {
+  isVisible?: boolean;
+  baseIndex?: number;
+}
+
+const Grid = ({ isVisible = true, baseIndex = 0 }: GridProps) => {
   return (
     <div className="w-full px-4 sm:px-6 md:px-10 lg:px-16 xl:px-20">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 auto-rows-[minmax(180px,auto)] sm:auto-rows-[minmax(200px,auto)]">
-        <div className="bg-[#0A0A0A] border border-[#1B1B1B] rounded-2xl p-5 sm:p-6 md:p-7.5 flex flex-col justify-start row-span-1 col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-3 items-start">
-          <ServiceCardContent
-            title={services[0].title}
-            description={services[0].description}
-          />
-        </div>
+        <CardWrapper
+          index={0}
+          isVisible={isVisible}
+          baseIndex={baseIndex}
+          className="row-span-1 col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-3"
+        >
+          <div className="relative bg-[#0A0A0A] rounded-[15px] p-5 sm:p-6 md:p-7.5 flex flex-col justify-start items-start h-full">
+            <ServiceCardContent
+              title={services[0].title}
+              description={services[0].description}
+            />
+          </div>
+        </CardWrapper>
 
-        <div className="bg-[#0A0A0A] border border-[#1B1B1B] rounded-2xl p-5 sm:p-6 md:p-7.5 flex flex-col justify-start row-span-1 col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-3 items-start">
-          <ServiceCardContent
-            title={services[1].title}
-            description={services[1].description}
-          />
-        </div>
+        <CardWrapper
+          index={1}
+          isVisible={isVisible}
+          baseIndex={baseIndex}
+          className="row-span-1 col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-3"
+        >
+          <div className="relative bg-[#0A0A0A] rounded-[15px] p-5 sm:p-6 md:p-7.5 flex flex-col justify-start items-start h-full">
+            <ServiceCardContent
+              title={services[1].title}
+              description={services[1].description}
+            />
+          </div>
+        </CardWrapper>
 
-        <div className="bg-[#0A0A0A] border border-[#1B1B1B] rounded-2xl p-5 sm:p-6 md:p-7.5 flex flex-col justify-center row-span-1 col-span-1 sm:col-span-2 md:col-span-4 lg:col-span-4 gap-4">
-          <VerticalCarousel />
-        </div>
+        <CardWrapper
+          index={2}
+          isVisible={isVisible}
+          baseIndex={baseIndex}
+          className="row-span-1 col-span-1 sm:col-span-2 md:col-span-4 lg:col-span-4"
+        >
+          <div className="relative bg-[#0A0A0A] rounded-[15px] p-5 sm:p-6 md:p-7.5 flex flex-col justify-center gap-4 h-full">
+            <VerticalCarousel />
+          </div>
+        </CardWrapper>
 
-        <div className="bg-[#0A0A0A] border border-[#1B1B1B] rounded-2xl p-5 sm:p-6 md:p-7.5 flex flex-col justify-start row-span-1 sm:row-span-2 col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2 items-start">
-          <ServiceCardContent
-            title={services[3].title}
-            description={services[3].description}
-          />
-        </div>
+        <CardWrapper
+          index={3}
+          isVisible={isVisible}
+          baseIndex={baseIndex}
+          className="row-span-1 sm:row-span-2 col-span-1 sm:col-span-2 md:col-span-2 lg:col-span-2"
+        >
+          <div className="relative bg-[#0A0A0A] rounded-[15px] p-5 sm:p-6 md:p-7.5 flex flex-col justify-start items-start h-full">
+            <ServiceCardContent
+              title={services[3].title}
+              description={services[3].description}
+            />
+          </div>
+        </CardWrapper>
 
-        <div className="bg-[#0A0A0A] border border-[#1B1B1B] rounded-2xl p-5 sm:p-6 md:p-7.5 flex flex-col justify-start row-span-1 col-span-1 sm:col-span-1 md:col-span-2 lg:col-span-2 items-start">
-          <ServiceCardContent
-            title={services[4].title}
-            description={services[4].description}
-          />
-        </div>
+        <CardWrapper
+          index={4}
+          isVisible={isVisible}
+          baseIndex={baseIndex}
+          className="row-span-1 col-span-1 sm:col-span-1 md:col-span-2 lg:col-span-2"
+        >
+          <div className="relative bg-[#0A0A0A] rounded-[15px] p-5 sm:p-6 md:p-7.5 flex flex-col justify-start items-start h-full">
+            <ServiceCardContent
+              title={services[4].title}
+              description={services[4].description}
+            />
+          </div>
+        </CardWrapper>
 
-        <div className="bg-[#0A0A0A] border border-[#1B1B1B] rounded-2xl p-5 sm:p-6 md:p-7.5 flex flex-col justify-start row-span-1 col-span-1 sm:col-span-1 md:col-span-2 lg:col-span-2 items-start">
-          <ServiceCardContent
-            title={services[5].title}
-            description={services[5].description}
-          />
-        </div>
+        <CardWrapper
+          index={5}
+          isVisible={isVisible}
+          baseIndex={baseIndex}
+          className="row-span-1 col-span-1 sm:col-span-1 md:col-span-2 lg:col-span-2"
+        >
+          <div className="relative bg-[#0A0A0A] rounded-[15px] p-5 sm:p-6 md:p-7.5 flex flex-col justify-start items-start h-full">
+            <ServiceCardContent
+              title={services[5].title}
+              description={services[5].description}
+            />
+          </div>
+        </CardWrapper>
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CtaButton from "./CtaButton";
 import Schdule from "../assets/schdule.svg";
 import Phone from "../assets/phone.svg";
@@ -80,9 +81,9 @@ const Footer = () => {
               style={{ gap: "clamp(0.5rem, 1.5vw, 0.75rem)" }}
             >
               {socialLinks.map(({ name, icon, href }) => (
-                <a
+                <Link
                   key={name}
-                  href={href}
+                  to={href}
                   className="border border-[#8E8E8E] rounded-sm cursor-pointer transition-all hover:border-white hover:scale-110"
                   style={{
                     width: "clamp(1.75rem, 4vw, 2.25rem)",
@@ -95,7 +96,7 @@ const Footer = () => {
                     alt={`${name} social media icon`}
                     className="w-full h-full object-contain"
                   />
-                </a>
+                </Link>
               ))}
             </nav>
           </div>
@@ -160,17 +161,17 @@ const Footer = () => {
           className="flex items-center justify-center flex-wrap"
           style={{ gap: "clamp(0.5rem, 2vw, 1rem)" }}
         >
-          <a href="#" className="hover:text-white transition-colors">
+          <Link to="#" className="hover:text-white transition-colors">
             Cookies
-          </a>
+          </Link>
           <span className="hidden xs:inline">·</span>
-          <a href="#" className="hover:text-white transition-colors">
+          <Link to="#" className="hover:text-white transition-colors">
             Privacy
-          </a>
+          </Link>
           <span className="hidden xs:inline">·</span>
-          <a href="#" className="hover:text-white transition-colors">
+          <Link to="#" className="hover:text-white transition-colors">
             Terms of Service
-          </a>
+          </Link>
         </div>
         <div className="hidden sm:block">|</div>
         <div className="whitespace-nowrap">

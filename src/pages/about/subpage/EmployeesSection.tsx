@@ -1,10 +1,15 @@
 import { SubpageHeader } from "../../../components/SubpageHeader";
+import { SectionRevealItem } from "../../../components/SectionReveal";
 
 interface Employee {
   id: number;
   name: string;
   position: string;
   image?: string;
+}
+
+interface EmployeesSectionProps {
+  isVisible?: boolean;
 }
 
 const employees: Employee[] = [
@@ -43,48 +48,72 @@ const employees: Employee[] = [
   },
 ];
 
-const EmployeeCard = ({ employee }: { employee: Employee }) => {
+const EmployeeCard = ({
+  employee,
+  isVisible,
+  index,
+}: {
+  employee: Employee;
+  isVisible: boolean;
+  index: number;
+}) => {
   return (
-    <article className="bg-[#0A0A0A] rounded-4xl p-4 flex flex-col items-center text-center gap-5 border border-[#1B1B1B]">
-      <figure className="w-full h-62 rounded-4xl overflow-hidden">
-        {employee.image ? (
-          <img
-            src={employee.image}
-            alt={employee.name}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full bg-linear-to-b from-[#0A1956] to-[#2741F4]  rounded-4xl"></div>
-        )}
-      </figure>
-      <header>
-        <h3 className="text-white text-2xl font-semibold tracking-tighter">
-          {employee.name}
-        </h3>
-        <p className="text-[#8E8E8E] text-sm font-normal tracking-tighter">
-          {employee.position}
-        </p>
-      </header>
-    </article>
+    <div
+      className={isVisible ? "card-fade-in" : "opacity-0"}
+      style={isVisible ? { animationDelay: `${index * 0.07}s` } : undefined}
+    >
+      <article className="bg-[#0A0A0A] rounded-2xl sm:rounded-4xl p-3 sm:p-4 flex flex-col items-center text-center gap-3 sm:gap-5 border border-[#1B1B1B]">
+        <figure className="w-full h-36 sm:h-48 md:h-56 lg:h-62 rounded-2xl sm:rounded-4xl overflow-hidden">
+          {employee.image ? (
+            <img
+              src={employee.image}
+              alt={employee.name}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full bg-linear-to-b from-[#0A1956] to-[#2741F4] rounded-2xl sm:rounded-4xl"></div>
+          )}
+        </figure>
+        <header>
+          <h3 className="text-white text-base sm:text-lg md:text-xl lg:text-2xl font-semibold tracking-tighter">
+            {employee.name}
+          </h3>
+          <p className="text-[#8E8E8E] text-xs sm:text-sm font-normal tracking-tighter">
+            {employee.position}
+          </p>
+        </header>
+      </article>
+    </div>
   );
 };
 
-const EmployeesSection = () => {
+const EmployeesSection = ({ isVisible = false }: EmployeesSectionProps) => {
   return (
-    <section className="flex flex-col items-center justify-center gap-4 max-w-4xl mx-auto">
-      <header className="flex flex-col items-center justify-center gap-4">
-        <SubpageHeader title="Our Team" />
-        <h2 className="text-white text-3xl font-bold tracking-tighter text-center">
-          Meet the Minds Behind 32Mins
-        </h2>
-        <p className="text-[#8E8E8E] text-lg font-normal tracking-tighter text-center max-w-2xl">
-          We bring together technology and strategy to create tailor-made
-          solutions for you.
-        </p>
+    <section className="flex flex-col items-center justify-center gap-4 sm:gap-6 max-w-4xl mx-auto px-4 sm:px-6 md:px-8 w-full">
+      <header className="flex flex-col items-center justify-center gap-3 sm:gap-4">
+        <SectionRevealItem isVisible={isVisible} index={0}>
+          <SubpageHeader title="Our Team" />
+        </SectionRevealItem>
+        <SectionRevealItem isVisible={isVisible} index={1}>
+          <h2 className="text-white text-[clamp(1.25rem,4vw,1.875rem)] font-bold tracking-tighter text-center">
+            Meet the Minds Behind 32Mins
+          </h2>
+        </SectionRevealItem>
+        <SectionRevealItem isVisible={isVisible} index={2}>
+          <p className="text-[#8E8E8E] text-[clamp(0.875rem,2vw,1.125rem)] font-normal tracking-tighter text-center max-w-2xl">
+            We bring together technology and strategy to create tailor-made
+            solutions for you.
+          </p>
+        </SectionRevealItem>
       </header>
-      <div className="grid grid-cols-3 gap-4 w-full">
-        {employees.map((employee) => (
-          <EmployeeCard key={employee.id} employee={employee} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 w-full">
+        {employees.map((employee, i) => (
+          <EmployeeCard
+            key={employee.id}
+            employee={employee}
+            isVisible={isVisible}
+            index={i + 3}
+          />
         ))}
       </div>
     </section>

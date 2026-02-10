@@ -1,5 +1,6 @@
 // Menu.tsx
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Badge from "../images/Badge.png";
 import CtaButton from "./CtaButton";
 
@@ -17,7 +18,7 @@ export const Menu = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
@@ -54,14 +55,30 @@ export const Menu = () => {
     };
   }, [isMobileMenuOpen]);
 
+  // Close mobile menu on Escape
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsMobileMenuOpen(false);
+    };
+    if (isMobileMenuOpen) {
+      window.addEventListener("keydown", handleEscape);
+      return () => window.removeEventListener("keydown", handleEscape);
+    }
+  }, [isMobileMenuOpen]);
+
   return (
     <>
-      <header className="flex gap-4 md:gap-6 lg:gap-30 items-center justify-between md:justify-center fixed top-0 left-0 right-0 z-50 bg-transparent mt-5 md:mt-7 lg:mt-9 px-4 md:px-0">
-        <img
-          src={Badge}
-          alt="badge"
-          className="w-12 h-16 md:w-14 md:h-18 lg:w-15 lg:h-20"
-        />
+      <header className="flex gap-2 sm:gap-4 md:gap-6 lg:gap-30 items-center justify-between md:justify-center fixed top-0 left-0 right-0 z-50 bg-transparent mt-4 md:mt-7 lg:mt-9 w-full max-w-full min-w-0 overflow-x-hidden box-border pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] md:pl-0 md:pr-0">
+        <Link to="/" className="flex-shrink-0 min-w-0">
+          <img
+            src={Badge}
+            alt="badge"
+            className={`w-10 h-[2.5rem] sm:w-12 sm:h-16 md:w-14 md:h-[4.5rem] lg:w-16 lg:h-20 ${
+              isScrolled ? "scale-80" : "scale-100"
+            } transition-all duration-300 object-contain`}
+            onClick={() => navigate("/")}
+          />
+        </Link>
 
         {/* Desktop and Tablet Navigation */}
         {!isMobile && (
@@ -73,19 +90,19 @@ export const Menu = () => {
             }`}
           >
             {menuItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
-                href={`#${item.id}`}
-                className="text-white/90 hover:text-white transition-colors duration-200 text-sm md:text-sm lg:text-base whitespace-nowrap"
+                to={`#${item.id}`}
+                className="relative text-white/90 hover:text-white transition-colors duration-200 text-sm lg:text-base whitespace-nowrap after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full "
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
         )}
 
         {/* Mobile Hamburger Button */}
-        <div className="flex gap-2 items-center justify-center">
+        <div className="flex flex-shrink-0 gap-1.5 sm:gap-2 items-center justify-center min-w-0">
           {activeBrochure ? (
             <CtaButton
               variant="secondary"
@@ -103,13 +120,15 @@ export const Menu = () => {
           )}
           {isMobile && (
             <button
+              type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`flex flex-col gap-1.5 p-3 rounded-xl transition-all duration-300 border border-[#1B1B1B] ${
+              className={`flex flex-col justify-center gap-1.5 min-w-[44px] min-h-[44px] p-3 rounded-xl transition-all duration-300 border border-[#1B1B1B] touch-manipulation ${
                 isScrolled
                   ? "bg-white/10 backdrop-blur-sm shadow-[0_8px_32px_0_rgba(0,0,0,0.37)]"
                   : "bg-white/5 backdrop-blur-none"
               }`}
-              aria-label="Toggle menu"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
             >
               <span
                 className={`w-6 h-0.5 bg-white transition-all duration-300 ${
@@ -139,29 +158,31 @@ export const Menu = () => {
               ? "opacity-100 pointer-events-auto"
               : "opacity-0 pointer-events-none"
           }`}
+          aria-hidden={!isMobileMenuOpen}
         >
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm touch-none"
             onClick={() => setIsMobileMenuOpen(false)}
           />
 
           {/* Menu Panel */}
           <nav
-            className={`absolute top-0 right-0 h-full w-72 bg-[#0A0A0A]/95 backdrop-blur-lg border-l border-[#1B1B1B] shadow-2xl transition-transform duration-300 ${
+            className={`absolute top-0 right-0 h-full w-[min(18rem,100vw-2rem)] max-w-[85vw] bg-[#0A0A0A]/95 backdrop-blur-lg border-l border-[#1B1B1B] shadow-2xl transition-transform duration-300 flex flex-col pt-[calc(5rem+env(safe-area-inset-top))] pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)] ${
               isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
             }`}
+            aria-label="Mobile navigation"
           >
-            <div className="flex flex-col gap-2 p-8 pt-32">
+            <div className="flex flex-col gap-1 overflow-y-auto flex-1 px-6 py-4">
               {menuItems.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href={`#${item.id}`}
+                  to={`/#${item.id}`}
                   onClick={handleMenuItemClick}
-                  className="text-white/90 hover:text-white hover:bg-white/5 transition-all duration-200 py-4 px-6 rounded-xl text-lg"
+                  className="text-white/90 hover:text-white active:bg-white/10 transition-all duration-200 py-4 px-4 rounded-xl text-lg min-h-[48px] flex items-center touch-manipulation"
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
             </div>
           </nav>
