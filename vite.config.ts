@@ -5,6 +5,9 @@ import svgr from "vite-plugin-svgr";
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    allowedHosts: ["3a2004440bc0.ngrok-free.app"],
+  },
   plugins: [
     react({
       babel: {

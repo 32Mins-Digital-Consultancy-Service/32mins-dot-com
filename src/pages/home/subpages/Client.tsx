@@ -6,14 +6,14 @@ export const ClientsPage = () => {
     <div
       className="flex flex-col items-center justify-center w-full"
       style={{
-        gap: "clamp(1rem, 3vw, 1.5rem)",
+        gap: "clamp(2em, 4vw, 3rem)",
         paddingLeft: "clamp(1rem, 5vw, 4rem)",
         paddingRight: "clamp(1rem, 5vw, 4rem)",
       }}
     >
       <div
         className="flex flex-col items-center justify-center"
-        style={{ gap: "clamp(0.25rem, 1vw, 0.5rem)" }}
+        style={{ gap: "clamp(0.5rem, 2vw, 0.75rem)" }}
       >
         <SubpageHeader title="Our Clients" />
         <div
@@ -41,13 +41,13 @@ export const ClientsPage = () => {
         </h3>
         <div
           className="flex flex-col md:flex-row items-center justify-center"
-          style={{ gap: "clamp(0.75rem, 2vw, 1rem)" }}
+          style={{ gap: "clamp(1.5rem, 4vw, 2rem)" }}
         >
           <div
             className="bg-linear-to-r from-[#0A0A0A]/20 via-[#707070]/20 to-[#0A0A0A]/20 rounded-2xl max-w-2xl flex flex-col border border-[#1B1B1B]"
             style={{
               padding: "clamp(1rem, 3vw, 2.25rem)",
-              gap: "clamp(0.5rem, 1.5vw, 0.75rem)",
+              gap: "clamp(1rem, 2vw, 1.5rem)",
             }}
           >
             <h3

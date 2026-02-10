@@ -4,8 +4,8 @@ import { SubpageHeader } from "../../../components/SubpageHeader";
 export const SolutionsPage = () => {
   return (
     <div className="flex flex-col items-center justify-center w-full gap-6 sm:gap-7 md:gap-9 px-4 sm:px-6 md:px-8">
-      <div className="flex flex-col items-center justify-center w-full gap-3 sm:gap-4 max-w-5xl">
-        <div className="flex flex-col items-center justify-center gap-2 sm:gap-3">
+      <div className="flex flex-col items-center justify-center w-full   gap-4 sm:gap-6 max-w-5xl">
+        <div className="flex flex-col items-center justify-center gap-4 sm:gap-3">
           <SubpageHeader title="Our Services" />
           <div className="font-bold text-xl sm:text-2xl md:text-3xl tracking-tigher text-white text-center px-2">
             Solutions that take your business to the next level

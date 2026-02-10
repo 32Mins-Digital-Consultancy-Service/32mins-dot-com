@@ -46,7 +46,7 @@ export const HomePage = () => {
   }, []);
 
   return (
-    <div className="bg-linear-to-t from-[#000016] to-[#000C30] flex flex-col items-center justify-center gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20">
+    <div className="bg-linear-to-t from-[#000016] to-[#000C30] flex flex-col items-center justify-center gap-10 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20">
       <Menu />
       <div className="relative bg-[url('/bg-image.png')] bg-center bg-cover w-full bg-no-repeat flex flex-col items-center justify-center">
         <div className="absolute inset-0 bg-[#091951] w-full mix-blend-overlay "></div>
@@ -72,11 +72,36 @@ export const HomePage = () => {
 
         <Summary ref={summaryRef} />
       </div>
-      <SolutionsPage />
-      <AboutUsPage />
-      <ClientsPage />
-      <WhyUsPage />
-      <ContactUsPage />
+      <section
+        id="solutions"
+        className="scroll-mt-24 w-full flex flex-col items-center justify-center"
+      >
+        <SolutionsPage />
+      </section>
+      <section
+        id="aboutus"
+        className="scroll-mt-24 w-full flex flex-col items-center justify-center"
+      >
+        <AboutUsPage />
+      </section>
+      <section
+        id="clients"
+        className="scroll-mt-24 w-full flex flex-col items-center justify-center"
+      >
+        <ClientsPage />
+      </section>
+      <section
+        id="whyus"
+        className="scroll-mt-24 w-full flex flex-col items-center justify-center"
+      >
+        <WhyUsPage />
+      </section>
+      <section
+        id="contactus"
+        className="scroll-mt-16 w-full flex flex-col items-center justify-center"
+      >
+        <ContactUsPage />
+      </section>
       <Footer />
     </div>
   );

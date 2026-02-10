@@ -3,7 +3,7 @@ import { SubpageHeader } from "../../../components/SubpageHeader";
 
 export const AboutUsPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center max-w-6xl gap-[clamp(2rem,8vw,5rem)] px-[clamp(1rem,5vw,3rem)]">
+    <div className="flex flex-col items-center justify-center max-w-6xl gap-[clamp(4rem,8vw,5rem)] px-[clamp(1rem,5vw,3rem)]">
       <div className="flex flex-col gap-[clamp(1rem,4vw,2rem)]">
         <SubpageHeader title="About Us" />
         <div className="flex flex-col lg:flex-row items-center justify-center gap-[clamp(1.5rem,6vw,4rem)] px-8">

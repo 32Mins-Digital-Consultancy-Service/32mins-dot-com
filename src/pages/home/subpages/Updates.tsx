@@ -6,11 +6,11 @@ export const UpdatesPage = () => {
     <div className="flex flex-col items-center justify-center max-w-6xl h-screen w-full ">
       <div
         className="flex flex-col items-center justify-center font-extrabold"
-        style={{ gap: "clamp(1rem, 1.5vw, 1rem)" }}
+        style={{ gap: "clamp(2rem, 1.5vw, 2rem)" }}
       >
         <div
           className="flex flex-col items-center justify-center"
-          style={{ gap: "clamp(0.5rem, 1vw, 0.5rem)" }}
+          style={{ gap: "clamp(1rem, 2vw, 2rem)" }}
         >
           <h3
             className="text-[#8E8E8E] text-center leading-[150%] tracking-[0.32em]"

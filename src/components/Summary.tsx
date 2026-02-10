@@ -44,7 +44,7 @@ export const Summary = ({
             className="text-[#8E8E8E] leading-[150%] tracking-tighe font-normal"
             style={{ fontSize: "clamp(0.625rem, 1vw + 0.4rem, 1rem)" }}
           >
-            houes of content
+            hours of content
           </h3>
         </div>
         <div className="flex flex-col font-extrabold text-center">
