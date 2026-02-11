@@ -7,7 +7,6 @@ import AboutUsSection from "./subpage/AboutUsSection";
 import EmployeesSection from "./subpage/EmployeesSection";
 
 const SECTION_IDS = ["aboutus", "employees", "contactus"];
-const REVEAL_SECTION_IDS = ["aboutus", "employees", "contactus"] as const;
 
 export const AboutPage = () => {
   const { hash } = useLocation();
@@ -16,47 +15,6 @@ export const AboutPage = () => {
   const employeesRef = useRef<HTMLElement>(null);
   const contactusRef = useRef<HTMLElement>(null);
 
-  const sectionRefsMap: Record<
-    (typeof REVEAL_SECTION_IDS)[number],
-    React.RefObject<HTMLElement | null>
-  > = {
-    aboutus: aboutusRef,
-    employees: employeesRef,
-    contactus: contactusRef,
-  };
-
-  const [visibleSections, setVisibleSections] = useState<
-    Record<string, boolean>
-  >(Object.fromEntries(REVEAL_SECTION_IDS.map((id) => [id, false])));
-
-  // Observe sections for reveal animation
-  useEffect(() => {
-    const elements: Element[] = [];
-    REVEAL_SECTION_IDS.forEach((id) => {
-      const el = sectionRefsMap[id].current;
-      if (el) elements.push(el);
-    });
-    if (elements.length === 0) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const id = entry.target.getAttribute("data-reveal-section");
-          if (id && entry.isIntersecting) {
-            setVisibleSections((prev) =>
-              prev[id] ? prev : { ...prev, [id]: true }
-            );
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    elements.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  // Scroll to top before paint to avoid glitchy jump
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -81,7 +39,7 @@ export const AboutPage = () => {
           id="aboutus"
           className="scroll-mt-24 w-full flex flex-col items-center justify-center"
         >
-          <AboutUsSection isVisible={visibleSections.aboutus} />
+          <AboutUsSection />
         </section>
         <section
           ref={employeesRef}
@@ -89,7 +47,7 @@ export const AboutPage = () => {
           id="employees"
           className="scroll-mt-24 w-full flex flex-col items-center justify-center"
         >
-          <EmployeesSection isVisible={visibleSections.employees} />
+          <EmployeesSection />
         </section>
         <section
           ref={contactusRef}
@@ -97,7 +55,7 @@ export const AboutPage = () => {
           id="contactus"
           className="scroll-mt-16 w-full flex flex-col items-center justify-center"
         >
-          <ContactUsPage isVisible={visibleSections.contactus} />
+          <ContactUsPage />
         </section>
       </main>
       <Footer />

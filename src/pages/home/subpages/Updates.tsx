@@ -2,8 +2,10 @@ import { useCallback } from "react";
 import CtaButton from "../../../components/CtaButton";
 import Down from "../../../assets/Down.svg";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 export const UpdatesPage = () => {
+  const navigate = useNavigate();
   const scrollOneScreen = useCallback(() => {
     window.scrollBy({ top: window.innerHeight, behavior: "smooth" });
   }, []);
@@ -54,11 +56,17 @@ export const UpdatesPage = () => {
           <CtaButton variant="secondary" onClick={() => {}}>
             Consume
           </CtaButton>
-          <CtaButton variant="primary" onClick={() => {}}>
+          <CtaButton
+            variant="primary"
+            onClick={() => {
+              navigate("/#contactus");
+            }}
+          >
             Get in touch →
           </CtaButton>
         </div>
       </div>
+      
       <button
         type="button"
         onClick={scrollOneScreen}

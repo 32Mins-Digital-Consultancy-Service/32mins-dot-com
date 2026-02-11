@@ -10,10 +10,22 @@ import Insta from "../assets/insta.png";
 
 const Footer = () => {
   const socialLinks = [
-    { name: "Instagram", icon: Insta, href: "#" },
-    { name: "LinkedIn", icon: Linkedin, href: "#" },
-    { name: "Twitter", icon: Twitter, href: "#" },
-    { name: "Facebook", icon: Facebook, href: "#" },
+    {
+      name: "Instagram",
+      icon: Insta,
+      href: "https://www.instagram.com/_32mins_/",
+    },
+    {
+      name: "LinkedIn",
+      icon: Linkedin,
+      href: "https://www.linkedin.com/company/32mins/",
+    },
+    { name: "Twitter", icon: Twitter, href: "https://x.com/32Mins_dcs" },
+    {
+      name: "Facebook",
+      icon: Facebook,
+      href: "https://www.facebook.com/32mins/",
+    },
   ];
 
   return (
@@ -55,11 +67,21 @@ const Footer = () => {
               paddingTop: "clamp(1rem, 3vw, 1.5rem)",
             }}
           >
-            <CtaButton variant="primary" onClick={() => {}}>
+            <CtaButton
+              variant="primary"
+              onClick={() => {
+                window.open("tel:+91 9803437719", "_blank");
+              }}
+            >
               <Phone />
               Call us
             </CtaButton>
-            <CtaButton variant="primary" onClick={() => {}}>
+            <CtaButton
+              variant="primary"
+              onClick={() => {
+                window.open("mailto:info@32mins.com", "_blank");
+              }}
+            >
               <Message />
               Write to us
             </CtaButton>
@@ -84,6 +106,7 @@ const Footer = () => {
                 <Link
                   key={name}
                   to={href}
+                  target="_blank"
                   className="border border-[#8E8E8E] rounded-sm cursor-pointer transition-all hover:border-white hover:scale-110"
                   style={{
                     width: "clamp(1.75rem, 4vw, 2.25rem)",
@@ -141,7 +164,15 @@ const Footer = () => {
             </p>
           </div>
           <div className="w-full flex justify-center md:justify-start">
-            <CtaButton variant="secondary" onClick={() => {}}>
+            <CtaButton
+              variant="secondary"
+              onClick={() => {
+                window.open(
+                  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ27ExVKUXdvOOpE4DA3Mjkx95zoM8NIFesfJra_l9njbkHvWCNXaJqUTHMUrkas9Yijusv_3rXT",
+                  "_blank"
+                );
+              }}
+            >
               <Schdule />
               Schedule a meet
             </CtaButton>
