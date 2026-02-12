@@ -128,7 +128,7 @@ const Footer = () => {
         {/* IIT Madras Image */}
         <div className="flex justify-center items-center overflow-visible ">
           <img
-            src="../src/images/iitmp-image.webp"
+            src="./iitmp-image.webp"
             alt="IIT Madras Research Park"
             className="h-auto object-contain"
             style={{ width: "clamp(7rem, 15vw, 12rem)" }}

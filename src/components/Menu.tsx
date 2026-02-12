@@ -1,7 +1,6 @@
 // Menu.tsx
 import { useState, useEffect, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
-import Badge from "../images/Badge.webp";
 import CtaButton from "./CtaButton";
 
 const menuItems = [
@@ -79,7 +78,7 @@ export const Menu = () => {
       <header className="flex gap-2 sm:gap-4 md:gap-6 lg:gap-30 items-center justify-between md:justify-center fixed top-0 left-0 right-0 z-50 bg-transparent mt-4 md:mt-7 lg:mt-9 w-full max-w-full min-w-0 overflow-x-hidden box-border pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] md:pl-0 md:pr-0">
         <Link to="/" className="flex-shrink-0 min-w-0">
           <img
-            src={Badge}
+            src="/Badge.webp"
             alt="badge"
             className={`w-10 h-[2.5rem] sm:w-12 sm:h-16 md:w-14 md:h-[4.5rem] lg:w-16 lg:h-20 ${
               isScrolled ? "scale-80" : "scale-100"

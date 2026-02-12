@@ -49,12 +49,12 @@ export const AboutUsPage = () => {
             className="flex items-center justify-center gap-[clamp(0.5rem,2vw,1.25rem)] flex-shrink-0"
           >
             <img
-              src="../src/images/image1.webp"
+              src="./image1.webp"
               alt="image1"
               className="w-[clamp(140px,22vw,232px)] h-[clamp(193px,30.5vw,321px)] mb-[clamp(1rem,3vw,2.5rem)] rounded-lg object-cover"
             />
             <img
-              src="../src/images/image2.webp"
+              src="./image2.webp"
               alt="image2"
               className="w-[clamp(140px,22vw,232px)] h-[clamp(193px,30.5vw,321px)] mt-[clamp(1rem,3vw,2.5rem)] rounded-lg object-cover"
             />
