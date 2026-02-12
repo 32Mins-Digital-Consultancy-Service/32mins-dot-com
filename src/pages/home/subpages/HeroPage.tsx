@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import CtaButton from "../../../components/CtaButton";
-import Down from "../../../assets/Down.svg";
+import Down from "../../../assets/down.svg";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 

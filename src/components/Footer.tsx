@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import CtaButton from "./CtaButton";
 import Schdule from "../assets/schdule.svg";
-import Phone from "../assets/phone.svg";
-import Message from "../assets/message.svg";
+import Phone from "../assets/Phone.svg";
+import Message from "../assets/Message.svg";
 import Linkedin from "../assets/linkedin.webp";
 import Twitter from "../assets/twitter.webp";
 import Facebook from "../assets/facebook.webp";
