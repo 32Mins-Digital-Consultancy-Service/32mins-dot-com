@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { SubpageHeader } from "../../../components/SubpageHeader";
 
@@ -13,34 +14,103 @@ const employees: Employee[] = [
     id: 1,
     name: "Aadharsh Srinivas R",
     position: "Designer & COO",
+    image: "../src/images/32mins_emp/Aadharsh Srinivas R.jpeg",
   },
-  { id: 2, name: "Akshaya Dharshini S", position: "Full Stack Developer" },
-  { id: 3, name: "Annuradha M", position: "Operations Manager" },
+  {
+    id: 2,
+    name: "Akshaya Dharshini S",
+    position: "Full Stack Developer",
+    image: "../src/images/32mins_emp/Akshaya Dharshini S.jpeg",
+  },
+  {
+    id: 3,
+    name: "Annuradha M",
+    position: "Operations Manager",
+    image: "../src/images/32mins_emp/Annuradha M.jpeg",
+  },
   {
     id: 4,
     name: "Ashwin Preyan M",
     position: "Back-end Developer",
+    image: "../src/images/32mins_emp/Ashwin Preyan M.jpeg",
   },
-  { id: 5, name: "Divakar G", position: "Senior Executive" },
-  { id: 6, name: "Elakiyan D", position: "Jr. Visual Designer" },
-  { id: 7, name: "Ganesh R", position: "Digital Studio Manager" },
-  { id: 8, name: "Gaushikha B J", position: "Back-end Developer" },
-  { id: 9, name: "Hashini Ravishankar", position: "UI/UX Designer" },
-  { id: 10, name: "Lavanya", position: "Jr. Moodle Developer" },
+  {
+    id: 5,
+    name: "Divakar G",
+    position: "Senior Executive",
+    image: "../src/images/32mins_emp/Divakar G.jpeg",
+  },
+  {
+    id: 6,
+    name: "Elakiyan D",
+    position: "Jr. Visual Designer",
+    image: "../src/images/32mins_emp/Elakiyan D.jpeg",
+  },
+  {
+    id: 7,
+    name: "Ganesh R",
+    position: "Digital Studio Manager",
+    image: "../src/images/32mins_emp/Ganesh R.jpeg",
+  },
+  {
+    id: 8,
+    name: "Gaushikha B J",
+    position: "Back-end Developer",
+    image: "../src/images/32mins_emp/Gaushikha B J.jpeg",
+  },
+  {
+    id: 9,
+    name: "Hashini Ravishankar",
+    position: "UI/UX Designer",
+    image: "../src/images/32mins_emp/Hashini Ravishankar.jpeg",
+  },
+  {
+    id: 10,
+    name: "Lavanya",
+    position: "Jr. Moodle Developer",
+    image: "../src/images/32mins_emp/Lavanya.jpeg",
+  },
   {
     id: 11,
     name: "Logeshwari",
     position: "eLearning Web Developer",
+    image: "../src/images/32mins_emp/Logeshwari.jpeg",
   },
-  { id: 12, name: "Pandi Durai S", position: "Front-end Developer" },
-  { id: 13, name: "Ponnulakshmi S", position: "Application Developer" },
-  { id: 14, name: "Rajendran S P", position: "Full Stack Developer" },
-  { id: 15, name: "Sarveshwaran J", position: "Data Analyst" },
-  { id: 16, name: "Shyam Sundar S", position: "Digital Video Specialist" },
+  {
+    id: 12,
+    name: "Pandi Durai S",
+    position: "Front-end Developer",
+    image: "../src/images/32mins_emp/Pandi Durai S.jpeg",
+  },
+  {
+    id: 13,
+    name: "Ponnulakshmi S",
+    position: "Application Developer",
+    image: "../src/images/32mins_emp/Ponnulakshmi S.jpeg",
+  },
+  {
+    id: 14,
+    name: "Rajendran SP",
+    position: "Full Stack Developer",
+    image: "../src/images/32mins_emp/Rajendran SP.jpeg",
+  },
+  {
+    id: 15,
+    name: "Sarveshwaran J",
+    position: "Data Analyst",
+    image: "../src/images/32mins_emp/Sarveshwaran J.jpeg",
+  },
+  {
+    id: 16,
+    name: "new",
+    position: "Digital Video Specialist",
+    image: "../src/images/32mins_emp/new.jpeg",
+  },
   {
     id: 17,
     name: "Sribalaji Ravi",
     position: "Founder & CEO",
+    image: "../src/images/32mins_emp/Sribalaji Ravi.jpeg",
   },
 ];
 
@@ -65,15 +135,19 @@ const cardVariants = {
 };
 
 const EmployeeCard = ({ employee }: { employee: Employee }) => {
+  const [imageError, setImageError] = useState(false);
+  const imageAvailable = employee.image && !imageError;
+
   return (
     <motion.div variants={cardVariants}>
       <article className="bg-[#0A0A0A] rounded-2xl sm:rounded-4xl p-3 sm:p-4 flex flex-col items-center text-center gap-3 sm:gap-5 border border-[#1B1B1B]">
         <figure className="w-full h-36 sm:h-48 md:h-56 lg:h-62 rounded-2xl sm:rounded-4xl overflow-hidden">
-          {employee.image ? (
+          {imageAvailable ? (
             <img
               src={employee.image}
               alt={employee.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-top"
+              onError={() => setImageError(true)}
             />
           ) : (
             <div className="w-full h-full bg-linear-to-b from-[#0A1956] to-[#2741F4] rounded-2xl sm:rounded-4xl"></div>
