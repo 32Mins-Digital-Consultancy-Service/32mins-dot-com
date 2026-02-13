@@ -41,31 +41,55 @@ export const Summary = ({
   return (
     <div
       ref={ref}
-      className="absolute -bottom-3 w-fit rounded-4xl bg-gradient-to-r from-[#1D1D1B]/20 via-white/20 to-[#1D1D1B]/20 max-w-4xl"
+      className="absolute -bottom-3 w-fit rounded-4xl bg-gradient-to-r from-[#1D1D1B]/20 via-white/20 to-[#1D1D1B]/20 max-w-4xl mx-auto"
+      style={{ borderRadius: "clamp(1rem, 2vw + 0.5rem, 2rem)" }}
     >
-      <div className="backdrop-blur-xs border border-[#1B1B1B]/20 flex items-center justify-center gap-8 p-10.5 rounded-4xl">
+      <div
+        className="backdrop-blur-xs border border-[#1B1B1B]/20 flex items-center justify-center"
+        style={{
+          gap: "clamp(0.75rem, 3vw, 2rem)",
+          padding: "clamp(0.75rem, 3vw, 2.625rem)",
+          borderRadius: "clamp(1rem, 2vw + 0.5rem, 2rem)",
+        }}
+      >
         <div className="flex flex-col font-extrabold text-center">
           <CountUp to={32} suffix="Mins" />
-          <h3 className="text-[#8E8E8E] font-normal text-sm">
+          <h3
+            className="text-[#8E8E8E] font-normal"
+            style={{ fontSize: "clamp(0.5rem, 1.2vw + 0.25rem, 0.875rem)" }}
+          >
             of Impactful Videos
           </h3>
         </div>
 
         <div className="flex flex-col font-extrabold text-center">
           <CountUp to={1200} suffix="+" />
-          <h3 className="text-[#8E8E8E] font-normal text-sm">
+          <h3
+            className="text-[#8E8E8E] font-normal"
+            style={{ fontSize: "clamp(0.5rem, 1.2vw + 0.25rem, 0.875rem)" }}
+          >
             hours of content
           </h3>
         </div>
 
         <div className="flex flex-col font-extrabold text-center">
           <CountUp to={15} suffix="+" />
-          <h3 className="text-[#8E8E8E] font-normal text-sm">happy clients</h3>
+          <h3
+            className="text-[#8E8E8E] font-normal"
+            style={{ fontSize: "clamp(0.5rem, 1.2vw + 0.25rem, 0.875rem)" }}
+          >
+            happy clients
+          </h3>
         </div>
 
         <div className="flex flex-col font-extrabold text-center">
           <CountUp to={3} suffix="+" />
-          <h3 className="text-[#8E8E8E] font-normal text-sm">researches</h3>
+          <h3
+            className="text-[#8E8E8E] font-normal"
+            style={{ fontSize: "clamp(0.5rem, 1.2vw + 0.25rem, 0.875rem)" }}
+          >
+            researches
+          </h3>
         </div>
       </div>
     </div>
