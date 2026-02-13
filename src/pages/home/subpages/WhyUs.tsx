@@ -55,7 +55,7 @@ export const WhyUsPage = () => {
             src="./hourglass.webp"
             alt="Why Us"
             className="absolute right-1/2 bottom-1/6"
-            whileHover={{ rotate: 180 }}
+            whileHover={{ scale: 1.1 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
           />
           <div className="rounded-xl bg-gradient-to-r from-[#2943FC] to-[#09174B] w-[240px] h-[320px] flex items-center justify-center"></div>

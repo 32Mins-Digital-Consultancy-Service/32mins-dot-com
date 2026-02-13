@@ -73,6 +73,11 @@ export const Menu = () => {
     }
   }, [isMobileMenuOpen]);
 
+  const handleBrochureClick = () => {
+    setActiveBrochure(true);
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <>
       <header className="flex gap-2 sm:gap-4 md:gap-6 lg:gap-30 items-center justify-between md:justify-center fixed top-0 left-0 right-0 z-50 bg-transparent mt-4 md:mt-7 lg:mt-9 w-full max-w-full min-w-0 overflow-x-hidden box-border pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] md:pl-0 md:pr-0">
@@ -118,10 +123,7 @@ export const Menu = () => {
               Brochure
             </CtaButton>
           ) : (
-            <CtaButton
-              variant="primary"
-              onClick={() => setActiveBrochure(true)}
-            >
+            <CtaButton variant="primary" onClick={() => handleBrochureClick()}>
               Brochure
             </CtaButton>
           )}
@@ -156,6 +158,23 @@ export const Menu = () => {
           )}
         </div>
       </header>
+
+      {/* Brochure Modal */}
+      {activeBrochure && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+          <div
+            className="absolute inset-0"
+            onClick={() => setActiveBrochure(false)}
+            aria-hidden
+          />
+          {/* <div className="relative z-10 max-w-2xl w-full">
+            <BrochureModal
+              isOpen={activeBrochure}
+              onClose={() => setActiveBrochure(false)}
+            />
+          </div> */}
+        </div>
+      )}
 
       {/* Mobile Menu Overlay */}
       {isMobile && (

@@ -73,7 +73,7 @@ export const AboutUsPage = () => {
       >
         <div className="backdrop-blur-2xl border border-[#1B1B1B] flex gap-[clamp(0.5rem,2vw,1rem)] p-[clamp(1rem,3vw,2rem)] rounded-2xl items-center justify-center">
           <div className="text-[#8E8E8E] text-[clamp(1.5rem,4vw,4rem)] tracking-tigher font-extrabold leading-[clamp(2rem,5vw,5rem)] flex-shrink-0">
-            🙶
+            "
           </div>
           <div className="text-white text-[clamp(0.875rem,1.8vw,1.125rem)] tracking-tigher text-center">
             <span className="font-bold">32Mins</span> was founded in the year
@@ -84,7 +84,7 @@ export const AboutUsPage = () => {
             &nbsp;that helps academics, corporates, and subject matter experts.
           </div>
           <div className="text-[#8E8E8E] text-[clamp(1.5rem,4vw,4rem)] tracking-tigher font-extrabold leading-[clamp(2rem,5vw,5rem)] flex-shrink-0">
-            🙷
+            "
           </div>
         </div>
       </motion.div>

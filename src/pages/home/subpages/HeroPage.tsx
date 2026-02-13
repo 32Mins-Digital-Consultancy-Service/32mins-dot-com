@@ -42,8 +42,14 @@ export const HeroSection = () => {
               alt=""
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 sm:w-32 md:w-40 lg:w-48 xl:w-[12.5rem] z-1000 max-w-[90vw]"
               initial={{ scale: 1, rotate: 0 }}
-              animate={{ scale: [1, 1.3, 1], rotate: [0, 360, 0] }}
-              transition={{ duration: 3, delay: 0, ease: "linear" }}
+              animate={{
+                scale: [1, 1.3, 1],
+                rotate: 360,
+              }}
+              transition={{
+                scale: { duration: 5, ease: "easeInOut" },
+                rotate: { duration: 5, ease: "linear", repeat: Infinity },
+              }}
             />
             {/* Gradient overlay - fades out on first load to reveal white text */}
             <motion.span
