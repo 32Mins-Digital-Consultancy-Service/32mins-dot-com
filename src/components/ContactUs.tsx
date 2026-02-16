@@ -95,7 +95,11 @@ export const ContactUsPage = () => {
             readOnly
           />
         </div>
+        <label htmlFor="contact-email" className="sr-only">
+          Email address
+        </label>
         <input
+          id="contact-email"
           type="email"
           name="EMAIL"
           value={email}

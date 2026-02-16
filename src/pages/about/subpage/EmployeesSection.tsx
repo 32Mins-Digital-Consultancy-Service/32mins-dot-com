@@ -110,7 +110,7 @@ const employees: Employee[] = [
   {
     id: 17,
     name: "Sribalaji Ravi",
-    position: "Founder & CEO",
+    position: "CEO & Founder",
     image: "./32mins_emp/Sribalaji Ravi.jpeg",
   },
 ];

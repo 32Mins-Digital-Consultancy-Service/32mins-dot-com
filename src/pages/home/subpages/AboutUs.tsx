@@ -50,12 +50,12 @@ export const AboutUsPage = () => {
           >
             <img
               src="./image1.webp"
-              alt="image1"
+              alt="32Mins team collaborating on digital content production"
               className="w-[clamp(140px,22vw,232px)] h-[clamp(193px,30.5vw,321px)] mb-[clamp(1rem,3vw,2.5rem)] rounded-lg object-cover"
             />
             <img
               src="./image2.webp"
-              alt="image2"
+              alt="32Mins workspace at IIT Madras Research Park"
               className="w-[clamp(140px,22vw,232px)] h-[clamp(193px,30.5vw,321px)] mt-[clamp(1rem,3vw,2.5rem)] rounded-lg object-cover"
             />
           </motion.div>
@@ -71,22 +71,22 @@ export const AboutUsPage = () => {
         viewport={{ once: true, amount: 0.5 }}
         className="rounded-4xl bg-gradient-to-r from-[#1D1D1B]/20 via-white/20 to-[#1D1D1B]/20 max-w-4xl h-fit w-full"
       >
-        <div className="backdrop-blur-2xl border border-[#1B1B1B] flex gap-[clamp(0.5rem,2vw,1rem)] p-[clamp(1rem,3vw,2rem)] rounded-2xl items-center justify-center">
-          <div className="text-[#8E8E8E] text-[clamp(1.5rem,4vw,4rem)] tracking-tigher font-extrabold leading-[clamp(2rem,5vw,5rem)] flex-shrink-0">
-            "
-          </div>
-          <div className="text-white text-[clamp(0.875rem,1.8vw,1.125rem)] tracking-tigher text-center">
+        <blockquote className="backdrop-blur-2xl border border-[#1B1B1B] flex gap-[clamp(0.5rem,2vw,1rem)] p-[clamp(1rem,3vw,2rem)] rounded-2xl items-center justify-center">
+          <span aria-hidden="true" className="text-[#8E8E8E] text-[clamp(1.5rem,4vw,4rem)] tracking-tigher font-extrabold leading-[clamp(2rem,5vw,5rem)] flex-shrink-0">
+            &ldquo;
+          </span>
+          <p className="text-white text-[clamp(0.875rem,1.8vw,1.125rem)] tracking-tigher text-center">
             <span className="font-bold">32Mins</span> was founded in the year
             2023, to
             <span className="font-bold">
               &nbsp;create interactive and visually engaging content
             </span>
             &nbsp;that helps academics, corporates, and subject matter experts.
-          </div>
-          <div className="text-[#8E8E8E] text-[clamp(1.5rem,4vw,4rem)] tracking-tigher font-extrabold leading-[clamp(2rem,5vw,5rem)] flex-shrink-0">
-            "
-          </div>
-        </div>
+          </p>
+          <span aria-hidden="true" className="text-[#8E8E8E] text-[clamp(1.5rem,4vw,4rem)] tracking-tigher font-extrabold leading-[clamp(2rem,5vw,5rem)] flex-shrink-0">
+            &rdquo;
+          </span>
+        </blockquote>
       </motion.div>
     </div>
   );

@@ -66,7 +66,7 @@ export const BrochureModal = ({ isOpen, onClose }: BrochureModalProps) => {
       {/* Modal */}
       <div className="relative z-10 flex flex-col gap-4 sm:gap-6 shadow-xl bg-slate-700 py-5 sm:py-7 px-4 sm:px-8 md:px-12 rounded-2xl max-w-[95vw] max-h-[95vh]">
         {/* Header */}
-        <div className="flex justify-between items-center gap-2 sm:gap-4">
+        <header className="flex justify-between items-center gap-2 sm:gap-4">
           <h4 className="text-white font-bold text-xs sm:text-sm md:text-base truncate">
             32Mins Digital Consultancy Services - Marketing Brochure
           </h4>
@@ -101,7 +101,7 @@ export const BrochureModal = ({ isOpen, onClose }: BrochureModalProps) => {
               />
             </button>
           </div>
-        </div>
+        </header>
 
         {/* Tri-fold Brochure with Jaffee Fold Animation */}
         <div className="flex flex-col items-center gap-4 sm:gap-6 justify-end overflow-hidden">

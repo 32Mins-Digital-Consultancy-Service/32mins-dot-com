@@ -10,6 +10,7 @@ import { WhyUsPage } from "./subpages/WhyUs";
 import { ContactUsPage } from "../../components/ContactUs";
 import Footer from "../../components/Footer";
 import UpdatePage from "./subpages/Updates";
+import { SEO } from "../../components/SEO";
 
 const SECTION_IDS = ["solutions", "aboutus", "clients", "whyus", "contactus"];
 
@@ -41,6 +42,32 @@ export const HomePage = () => {
 
   return (
     <div className="bg-linear-to-t from-[#000016] to-[#000C30] flex flex-col items-center justify-center gap-10 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 w-full max-w-full min-w-0 overflow-x-hidden">
+      <SEO
+        title="32Mins | Converting Meaningful Knowledge Into Impactful Digital Content"
+        description="32Mins transforms meaningful knowledge into impactful digital content. Specializing in eLearning production, digital media, lab & industry learning videos, LMS management, and eLearning consulting. Trusted by IIT Madras, Virginia Tech & more."
+        canonical="https://32mins.com/"
+        keywords="eLearning production, digital media production, LMS management, corporate training videos, educational video production, digital content, eLearning consulting, lab learning videos, industry learning, 32Mins, IIT Madras, Chennai"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          "name": "32Mins - Digital Content & eLearning Solutions",
+          "description": "Converting meaningful knowledge into impactful digital content for everyone.",
+          "url": "https://32mins.com/",
+          "provider": {
+            "@type": "Organization",
+            "name": "32Mins Digital Consultancy Services Pvt. Ltd.",
+            "url": "https://32mins.com",
+          },
+          "offers": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Digital Media Production" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "eLearning Production" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Lab & Industry Learning Video Production" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Media Content Marketing" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "eLearning Consulting" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "LMS Management" } },
+          ],
+        }}
+      />
       <Menu />
       <div className="relative bg-[url('/bg-image.webp')] bg-center bg-cover w-full bg-no-repeat flex flex-col items-stretch">
         <div className="absolute inset-0 bg-[#091951] w-full mix-blend-overlay "></div>

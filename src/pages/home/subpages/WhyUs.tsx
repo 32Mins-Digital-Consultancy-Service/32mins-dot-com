@@ -53,7 +53,7 @@ export const WhyUsPage = () => {
         >
           <motion.img
             src="./hourglass.webp"
-            alt="Why Us"
+            alt="Hourglass representing time efficiency in digital content production"
             className="absolute right-1/2 bottom-1/6"
             whileHover={{ scale: 1.1 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}

@@ -28,7 +28,7 @@ const TestimonialCard = ({
   quote: string;
   author: string;
 }) => (
-  <motion.div
+  <motion.article
     initial={{ opacity: 0, y: 20 }}
     whileInView={{
       opacity: 1,
@@ -43,13 +43,15 @@ const TestimonialCard = ({
     <h3 className="font-bold tracking-tigher text-white text-sm md:text-base lg:text-lg">
       {title}
     </h3>
-    <p className="font-normal tracking-tigher text-[#8E8E8E] text-sm md:text-base lg:text-lg">
-      {quote}
-    </p>
-    <h4 className="font-normal tracking-tigher text-white text-sm md:text-base lg:text-lg">
-      {author}
-    </h4>
-  </motion.div>
+    <blockquote className="font-normal tracking-tigher text-[#8E8E8E] text-sm md:text-base lg:text-lg">
+      <p>{quote}</p>
+      <footer className="mt-3">
+        <cite className="font-normal tracking-tigher text-white text-sm md:text-base lg:text-lg not-italic">
+          {author}
+        </cite>
+      </footer>
+    </blockquote>
+  </motion.article>
 );
 
 // Main Component
@@ -62,7 +64,7 @@ export const ClientsPage = () => (
     {/* Header Section */}
     <div className="flex flex-col items-center justify-center gap-2 md:gap-3">
       <SubpageHeader title="Our Clients" />
-      <motion.div
+      <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{
           opacity: 1,
@@ -73,7 +75,7 @@ export const ClientsPage = () => (
         className="font-bold tracking-tigher text-white text-xl md:text-2xl lg:text-3xl"
       >
         Helping businesses grow
-      </motion.div>
+      </motion.h2>
     </div>
 
     {/* Marquee */}

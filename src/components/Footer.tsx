@@ -44,8 +44,8 @@ const Footer = () => {
         style={{ gap: "clamp(2rem, 4vw, 4rem)" }}
       >
         {/* Address Section */}
-        <div
-          className="flex flex-col max-w-sm w-full md:w-auto md:flex-1 lg:max-w-xs xl:max-w-sm items-center lg:items-start"
+        <address
+          className="flex flex-col max-w-sm w-full md:w-auto md:flex-1 lg:max-w-xs xl:max-w-sm items-center lg:items-start not-italic"
           style={{ gap: "clamp(1rem, 3vw, 1.5rem)" }}
         >
           <div
@@ -139,7 +139,7 @@ const Footer = () => {
               ))}
             </nav>
           </div>
-        </div>
+        </address>
 
         {/* IIT Madras Image */}
         <div className="flex justify-center items-center overflow-visible ">

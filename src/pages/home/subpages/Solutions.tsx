@@ -8,7 +8,7 @@ export const SolutionsPage = () => {
       <div className="flex flex-col items-center justify-center w-full gap-4 sm:gap-6 max-w-5xl">
         <div className="flex flex-col items-center justify-center gap-4 sm:gap-3">
           <SubpageHeader title="Our Services" />
-          <motion.div
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{
               opacity: 1,
@@ -19,7 +19,7 @@ export const SolutionsPage = () => {
             className="font-bold text-xl sm:text-2xl md:text-3xl tracking-tigher text-white text-center px-2"
           >
             Solutions that take your business to the next level
-          </motion.div>
+          </motion.h2>
         </div>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

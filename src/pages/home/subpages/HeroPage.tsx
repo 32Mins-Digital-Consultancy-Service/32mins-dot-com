@@ -39,7 +39,7 @@ export const HeroSection = () => {
             </span>
             <motion.img
               src="./Sym.png"
-              alt=""
+              alt="32Mins logo symbol"
               className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 sm:w-32 md:w-40 lg:w-48 xl:w-[12.5rem] z-1000 max-w-[90vw]"
               initial={{ scale: 1, rotate: 0 }}
               animate={{
