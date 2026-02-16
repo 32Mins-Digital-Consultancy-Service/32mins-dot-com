@@ -4,7 +4,6 @@ import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { HomePage } from "./pages/home/page";
 import { AboutPage } from "./pages/about/page";
-import UpdatePage from "./pages/home/subpages/Updates";
 import { SolutionsPage } from "./pages/home/subpages/Solutions";
 import { AboutUsPage } from "./pages/home/subpages/AboutUs";
 import { ClientsPage } from "./pages/home/subpages/Client";
@@ -16,7 +15,6 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />}>
-          <Route path="updates" element={<UpdatePage />} />
           <Route path="solutions" element={<SolutionsPage />} />
           <Route path="aboutus" element={<AboutUsPage />} />
           <Route path="clients" element={<ClientsPage />} />

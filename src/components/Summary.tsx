@@ -43,7 +43,7 @@ export const Summary = ({
       ref={ref}
       className="absolute -bottom-3 w-fit rounded-4xl bg-gradient-to-r from-[#1D1D1B]/20 via-white/20 to-[#1D1D1B]/20 max-w-4xl"
     >
-      <div className="backdrop-blur-xs border border-[#1B1B1B]/20 flex items-center justify-center gap-8 p-10.5 rounded-4xl">
+      <div className="backdrop-blur-xs border border-[#1B1B1B]/20 flex items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 px-4 pb-6 pt-4 sm:p-6 md:p-8 lg:p-10 rounded-4xl">
         <div className="flex flex-col font-extrabold text-center">
           <CountUp to={32} suffix="Mins" />
           <h3 className="text-[#8E8E8E] font-normal text-sm">

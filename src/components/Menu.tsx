@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import CtaButton from "./CtaButton";
 
 const menuItems = [
-  { name: "Updates", id: "updates" },
   { name: "Solutions", id: "solutions" },
   { name: "About Us", id: "aboutus" },
   { name: "Clients", id: "clients" },

@@ -11,14 +11,7 @@ import { ContactUsPage } from "../../components/ContactUs";
 import Footer from "../../components/Footer";
 import UpdatePage from "./subpages/Updates";
 
-const SECTION_IDS = [
-  "updates",
-  "solutions",
-  "aboutus",
-  "clients",
-  "whyus",
-  "contactus",
-];
+const SECTION_IDS = ["solutions", "aboutus", "clients", "whyus", "contactus"];
 
 export const HomePage = () => {
   const { hash } = useLocation();
@@ -49,12 +42,12 @@ export const HomePage = () => {
   return (
     <div className="bg-linear-to-t from-[#000016] to-[#000C30] flex flex-col items-center justify-center gap-10 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 w-full max-w-full min-w-0 overflow-x-hidden">
       <Menu />
-      <div className="relative bg-[url('/bg-image.webp')] bg-center bg-cover w-full bg-no-repeat flex flex-col items-center justify-center ">
+      <div className="relative bg-[url('/bg-image.webp')] bg-center bg-cover w-full bg-no-repeat flex flex-col items-stretch">
         <div className="absolute inset-0 bg-[#091951] w-full mix-blend-overlay "></div>
         <div className="absolute inset-0 bg-linear-to-t from-[#000000] to-[#000000]/0 w-full mix-blend-overlay "></div>
         {/* Bottom fade to seamlessly blend into the page background */}
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-[#000016] z-10 pointer-events-none"></div>
-        <section className="z-10 relative scroll-mt-20 w-full max-w-full min-w-0 flex flex-col items-center justify-center overflow-x-hidden">
+        <section className="z-10 relative scroll-mt-20 w-full max-w-full min-w-0 flex flex-col items-center justify-center overflow-x-hidden min-h-[var(--viewport-height)] h-[var(--viewport-height)]">
           <HeroSection />
         </section>
         <UpdatePage />

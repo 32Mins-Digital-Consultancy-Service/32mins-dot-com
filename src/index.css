@@ -6,6 +6,16 @@ body {
   overflow-x: hidden;
   max-width: 100vw;
 }
+
+/* Dynamic viewport height for mobile (address bar) - fallback to 100vh */
+:root {
+  --viewport-height: 100vh;
+}
+@supports (height: 100dvh) {
+  :root {
+    --viewport-height: 100dvh;
+  }
+}
 #root {
   overflow-x: hidden;
   max-width: 100%;

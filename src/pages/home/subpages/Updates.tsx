@@ -8,11 +8,8 @@ const UpdatePage = () => {
   const summaryRef = useRef<HTMLDivElement | null>(null);
 
   return (
-    <section
-      id="updates"
-      className="z-10 relative scroll-mt-20 w-full max-w-full min-w-0 flex flex-col items-center justify-center overflow-hidden"
-    >
-      <div ref={earthRef} className="relative h-screen w-full overflow-hidden">
+    <section className="z-10 relative scroll-mt-20 w-full max-w-full min-w-0 flex flex-col items-center justify-center overflow-hidden min-h-[var(--viewport-height)] h-[var(--viewport-height)]">
+      <div ref={earthRef} className="relative w-full h-full overflow-hidden">
         <motion.img
           src="/earth2.webp"
           alt="earth"

@@ -11,7 +11,7 @@ export const HeroSection = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center max-w-6xl h-screen w-full min-w-0 overflow-x-hidden px-4 box-border">
+    <div className="flex flex-col items-center justify-center max-w-6xl min-h-[var(--viewport-height)] h-[var(--viewport-height)] w-full min-w-0 overflow-x-hidden px-4 box-border">
       <div
         className="flex flex-col items-center justify-center font-extrabold"
         style={{ gap: "clamp(2rem, 1.5vw, 2rem)" }}
