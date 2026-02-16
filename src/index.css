@@ -336,3 +336,22 @@ body {
     }
   }
 }
+
+.shine {
+  background: linear-gradient(67.83deg, #222 40%, #fff 50%, #222 60%);
+  background-size: 300% 100%;
+  color: #ffffff1a;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: svelte-1sx3feu-shine 5s linear 0ms infinite;
+  text-shadow: 0 0px 0px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes svelte-1sx3feu-shine {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

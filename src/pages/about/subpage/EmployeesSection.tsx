@@ -164,7 +164,7 @@ const EmployeeCard = ({ employee }: { employee: Employee }) => {
             <h3 className="text-white text-[10px] sm:text-lg md:text-xl lg:text-2xl font-semibold tracking-tighter line-clamp-2">
               {employee.name}
             </h3>
-            <p className="text-[#8E8E8E] text-[9px] sm:text-sm font-normal tracking-tighter line-clamp-2">
+            <p className="text-[#8E8E8E] text-[9px] sm:text-sm font-normal tracking-tighter line-clamp-2 shine">
               {employee.position}
             </p>
           </header>
