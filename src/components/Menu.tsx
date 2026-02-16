@@ -2,6 +2,7 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 import CtaButton from "./CtaButton";
+import { BrochureModal } from "./BrochureModal";
 
 const menuItems = [
   { name: "Solutions", id: "solutions" },
@@ -159,21 +160,10 @@ export const Menu = () => {
       </header>
 
       {/* Brochure Modal */}
-      {activeBrochure && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-          <div
-            className="absolute inset-0"
-            onClick={() => setActiveBrochure(false)}
-            aria-hidden
-          />
-          {/* <div className="relative z-10 max-w-2xl w-full">
-            <BrochureModal
-              isOpen={activeBrochure}
-              onClose={() => setActiveBrochure(false)}
-            />
-          </div> */}
-        </div>
-      )}
+      <BrochureModal
+        isOpen={activeBrochure}
+        onClose={() => setActiveBrochure(false)}
+      />
 
       {/* Mobile Menu Overlay */}
       {isMobile && (
