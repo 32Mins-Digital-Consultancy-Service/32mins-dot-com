@@ -79,7 +79,7 @@ export const HeroSection = () => {
               navigate("/#contactus");
             }}
           >
-            Get in touch →
+            Get in touch &rarr;
           </CtaButton>
         </div>
       </div>

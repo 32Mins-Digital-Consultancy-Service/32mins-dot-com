@@ -8,12 +8,10 @@ const fancyButtonVariants = cva(
       variant: {
         primary:
           "bg-transparent text-white border-white border font-normal btn-style902-primary",
-        secondary:
-          "bg-[#2943FC] text-white font-semibold btn-style902-secondary",
       },
     },
     defaultVariants: {
-      variant: "secondary",
+      variant: "primary",
     },
   }
 );
@@ -26,7 +24,7 @@ interface FancyButtonProps extends VariantProps<typeof fancyButtonVariants> {
 
 const FancyButton = ({
   href = "#",
-  variant = "secondary",
+  variant = "primary",
   children = (
     <>
       <span data-name="hover">Hover</span>

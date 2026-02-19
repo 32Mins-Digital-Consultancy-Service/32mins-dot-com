@@ -35,7 +35,7 @@ export const AboutUsPage = () => {
               available to everyone.
             </p>
             <CtaButton variant="primary" onClick={() => navigate("/about")}>
-              Know More →
+              Know More &rarr;
             </CtaButton>
           </motion.div>
           <motion.div
@@ -72,7 +72,10 @@ export const AboutUsPage = () => {
         className="rounded-4xl bg-gradient-to-r from-[#1D1D1B]/20 via-white/20 to-[#1D1D1B]/20 max-w-4xl h-fit w-full"
       >
         <blockquote className="backdrop-blur-2xl border border-[#1B1B1B] flex gap-[clamp(0.5rem,2vw,1rem)] p-[clamp(1rem,3vw,2rem)] rounded-2xl items-center justify-center">
-          <span aria-hidden="true" className="text-[#8E8E8E] text-[clamp(1.5rem,4vw,4rem)] tracking-tigher font-extrabold leading-[clamp(2rem,5vw,5rem)] flex-shrink-0">
+          <span
+            aria-hidden="true"
+            className="text-[#8E8E8E]   font-extrabold leading-[clamp(2rem,5vw,5rem)] flex-shrink-0 manrope-font text-[120px]"
+          >
             &ldquo;
           </span>
           <p className="text-white text-[clamp(0.875rem,1.8vw,1.125rem)] tracking-tigher text-center">
@@ -83,7 +86,10 @@ export const AboutUsPage = () => {
             </span>
             &nbsp;that helps academics, corporates, and subject matter experts.
           </p>
-          <span aria-hidden="true" className="text-[#8E8E8E] text-[clamp(1.5rem,4vw,4rem)] tracking-tigher font-extrabold leading-[clamp(2rem,5vw,5rem)] flex-shrink-0">
+          <span
+            aria-hidden="true"
+            className="text-[#8E8E8E]  font-extrabold leading-[clamp(2rem,5vw,5rem)] flex-shrink-0 manrope-font text-[120px]"
+          >
             &rdquo;
           </span>
         </blockquote>

@@ -13,9 +13,11 @@ export const ContactUsPage = () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const isValid = emailRegex.test(email);
 
-  const lastSubmit = typeof window !== "undefined" ? localStorage.getItem("lastSubmit") : null;
+  const lastSubmit =
+    typeof window !== "undefined" ? localStorage.getItem("lastSubmit") : null;
   const now = Date.now();
-  const isOnCooldownFromStorage = lastSubmit && now - Number(lastSubmit) < 60000;
+  const isOnCooldownFromStorage =
+    lastSubmit && now - Number(lastSubmit) < 60000;
   const isDisabled = !isValid || cooldown || !!isOnCooldownFromStorage;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,15 +80,24 @@ export const ContactUsPage = () => {
           </p>
         </motion.div>
       </header>
+      <iframe
+        name="mailchimp-hidden-frame"
+        title="Mailchimp"
+        className="hidden"
+        style={{ display: "none" }}
+      />
       <form
         action={MAILCHIMP_FORM_ACTION}
         method="post"
-        target="_blank"
+        target="mailchimp-hidden-frame"
         onSubmit={handleSubmit}
         className="relative w-[clamp(300px,30vw,400px)] h-[48px] z-10"
       >
         {/* Honeypot field - hidden from users, prevents spam */}
-        <div aria-hidden="true" style={{ position: "absolute", left: "-5000px" }}>
+        <div
+          aria-hidden="true"
+          style={{ position: "absolute", left: "-5000px" }}
+        >
           <input
             type="text"
             name="b_2a2275f0c37f02a648deb0bf8_ee44138d80"
@@ -114,11 +125,11 @@ export const ContactUsPage = () => {
         <button
           type="submit"
           disabled={isDisabled}
-          className={`absolute right-1 px-3 py-3 top-1/2 -translate-y-1/2 
+          className={`absolute right-1 px-3 py-3 top-1/2 -translate-y-1/2  h-9 w-9
   transition-all duration-300 ease-in-out ${
     isDisabled
       ? "opacity-40 cursor-not-allowed"
-      : "opacity-100 cursor-pointer bg-gradient-to-b from-[#0A1953] to-[#2842F7] rounded-r-2xl rounded-l-lg hover:opacity-90"
+      : "opacity-100 cursor-pointer bg-gradient-to-b from-[#0A1953] to-[#2842F7] rounded-full hover:opacity-90 "
   }`}
         >
           <RightArrow />

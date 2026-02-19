@@ -1,29 +1,57 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import Linkedin from "../assets/linkedin.webp";
+import Facebook from "../assets/facebook.webp";
+import Twitter from "../assets/twitter.webp";
 
 interface BrochureModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+const BROCHURE_URL = "https://32mins.com/32Mins_Brochure.pdf";
+
+const shareLinks = [
+  {
+    name: "Facebook",
+    icon: Facebook,
+    href: `https://www.facebook.com/sharer/sharer.php?u=${BROCHURE_URL}`,
+  },
+  {
+    name: "LinkedIn",
+    icon: Linkedin,
+    href: `https://www.linkedin.com/shareArticle?mini=true&url=${BROCHURE_URL}`,
+  },
+  {
+    name: "Twitter",
+    icon: Twitter,
+    href: `https://twitter.com/intent/tweet?url=${BROCHURE_URL}`,
+  },
+];
+
 export const BrochureModal = ({ isOpen, onClose }: BrochureModalProps) => {
   const [pageCount, setPageCount] = useState(0);
   const [backOpen, setBackOpen] = useState(false);
-  const [showShare, setShowShare] = useState(false);
+  const [showShareDropdown, setShowShareDropdown] = useState(false);
   const shareRef = useRef<HTMLDivElement>(null);
 
-  // Close share popup on outside click
+  // Close share dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (shareRef.current && !shareRef.current.contains(e.target as Node)) {
-        setShowShare(false);
+        setShowShareDropdown(false);
       }
     };
-    if (showShare) {
+    if (showShareDropdown) {
       document.addEventListener("mousedown", handleClickOutside);
       return () =>
         document.removeEventListener("mousedown", handleClickOutside);
     }
-  }, [showShare]);
+  }, [showShareDropdown]);
+
+  // Close dropdown when modal opens
+  useEffect(() => {
+    if (isOpen) setShowShareDropdown(false);
+  }, [isOpen]);
 
   // Close on Escape
   useEffect(() => {
@@ -46,13 +74,6 @@ export const BrochureModal = ({ isOpen, onClose }: BrochureModalProps) => {
     };
   }, [isOpen]);
 
-  // Close share popup when modal opens
-  useEffect(() => {
-    if (isOpen) {
-      setShowShare(false);
-    }
-  }, [isOpen]);
-
   if (!isOpen) return null;
 
   return (
@@ -64,19 +85,70 @@ export const BrochureModal = ({ isOpen, onClose }: BrochureModalProps) => {
       />
 
       {/* Modal */}
-      <div className="relative z-10 flex flex-col gap-4 sm:gap-6 shadow-xl bg-slate-700 py-5 sm:py-7 px-4 sm:px-8 md:px-12 rounded-2xl max-w-[95vw] max-h-[95vh]">
+      <div className="relative z-10 flex flex-col gap-4 sm:gap-6 shadow-xl bg-[#0A0A0A] py-5 sm:py-7 px-4 sm:px-8 md:px-12 rounded-2xl max-w-[95vw] max-h-[95vh]">
         {/* Header */}
         <header className="flex justify-between items-center gap-2 sm:gap-4">
           <h4 className="text-white font-bold text-xs sm:text-sm md:text-base truncate">
             32Mins Digital Consultancy Services - Marketing Brochure
           </h4>
-          <div className="flex items-center flex-shrink-0">
-            {/* Share Button */}
-            <div className="relative" ref={shareRef}></div>
+          <div className="flex items-center flex-shrink-0 gap-0">
+            {/* Share Button with Dropdown */}
+            <div className="relative mx-1 sm:mx-2" ref={shareRef}>
+              <button
+                className="h-8 w-8 text-white rounded-lg flex items-center justify-center transition-colors cursor-pointer hover:opacity-80"
+                onClick={() => setShowShareDropdown((v) => !v)}
+                title="Share"
+                aria-label="Share"
+                aria-expanded={showShareDropdown}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="18" cy="5" r="3" />
+                  <circle cx="6" cy="12" r="3" />
+                  <circle cx="18" cy="19" r="3" />
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                </svg>
+              </button>
+              {showShareDropdown && (
+                <div
+                  className="absolute right-0 top-full mt-2 flex flex-row items-center gap-1 rounded-lg bg-[#1a1a1a] border border-[#333] p-1.5 shadow-xl z-50"
+                  role="menu"
+                >
+                  {shareLinks.map((item) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex size-9 items-center justify-center rounded-md text-white/90 hover:bg-[#2a2a2a] transition-colors cursor-pointer"
+                      role="menuitem"
+                      title={item.name}
+                      onClick={() => setShowShareDropdown(false)}
+                    >
+                      <img
+                        src={item.icon}
+                        alt={item.name}
+                        className="size-5 object-contain"
+                      />
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Download Button */}
             <a
-              className="h-8 w-8 p-0.5 bg-gray-500 hover:bg-gray-400 mx-1 sm:mx-2 text-white rounded-lg flex items-center justify-center transition-colors"
+              className="h-8 w-8 p-0.5  mx-1 sm:mx-2 text-white rounded-lg flex items-center justify-center transition-colors"
               href="/32Mins_Brochure.pdf"
               download
               title="Download"
@@ -90,7 +162,7 @@ export const BrochureModal = ({ isOpen, onClose }: BrochureModalProps) => {
 
             {/* Close Button */}
             <button
-              className="h-8 w-8 bg-gray-500 hover:bg-gray-400 mx-1 sm:mx-2 text-white rounded-lg flex items-center justify-center transition-colors cursor-pointer"
+              className="h-8 w-8  mx-1 sm:mx-2 text-white rounded-lg flex items-center justify-center transition-colors cursor-pointer"
               onClick={onClose}
               title="Close"
             >

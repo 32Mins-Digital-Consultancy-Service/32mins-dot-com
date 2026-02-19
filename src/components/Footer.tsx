@@ -181,6 +181,7 @@ const Footer = () => {
           </div>
           <div className="w-full flex justify-center md:justify-start">
             <FancyButton
+              variant="primary"
               onClick={() => {
                 window.open(
                   "https://calendar.google.com/calendar/appointments/schedules/AcZssZ27ExVKUXdvOOpE4DA3Mjkx95zoM8NIFesfJra_l9njbkHvWCNXaJqUTHMUrkas9Yijusv_3rXT",
@@ -188,10 +189,12 @@ const Footer = () => {
                 );
               }}
             >
-              <span data-name="me" className="inline-flex pr-3">
+              <span data-name="icon" className="inline-flex pr-1">
                 <Schdule />
               </span>
-              <span data-name="hover">Schedule</span>
+              <span data-name="hover">
+                Schedule<span className="schedule-now-hover"> now</span>
+              </span>
               <span data-name="me"> a meet</span>
             </FancyButton>
           </div>

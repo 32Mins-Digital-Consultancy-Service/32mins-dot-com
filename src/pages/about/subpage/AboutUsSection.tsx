@@ -39,7 +39,11 @@ const AboutUsSection = () => {
           whileInView={{
             opacity: 1,
             y: 0,
-            transition: { delay: 0.1, duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+            transition: {
+              delay: 0.1,
+              duration: 0.65,
+              ease: [0.22, 1, 0.36, 1],
+            },
           }}
           viewport={{ once: true, amount: 0.25 }}
           className="text-[clamp(0.875rem,2vw,1.125rem)] font-normal tracking-tight text-[#8E8E8E] max-w-lg text-center px-2"
@@ -55,7 +59,11 @@ const AboutUsSection = () => {
           whileInView={{
             opacity: 1,
             y: 0,
-            transition: { delay: 0.25, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+            transition: {
+              delay: 0.25,
+              duration: 0.6,
+              ease: [0.22, 1, 0.36, 1],
+            },
           }}
           viewport={{ once: true, amount: 0.25 }}
         >
@@ -95,7 +103,11 @@ const AboutUsSection = () => {
           whileInView={{
             opacity: 1,
             y: 0,
-            transition: { delay: 0.25, duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+            transition: {
+              delay: 0.25,
+              duration: 0.65,
+              ease: [0.22, 1, 0.36, 1],
+            },
           }}
           viewport={{ once: true, amount: 0.25 }}
           className="text-[clamp(0.875rem,2vw,1.125rem)] font-normal tracking-tight text-[#8E8E8E] max-w-lg text-center px-2"
@@ -125,7 +137,11 @@ const AboutUsSection = () => {
             whileInView={{
               opacity: 1,
               y: 0,
-              transition: { delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+              transition: {
+                delay: 0.2,
+                duration: 0.6,
+                ease: [0.22, 1, 0.36, 1],
+              },
             }}
             viewport={{ once: true, amount: 0.25 }}
             className="text-white text-[clamp(1.25rem,4vw,1.875rem)] font-bold tracking-tighter text-center"
@@ -138,7 +154,11 @@ const AboutUsSection = () => {
           whileInView={{
             opacity: 1,
             y: 0,
-            transition: { delay: 0.3, duration: 0.65, ease: [0.22, 1, 0.36, 1] },
+            transition: {
+              delay: 0.3,
+              duration: 0.65,
+              ease: [0.22, 1, 0.36, 1],
+            },
           }}
           viewport={{ once: true, amount: 0.25 }}
           className="text-[clamp(0.875rem,2vw,1.125rem)] font-normal tracking-tight text-[#8E8E8E] max-w-lg text-center px-2"
@@ -153,7 +173,11 @@ const AboutUsSection = () => {
           whileInView={{
             opacity: 1,
             y: 0,
-            transition: { delay: 0.45, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+            transition: {
+              delay: 0.45,
+              duration: 0.6,
+              ease: [0.22, 1, 0.36, 1],
+            },
           }}
           viewport={{ once: true, amount: 0.25 }}
         >
@@ -163,7 +187,7 @@ const AboutUsSection = () => {
               navigate("/#contactus");
             }}
           >
-            Get in touch →
+            Get in touch &rarr;
           </CtaButton>
         </motion.div>
       </section>

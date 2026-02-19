@@ -26,6 +26,13 @@ body {
   font-family: "Bricolage Grotesque", serif;
 }
 
+.manrope-font {
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
 /* TYPEWRTE EFFECT */
 .typewriter {
   overflow: hidden;
@@ -106,16 +113,29 @@ body {
 }
 
 /* FancyButton animation styles - shared by both variants */
-.btn-style902-primary,
-.btn-style902-secondary {
+.btn-style902-primary {
   position: relative;
   overflow: hidden;
   text-decoration: none;
   transition: all 0.25s;
   span[data-name="hover"] {
     display: inline-block;
+    position: relative;
     transition: all 0.25s;
     transform: translate(0, 0);
+    .schedule-now-hover {
+      position: absolute;
+      left: 98%;
+      width: 0;
+      overflow: hidden;
+      opacity: 0;
+      white-space: nowrap;
+      transition: opacity 0.25s, width 0.25s;
+    }
+  }
+  span[data-name="icon"] {
+    margin-right: 0.25em;
+    transition: all 0.25s;
   }
   span[data-name="me"] {
     margin-left: 0.25em;
@@ -145,9 +165,14 @@ body {
     span[data-name="me"] {
       opacity: 0;
     }
+    span[data-name="icon"],
     span[data-name="hover"] {
       transition-delay: 0.2s;
-      transform: translate(1.5em, 0);
+      transform: translate(2.2em, 0);
+      .schedule-now-hover {
+        width: 2.5em;
+        opacity: 1;
+      }
     }
     .block {
       transition-delay: 0.2s;
@@ -163,12 +188,6 @@ body {
   &:hover {
     background: linear-gradient(to bottom, #0a1953, #2842f7);
     border-color: #2842f7;
-  }
-}
-
-.btn-style902-secondary {
-  .block {
-    background-color: rgba(131, 141, 218, 0.9);
   }
 }
 

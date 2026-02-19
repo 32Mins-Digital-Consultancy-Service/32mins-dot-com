@@ -38,7 +38,7 @@ export const WhyUsPage = () => {
               navigate("/#contactus");
             }}
           >
-            Get in touch →
+            Get in touch &rarr;
           </CtaButton>
         </motion.div>
         <motion.div
