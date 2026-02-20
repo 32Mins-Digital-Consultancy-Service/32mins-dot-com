@@ -3,6 +3,7 @@ import Message from "../assets/Message.svg";
 import RightArrow from "../assets/rightarrow.svg";
 import { useState } from "react";
 import MessageDone from "../assets/message_done.svg";
+import Tick from "../assets/tick.svg";
 
 const MAILCHIMP_FORM_ACTION =
   "https://32mins.us15.list-manage.com/subscribe/post?u=2a2275f0c37f02a648deb0bf8&id=ee44138d80&f_id=0023aae0f0";
@@ -135,17 +136,31 @@ export const ContactUsPage = () => {
             <Message />
           </div>
         )}
-        <button
-          type="submit"
-          disabled={isDisabled}
-          className={`absolute right-1 px-3 py-2.5 top-1/2 -translate-y-1/2 h-8 w-8 text-white transition-all duration-300 ease-in-out bg-gradient-to-b from-[#0A1953] to-[#2842F7] rounded-full ${
-            isDisabled
-              ? "opacity-40 cursor-not-allowed"
-              : "opacity-100 cursor-pointer hover:opacity-90"
-          }`}
-        >
-          <RightArrow />
-        </button>
+        {isSent ? (
+          <button
+            type="submit"
+            disabled={isDisabled}
+            className={`absolute right-1 px-2.5 py-3 top-1/2 -translate-y-1/2 h-8 w-8 text-white transition-all duration-300 ease-in-out bg-gradient-to-b from-[#0A1953] to-[#2842F7] rounded-full ${
+              isDisabled
+                ? "opacity-40 cursor-not-allowed"
+                : "opacity-100 cursor-pointer hover:opacity-90"
+            }`}
+          >
+            <Tick />
+          </button>
+        ) : (
+          <button
+            type="submit"
+            disabled={isDisabled}
+            className={`absolute right-1 px-3 py-2.5 top-1/2 -translate-y-1/2 h-8 w-8 text-white transition-all duration-300 ease-in-out bg-gradient-to-b from-[#0A1953] to-[#2842F7] rounded-full ${
+              isDisabled
+                ? "opacity-40 cursor-not-allowed"
+                : "opacity-100 cursor-pointer hover:opacity-90"
+            }`}
+          >
+            <RightArrow />
+          </button>
+        )}
       </form>
     </section>
   );
