@@ -4,10 +4,10 @@ import FancyButton from "./FancyButton";
 import Schdule from "../assets/schdule.svg";
 import Phone from "../assets/Phone.svg";
 import Message from "../assets/Message.svg";
-import Linkedin from "../assets/linkedin.webp";
-import Twitter from "../assets/twitter.webp";
-import Facebook from "../assets/facebook.webp";
-import Insta from "../assets/insta.webp";
+import Linkedin from "../assets/linkedin.svg";
+import Twitter from "../assets/twitter.svg";
+import Facebook from "../assets/facebook.svg";
+import Insta from "../assets/insta.svg";
 import { motion } from "framer-motion";
 
 const Footer = () => {
@@ -116,12 +116,12 @@ const Footer = () => {
               className="flex flex-wrap items-center justify-center"
               style={{ gap: "clamp(0.5rem, 1.5vw, 0.75rem)" }}
             >
-              {socialLinks.map(({ name, icon, href }) => (
+              {socialLinks.map(({ name, icon: Icon, href }) => (
                 <Link
                   key={name}
                   to={href}
                   target="_blank"
-                  className={`border border-[#8E8E8E] rounded-sm cursor-pointer transition-all hover:border-white hover:scale-110 flex items-center justify-center ${
+                  className={`border border-[#8E8E8E] text-[#8E8E8E] hover:text-white rounded-sm cursor-pointer transition-all hover:border-white hover:scale-110 flex items-center justify-center ${
                     name === "Twitter" ? "p-1" : ""
                   }`}
                   style={{
@@ -130,11 +130,7 @@ const Footer = () => {
                   }}
                   aria-label={`Visit our ${name} page`}
                 >
-                  <img
-                    src={icon}
-                    alt={`${name} social media icon`}
-                    className="w-full h-full object-contain"
-                  />
+                  <Icon className="size-7 object-contain" />
                 </Link>
               ))}
             </nav>

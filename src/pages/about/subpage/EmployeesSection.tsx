@@ -86,7 +86,7 @@ const employees: Employee[] = [
   {
     id: 13,
     name: "Pandi Durai S",
-    position: "Front-end Developer",
+    position: "Software Engineer",
     image: "./32mins_emp/Pandi Durai S.jpeg",
   },
   {

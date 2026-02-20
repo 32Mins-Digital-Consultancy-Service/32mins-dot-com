@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import Linkedin from "../assets/linkedin.webp";
-import Facebook from "../assets/facebook.webp";
-import Twitter from "../assets/twitter.webp";
+import Linkedin from "../assets/linkedin.svg";
+import Facebook from "../assets/facebook.svg";
+import Twitter from "../assets/twitter.svg";
+import Whatsapp from "../assets/whatsapp.svg";
 
 interface BrochureModalProps {
   isOpen: boolean;
@@ -25,6 +26,11 @@ const shareLinks = [
     name: "Twitter",
     icon: Twitter,
     href: `https://twitter.com/intent/tweet?url=${BROCHURE_URL}`,
+  },
+  {
+    name: "WhatsApp",
+    icon: Whatsapp,
+    href: `https://wa.me/?text=${BROCHURE_URL}`,
   },
 ];
 
@@ -130,16 +136,12 @@ export const BrochureModal = ({ isOpen, onClose }: BrochureModalProps) => {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex size-9 items-center justify-center rounded-md text-white/90 hover:bg-[#2a2a2a] transition-colors cursor-pointer"
+                      className="flex size-9 items-center justify-center rounded-md text-white hover:bg-[#2a2a2a] transition-colors cursor-pointer"
                       role="menuitem"
                       title={item.name}
                       onClick={() => setShowShareDropdown(false)}
                     >
-                      <img
-                        src={item.icon}
-                        alt={item.name}
-                        className="size-5 object-contain"
-                      />
+                      <item.icon className="size-7 object-contain" />
                     </a>
                   ))}
                 </div>
