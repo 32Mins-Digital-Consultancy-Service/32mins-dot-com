@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import Message from "../assets/Message.svg";
 import RightArrow from "../assets/rightarrow.svg";
 import { useState } from "react";
+import MessageDone from "../assets/message_done.svg";
 
 const MAILCHIMP_FORM_ACTION =
   "https://32mins.us15.list-manage.com/subscribe/post?u=2a2275f0c37f02a648deb0bf8&id=ee44138d80&f_id=0023aae0f0";
@@ -19,6 +20,7 @@ export const ContactUsPage = () => {
   const isOnCooldownFromStorage =
     lastSubmit && now - Number(lastSubmit) < 60000;
   const isDisabled = !isValid || cooldown || !!isOnCooldownFromStorage;
+  const isSent = cooldown || !!isOnCooldownFromStorage;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -117,20 +119,30 @@ export const ContactUsPage = () => {
           onChange={handleChange}
           placeholder="Enter your email id here"
           required
-          className="w-full h-full rounded-3xl py-4 pl-14 pr-11 text-white text-[clamp(0.875rem,1.5vw,1.125rem)] tracking-tighter font-normal placeholder:text-[#8E8E8E] bg-[#202020]"
+          className="w-full h-full rounded-3xl py-4 pl-14 pr-11 text-white text-[clamp(0.875rem,1.5vw,1.125rem)] tracking-tighter font-normal  bg-[#202020]"
         />
-        <div className="absolute left-6 top-1/2 transform -translate-y-1/2 pointer-events-none">
-          <Message />
-        </div>
+        {isSent ? (
+          <motion.div
+            initial={{ left: 24 }}
+            animate={{ left: "calc(100% - 4.25rem)" }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
+            className="absolute top-1/2 -translate-y-1/2 pointer-events-none w-6 h-6 flex items-center justify-center"
+          >
+            <MessageDone className="w-6 h-6 object-contain shrink-0" />
+          </motion.div>
+        ) : (
+          <div className="absolute left-6 top-1/2 -translate-y-1/2 pointer-events-none">
+            <Message />
+          </div>
+        )}
         <button
           type="submit"
           disabled={isDisabled}
-          className={`absolute right-1 px-3 py-3 top-1/2 -translate-y-1/2  h-9 w-9
-  transition-all duration-300 ease-in-out ${
-    isDisabled
-      ? "opacity-40 cursor-not-allowed"
-      : "opacity-100 cursor-pointer bg-gradient-to-b from-[#0A1953] to-[#2842F7] rounded-full hover:opacity-90 "
-  }`}
+          className={`absolute right-1 px-3 py-2.5 top-1/2 -translate-y-1/2 h-8 w-8 text-white transition-all duration-300 ease-in-out bg-gradient-to-b from-[#0A1953] to-[#2842F7] rounded-full ${
+            isDisabled
+              ? "opacity-40 cursor-not-allowed"
+              : "opacity-100 cursor-pointer hover:opacity-90"
+          }`}
         >
           <RightArrow />
         </button>
