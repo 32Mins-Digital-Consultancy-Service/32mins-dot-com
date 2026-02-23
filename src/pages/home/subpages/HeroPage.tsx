@@ -3,6 +3,7 @@ import CtaButton from "../../../components/CtaButton";
 import Down from "../../../assets/down.svg";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import Rightarro from "../../../assets/Rightarro.svg";
 
 export const HeroSection = () => {
   const navigate = useNavigate();
@@ -79,7 +80,8 @@ export const HeroSection = () => {
               navigate("/#contactus");
             }}
           >
-            Get in touch &rarr;
+            Get in touch
+            <Rightarro className="w-4 -ml-1 -mr-2 pt-0.5" />
           </CtaButton>
         </div>
       </div>

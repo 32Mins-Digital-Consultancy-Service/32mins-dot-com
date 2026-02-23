@@ -2,6 +2,7 @@ import { SubpageHeader } from "../../../components/SubpageHeader";
 import CtaButton from "../../../components/CtaButton";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import Rightarro from "../../../assets/Rightarro.svg";
 
 export const WhyUsPage = () => {
   const navigate = useNavigate();
@@ -38,7 +39,8 @@ export const WhyUsPage = () => {
               navigate("/#contactus");
             }}
           >
-            Get in touch &rarr;
+            Get in touch
+            <Rightarro className="w-4 -ml-1 -mr-2 pt-0.5" />
           </CtaButton>
         </motion.div>
         <motion.div

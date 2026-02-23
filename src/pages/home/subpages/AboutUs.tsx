@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import CtaButton from "../../../components/CtaButton";
 import { SubpageHeader } from "../../../components/SubpageHeader";
 import { useNavigate } from "react-router-dom";
+import Rightarro from "../../../assets/Rightarro.svg";
 
 export const AboutUsPage = () => {
   const navigate = useNavigate();
@@ -35,7 +36,8 @@ export const AboutUsPage = () => {
               available to everyone.
             </p>
             <CtaButton variant="primary" onClick={() => navigate("/about")}>
-              Know More &rarr;
+              Know More
+              <Rightarro className="w-4 -ml-1 -mr-2 pt-0.5" />
             </CtaButton>
           </motion.div>
           <motion.div
