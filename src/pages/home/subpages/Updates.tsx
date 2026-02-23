@@ -16,7 +16,7 @@ const UpdatePage = () => {
           initial={{ y: "40%", rotate: 180 }}
           animate={isInView ? { rotate: 270 } : { rotate: 300 }}
           transition={{ duration: 3, ease: "easeOut" }}
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[max(100%,100vh)]"
+          className="absolute bottom-15 md:-bottom-15 left-1/2 -translate-x-1/2 w-[max(100%,100vh)]"
         />
 
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />

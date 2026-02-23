@@ -8,6 +8,7 @@ interface Employee {
   name: string;
   position: string;
   image?: string;
+  image2?: string;
 }
 
 const employees: Employee[] = [
@@ -22,66 +23,77 @@ const employees: Employee[] = [
     name: "Akshaya Dharshini S",
     position: "Full Stack Developer",
     image: "./32mins_emp/Akshaya Dharshini S.jpeg",
+    image2: "./32mins_emp/Akshaya Dharshini S.png",
   },
   {
     id: 3,
     name: "Annuradha M",
     position: "Operations Manager",
     image: "./32mins_emp/Annuradha M.jpeg",
+    image2: "./32mins_emp/Annuradha M.png",
   },
   {
     id: 4,
     name: "Ashwin Preyan M",
     position: "Back-end Developer",
     image: "./32mins_emp/Ashwin Preyan M.jpeg",
+    image2: "./32mins_emp/Ashwin Preyan M.png",
   },
   {
     id: 5,
     name: "Divakar G",
     position: "Senior Executive",
     image: "./32mins_emp/Divakar G.jpeg",
+    image2: "./32mins_emp/Divakar G.png",
   },
   {
     id: 6,
     name: "Elakiyan D",
     position: "Jr. Visual Designer",
     image: "./32mins_emp/Elakiyan D.jpeg",
+    image2: "./32mins_emp/Elakiyan D.png",
   },
   {
     id: 7,
     name: "Ganesh R",
     position: "Digital Studio Manager",
     image: "./32mins_emp/Ganesh R.jpeg",
+    image2: "./32mins_emp/Ganesh R.png",
   },
   {
     id: 8,
     name: "Gaushikha B J",
     position: "Back-end Developer",
     image: "./32mins_emp/Gaushikha B J.jpeg",
+    image2: "./32mins_emp/Gaushikha B J.png",
   },
   {
     id: 9,
     name: "Hashini Ravishankar",
     position: "UI/UX Designer",
     image: "./32mins_emp/Hashini Ravishankar.jpeg",
+    image2: "./32mins_emp/Hashini Ravishankar.png",
   },
   {
     id: 10,
     name: "Karthikeyan",
     position: "Digital Video Specialist",
     image: "./32mins_emp/Karthikeyan.jpeg",
+    image2: "./32mins_emp/Karthikeyan.png",
   },
   {
     id: 11,
     name: "Lavanya",
     position: "Jr. Moodle Developer",
     image: "./32mins_emp/Lavanya.jpeg",
+    image2: "./32mins_emp/Lavanya.png",
   },
   {
     id: 12,
     name: "Logeshwari",
     position: "eLearning Web Developer",
     image: "./32mins_emp/Logeshwari.jpeg",
+    image2: "./32mins_emp/Logeshwari.png",
   },
   {
     id: 13,
@@ -94,24 +106,28 @@ const employees: Employee[] = [
     name: "Ponnulakshmi S",
     position: "Application Developer",
     image: "./32mins_emp/Ponnulakshmi S.jpeg",
+    image2: "./32mins_emp/Ponnulakshmi S.png",
   },
   {
     id: 15,
     name: "Rajendran SP",
     position: "Full Stack Developer",
     image: "./32mins_emp/Rajendran SP.jpeg",
+    image2: "./32mins_emp/Rajendran SP.png",
   },
   {
     id: 16,
     name: "Sarveshwaran J",
     position: "Data Analyst",
     image: "./32mins_emp/Sarveshwaran J.jpeg",
+    image2: "./32mins_emp/Sarveshwaran J.png",
   },
   {
     id: 17,
     name: "Sribalaji Ravi",
     position: "CEO & Founder",
     image: "./32mins_emp/Sribalaji Ravi.jpeg",
+    image2: "./32mins_emp/Sribalaji Ravi.png",
   },
 ];
 
@@ -138,6 +154,7 @@ const cardVariants = {
 const EmployeeCard = ({ employee }: { employee: Employee }) => {
   const [imageError, setImageError] = useState(false);
   const imageAvailable = employee.image && !imageError;
+  const image2Available = employee.image2 && !imageError;
 
   return (
     <motion.div variants={cardVariants} className="w-full h-full min-h-0">
@@ -151,7 +168,7 @@ const EmployeeCard = ({ employee }: { employee: Employee }) => {
           <div className="w-full aspect-square sm:h-48 md:h-56 lg:h-62 rounded-xl sm:rounded-4xl overflow-hidden flex-shrink-0">
             {imageAvailable ? (
               <img
-                src={employee.image}
+                src={image2Available ? employee.image2 : employee.image}
                 alt={employee.name}
                 className="w-full h-full object-cover object-top rounded-xl sm:rounded-4xl"
                 onError={() => setImageError(true)}
