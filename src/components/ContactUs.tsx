@@ -40,6 +40,7 @@ export const ContactUsPage = () => {
 
     localStorage.setItem("lastSubmit", nowTime.toString());
     setCooldown(true);
+    setEmail("");
     setTimeout(() => setCooldown(false), 10000);
 
     (e.target as HTMLFormElement).submit();
@@ -118,9 +119,13 @@ export const ContactUsPage = () => {
           name="EMAIL"
           value={email}
           onChange={handleChange}
-          placeholder="Enter your email id here"
+          placeholder={
+            isSent ? "Email sent successfully" : "Enter your email id here"
+          }
           required
-          className="w-full h-full rounded-3xl py-4 pl-14 pr-11 text-white text-[clamp(0.875rem,1.5vw,1.125rem)] tracking-tighter font-normal  bg-[#202020]"
+          className={`w-full h-full rounded-3xl py-4  pr-11 text-white text-[clamp(0.875rem,1.5vw,1.125rem)] tracking-tighter font-normal  bg-[#202020] ${
+            isSent ? "pl-8" : "pl-14"
+          }`}
         />
         {isSent ? (
           <motion.div
