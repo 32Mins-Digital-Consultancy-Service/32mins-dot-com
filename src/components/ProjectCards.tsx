@@ -220,7 +220,7 @@ const ProjectCards = () => {
             <img
               src={deviceImage}
               alt="Device"
-              className="absolute top-[50%] left-1/2 -translate-x-1/2 z-0 w-[55%] sm:w-[45%] md:w-[40%] max-w-md transition-all duration-300 group-hover:top-[50%]"
+              className="absolute top-[75%] left-1/2 -translate-x-1/2 z-0 w-[55%] sm:w-[45%] md:w-[40%] max-w-md transition-all duration-300 group-hover:top-[40%]"
             />
           </section>
           <div className="flex flex-wrap w-full justify-between items-center gap-1.5 sm:gap-2 min-w-0">
