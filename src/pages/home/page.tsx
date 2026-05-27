@@ -11,8 +11,16 @@ import { ContactUsPage } from "../../components/ContactUs";
 import Footer from "../../components/Footer";
 import UpdatePage from "./subpages/Updates";
 import { SEO } from "../../components/SEO";
+import OurPerjectPage from "./subpages/OurProject";
 
-const SECTION_IDS = ["solutions", "aboutus", "clients", "whyus", "contactus"];
+const SECTION_IDS = [
+  "solutions",
+  "aboutus",
+  "clients",
+  "whyus",
+  "ourprojects",
+  "contactus",
+];
 
 export const HomePage = () => {
   const { hash } = useLocation();
@@ -20,6 +28,7 @@ export const HomePage = () => {
   const aboutusRef = useRef<HTMLElement>(null);
   const clientsRef = useRef<HTMLElement>(null);
   const whyusRef = useRef<HTMLElement>(null);
+  const ourprojectsRef = useRef<HTMLElement>(null);
   const contactusRef = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
@@ -50,21 +59,49 @@ export const HomePage = () => {
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "WebPage",
-          "name": "32Mins - Digital Content & eLearning Solutions",
-          "description": "Converting meaningful knowledge into impactful digital content for everyone.",
-          "url": "https://32mins.com/",
-          "provider": {
+          name: "32Mins - Digital Content & eLearning Solutions",
+          description:
+            "Converting meaningful knowledge into impactful digital content for everyone.",
+          url: "https://32mins.com/",
+          provider: {
             "@type": "Organization",
-            "name": "32Mins Digital Consultancy Services Pvt. Ltd.",
-            "url": "https://32mins.com",
+            name: "32Mins Digital Consultancy Services Pvt. Ltd.",
+            url: "https://32mins.com",
           },
-          "offers": [
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Digital Media Production" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "eLearning Production" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Lab & Industry Learning Video Production" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Media Content Marketing" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "eLearning Consulting" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "LMS Management" } },
+          offers: [
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Digital Media Production",
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: { "@type": "Service", name: "eLearning Production" },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Lab & Industry Learning Video Production",
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Media Content Marketing",
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: { "@type": "Service", name: "eLearning Consulting" },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: { "@type": "Service", name: "LMS Management" },
+            },
           ],
         }}
       />
@@ -72,8 +109,6 @@ export const HomePage = () => {
       <div className="relative bg-[url('/bg-image.webp')] bg-center bg-cover w-full bg-no-repeat flex flex-col items-stretch">
         <div className="absolute inset-0 bg-[#091951] w-full mix-blend-overlay "></div>
         <div className="absolute inset-0 bg-linear-to-t from-[#000000] to-[#000000]/0 w-full mix-blend-overlay "></div>
-        {/* Bottom fade to seamlessly blend into the page background */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-[#000016] z-10 pointer-events-none"></div>
         <section className="z-10 relative scroll-mt-20 w-full max-w-full min-w-0 flex flex-col items-center justify-center overflow-x-hidden min-h-[var(--viewport-height)] h-[var(--viewport-height)]">
           <HeroSection />
         </section>
@@ -106,6 +141,13 @@ export const HomePage = () => {
         className="scroll-mt-24 w-full flex flex-col items-center justify-center"
       >
         <WhyUsPage />
+      </section>
+      <section
+        ref={ourprojectsRef}
+        id="ourprojects"
+        className="scroll-mt-24 w-full flex flex-col items-center justify-center"
+      >
+        <OurPerjectPage />
       </section>
       <section
         ref={contactusRef}

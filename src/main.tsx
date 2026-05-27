@@ -9,6 +9,8 @@ import { AboutUsPage } from "./pages/home/subpages/AboutUs";
 import { ClientsPage } from "./pages/home/subpages/Client";
 import { WhyUsPage } from "./pages/home/subpages/WhyUs";
 import { ContactUsPage } from "./components/ContactUs";
+import TestComponent from "./pages/test/testComponent";
+import OurProjectsPage from "./pages/home/subpages/OurProject";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -19,10 +21,12 @@ createRoot(document.getElementById("root")!).render(
           <Route path="aboutus" element={<AboutUsPage />} />
           <Route path="clients" element={<ClientsPage />} />
           <Route path="whyus" element={<WhyUsPage />} />
+          <Route path="ourprojects" element={<OurProjectsPage />} />
           <Route path="contactus" element={<ContactUsPage />} />
         </Route>
         <Route path="/about" element={<AboutPage />} />
+        <Route path="/test" element={<TestComponent />} />
       </Routes>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );

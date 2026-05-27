@@ -9,6 +9,7 @@ const menuItems = [
   { name: "About Us", id: "aboutus" },
   { name: "Clients", id: "clients" },
   { name: "Why Us", id: "whyus" },
+  { name: "Our Projects", id: "ourprojects" },
   { name: "Contact Us", id: "contactus" },
 ];
 

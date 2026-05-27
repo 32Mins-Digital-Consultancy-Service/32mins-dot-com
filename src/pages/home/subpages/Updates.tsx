@@ -167,8 +167,8 @@ const UpdatePage = () => {
                     showCard === "card1"
                       ? 270 + 45
                       : showCard === "card2"
-                      ? 270 - 45
-                      : 270,
+                        ? 270 - 45
+                        : 270,
                 }
               : { rotate: 300 }
           }
@@ -191,9 +191,11 @@ const UpdatePage = () => {
           ))}
         </div>
 
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
+        {/* Light overall darkening */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#000b2f] via-black/10 to-transparent" />
 
-        <div className="absolute bottom-0 bg-gradient-to-t from-black to-transparent w-full flex justify-center items-end h-20" />
+        {/* Tall smooth bottom fade — black masks the earth, ends in #000C30 to match the parent bg shown in the section gap */}
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[55%] bg-gradient-to-t from-[#000b2f] via-black/75 to-transparent" />
       </div>
       <Summary ref={summaryRef} />
     </section>

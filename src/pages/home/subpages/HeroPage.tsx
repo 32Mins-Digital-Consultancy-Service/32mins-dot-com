@@ -71,7 +71,12 @@ export const HeroSection = () => {
           </h3>
         </div>
         <div className="flex" style={{ gap: "clamp(0.5rem, 1vw, 0.75rem)" }}>
-          <CtaButton variant="secondary" onClick={() => {}}>
+          <CtaButton
+            variant="secondary"
+            onClick={() => {
+              navigate("/#solutions");
+            }}
+          >
             Consume
           </CtaButton>
           <CtaButton
