@@ -192,7 +192,7 @@ const UpdatePage = () => {
         </div>
 
         {/* Light overall darkening */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#000b2f] via-black/10 to-transparent" />
+        {/* <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#000b2f] via-black/10 to-transparent" /> */}
 
         {/* Tall smooth bottom fade — black masks the earth, ends in #000C30 to match the parent bg shown in the section gap */}
         <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[55%] bg-gradient-to-t from-[#000b2f] via-black/75 to-transparent" />
