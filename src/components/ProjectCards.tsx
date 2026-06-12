@@ -167,7 +167,7 @@ const ProjectCards = () => {
         {media_urls.map((media) => (
           <div
             key={media.id}
-            className="rounded-sm flex flex-col h-full gap-2 sm:gap-3 md:gap-4 min-w-0"
+            className="rounded-sm flex flex-col justify-between h-full gap-2 sm:gap-3 md:gap-4 min-w-0"
           >
             <div className="w-full">
               <ProjectCardMedia

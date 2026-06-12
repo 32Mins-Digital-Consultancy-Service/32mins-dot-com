@@ -148,7 +148,7 @@ const UpdatePage = () => {
   const earthRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(earthRef, { once: true, amount: 0.15 });
   const summaryRef = useRef<HTMLDivElement | null>(null);
-  const [showCard, setShowCard] = useState<CardType>("card3");
+  const [showCard, setShowCard] = useState<CardType>("");
 
   return (
     <section className="z-10 relative scroll-mt-20 w-full max-w-full min-w-0 flex flex-col items-center justify-center overflow-hidden min-h-[var(--viewport-height)] h-[var(--viewport-height)]">

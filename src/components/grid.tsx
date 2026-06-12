@@ -40,17 +40,21 @@ const SERVICES: ServiceCard[] = [
   },
 ];
 
+// Base spans (no prefix) apply from the smallest phone upward, so the
+// 2-column bento is preserved on mobile instead of collapsing to a stack.
 const GRID_LAYOUT = [
-  { service: 0, cols: "sm:col-span-2 md:col-span-2 lg:col-span-3" },
-  { service: 1, cols: "sm:col-span-2 md:col-span-2 lg:col-span-3" },
-  { carousel: true, cols: "sm:col-span-2 md:col-span-4 lg:col-span-4" },
+  { service: 0, cols: "col-span-1 md:col-span-2 lg:col-span-3" },
+  { service: 1, cols: "col-span-1 md:col-span-2 lg:col-span-3" },
+  { carousel: true, cols: "col-span-2 md:col-span-4 lg:col-span-4" },
   {
     service: 3,
-    cols: "sm:col-span-2 md:col-span-2 lg:col-span-2",
-    rows: "sm:row-span-2",
+    cols: "col-span-1 md:col-span-2 lg:col-span-2",
+    // Tall card only from md upward. At 2 cols a full-width
+    // double-height card looks empty, so keep it single-row there.
+    rows: "md:row-span-2",
   },
-  { service: 4, cols: "sm:col-span-1 md:col-span-2 lg:col-span-2" },
-  { service: 5, cols: "sm:col-span-1 md:col-span-2 lg:col-span-2" },
+  { service: 4, cols: "col-span-1 md:col-span-2 lg:col-span-2" },
+  { service: 5, cols: "col-span-2 md:col-span-2 lg:col-span-2" },
 ];
 
 const cardAnimation = {
@@ -60,11 +64,11 @@ const cardAnimation = {
 };
 
 const ServiceCard = ({ title, description }: ServiceCard) => (
-  <div className="flex flex-col gap-3 sm:gap-4">
-    <h3 className="text-white text-xl sm:text-2xl font-semibold leading-tighter w-fit">
+  <div className="flex flex-col gap-1.5 sm:gap-2.5 md:gap-4">
+    <h3 className="text-white text-sm sm:text-base md:text-xl lg:text-2xl font-semibold leading-snug w-fit">
       {title}
     </h3>
-    <p className="text-[#8E8E8E] text-base sm:text-lg font-normal">
+    <p className="text-[#8E8E8E] text-[11px] leading-snug sm:text-xs sm:leading-normal md:text-sm md:leading-relaxed lg:text-lg font-normal">
       {description}
     </p>
   </div>
@@ -72,16 +76,16 @@ const ServiceCard = ({ title, description }: ServiceCard) => (
 
 const Grid = () => {
   return (
-    <div className="w-full px-4 sm:px-6 md:px-10 lg:px-16 xl:px-20">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 auto-rows-[minmax(180px,auto)] sm:auto-rows-[minmax(200px,auto)]">
+    <div className="w-full mx-auto max-w-[1700px] px-3 sm:px-6 md:px-10 lg:px-16 xl:px-20">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2.5 sm:gap-4 lg:gap-5 auto-rows-[minmax(130px,auto)] sm:auto-rows-[minmax(180px,auto)] md:auto-rows-[minmax(200px,auto)] lg:auto-rows-[minmax(210px,auto)] xl:auto-rows-[minmax(230px,auto)]">
         {GRID_LAYOUT.map((item, index) => (
           <motion.div
             key={index}
             {...cardAnimation}
-            className={`col-span-1 ${item.rows || "row-span-1"} ${item.cols}`}
+            className={`${item.rows || "row-span-1"} ${item.cols}`}
           >
             <SpotlightCard
-              className={`bg-[#0A0A0A] rounded-[15px] p-5 sm:p-6 md:p-7.5 flex flex-col h-full ${
+              className={`bg-[#0A0A0A] rounded-[15px] p-3.5 sm:p-5 md:p-6 lg:p-7.5 flex flex-col h-full ${
                 item.carousel
                   ? "justify-center gap-4"
                   : "justify-start items-start"

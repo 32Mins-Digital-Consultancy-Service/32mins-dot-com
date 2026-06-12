@@ -36,17 +36,17 @@ const TestimonialCard = ({
       transition: { delay: 0.2, duration: 0.5 },
     }}
     viewport={{ once: true, amount: 0.5 }}
-    className="bg-linear-to-r from-[#0A0A0A]/20 via-[#707070]/20 to-[#0A0A0A]/20 
-               rounded-2xl max-w-2xl flex flex-col border border-[#1B1B1B]
-               p-4 md:p-7 lg:p-9 gap-4 md:gap-5 lg:gap-6"
+    className="bg-linear-to-r from-[#0A0A0A]/20 via-[#707070]/20 to-[#0A0A0A]/20
+               rounded-xl sm:rounded-2xl flex-1 w-full max-w-2xl flex flex-col border border-[#1B1B1B]
+               p-3 sm:p-4 md:p-7 lg:p-9 gap-2.5 sm:gap-4 md:gap-5 lg:gap-6"
   >
-    <h3 className="font-bold tracking-tigher text-white text-sm md:text-base lg:text-lg">
+    <h3 className="font-bold tracking-tigher text-white text-xs sm:text-sm md:text-base lg:text-lg leading-snug">
       {title}
     </h3>
-    <blockquote className="font-normal tracking-tigher text-[#8E8E8E] text-sm md:text-base lg:text-lg">
+    <blockquote className="font-normal tracking-tigher text-[#8E8E8E] text-[11px] leading-snug sm:text-sm sm:leading-normal md:text-base md:leading-relaxed lg:text-lg">
       <p>{quote}</p>
-      <footer className="mt-3">
-        <cite className="font-normal tracking-tigher text-white text-sm md:text-base lg:text-lg not-italic">
+      <footer className="mt-2 sm:mt-3">
+        <cite className="font-normal tracking-tigher text-white text-[11px] sm:text-sm md:text-base lg:text-lg not-italic">
           {author}
         </cite>
       </footer>
@@ -57,9 +57,9 @@ const TestimonialCard = ({
 // Main Component
 export const ClientsPage = () => (
   <div
-    className="flex flex-col items-center justify-center w-full 
-                  gap-8 md:gap-10 lg:gap-12 
-                  px-4 md:px-12 lg:px-16"
+    className="flex flex-col items-center justify-center w-full mx-auto max-w-[1700px]
+                  gap-8 md:gap-10 lg:gap-12
+                  px-3 sm:px-4 md:px-12 lg:px-16"
   >
     {/* Header Section */}
     <div className="flex flex-col items-center justify-center gap-2 md:gap-3">
@@ -72,7 +72,7 @@ export const ClientsPage = () => (
           transition: { delay: 0.2, duration: 0.5 },
         }}
         viewport={{ once: true, amount: 0.5 }}
-        className="font-bold tracking-tigher text-white text-xl md:text-2xl lg:text-3xl"
+        className="font-bold tracking-tigher text-white text-lg sm:text-xl md:text-2xl lg:text-3xl text-center"
       >
         Helping businesses grow
       </motion.h2>
@@ -83,9 +83,9 @@ export const ClientsPage = () => (
 
     {/* Testimonials Section */}
     <div
-      className="flex flex-col items-center justify-center w-full 
-                    gap-6 md:gap-5 lg:gap-6 
-                    px-4 md:px-8 lg:px-10"
+      className="flex flex-col items-center justify-center w-full
+                    gap-5 sm:gap-6 md:gap-5 lg:gap-6
+                    px-0 sm:px-4 md:px-8 lg:px-10"
     >
       <motion.h3
         initial={{ opacity: 0, y: 20 }}
@@ -95,16 +95,16 @@ export const ClientsPage = () => (
           transition: { delay: 0.2, duration: 0.5 },
         }}
         viewport={{ once: true, amount: 0.5 }}
-        className="font-normal tracking-tigher text-[#8E8E8E] text-center 
-                   text-sm md:text-base lg:text-lg"
+        className="font-normal tracking-tigher text-[#8E8E8E] text-center
+                   text-xs sm:text-sm md:text-base lg:text-lg"
       >
         Here's what our <span className="text-white">satisfied clients</span>{" "}
         say
       </motion.h3>
 
       <div
-        className="flex flex-col md:flex-row items-center justify-center 
-                      gap-6 md:gap-7 lg:gap-8"
+        className="flex flex-row items-stretch justify-center w-full
+                      gap-3 sm:gap-5 md:gap-7 lg:gap-8"
       >
         {TESTIMONIALS.map((testimonial) => (
           <TestimonialCard key={testimonial.author} {...testimonial} />
