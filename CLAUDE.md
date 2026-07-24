@@ -37,7 +37,7 @@ Menu links use `to="/#section-id"`. `HomePage` reads `hash` from `useLocation()`
 ### Styling conventions
 - **Main site**: pure Tailwind utility classes. Dark navy background (`#000016` → `#000C30` gradient).
 - **`/test` route only**: Bootstrap classes mixed with Tailwind — Bootstrap is not used anywhere else.
-- Custom CSS in `index.css`: `--viewport-height` (uses `100dvh` where supported for mobile address bar), `.jaffee-*` brochure flip animation, `.btn-style510/511/902` button shimmer effects, `.typewriter` animation.
+- Custom CSS in `index.css`: `--viewport-height` (uses `100dvh` where supported for mobile address bar), `.jaffee-*` brochure flip animation, `.btn-style510/511` button shimmer effects, `.typewriter` animation. All primary CTAs (including the footer's "Schedule a meet") use `CtaButton` — the old FancyButton morph animation was removed on purpose.
 - Global font: `Bricolage Grotesque`; `.manrope-font` class for `Manrope`.
 
 ### Project cards
