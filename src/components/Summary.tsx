@@ -41,9 +41,11 @@ export const Summary = ({
   return (
     <div
       ref={ref}
-      className="absolute bottom-4 w-fit rounded-4xl bg-[#050B26]/60 max-w-4xl"
+      className="absolute bottom-2 w-fit rounded-4xl bg-[#050B26]/60 max-w-4xl"
     >
-      <div className="backdrop-blur-md border border-white/10 flex items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 px-4 pb-6 pt-4 sm:p-6 md:p-8 lg:p-10 rounded-4xl">
+      {/* Vertical padding scales with viewport height so the panel stays
+          compact on short screens and covers less of the globe. */}
+      <div className="backdrop-blur-md border border-white/10 flex items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 px-[clamp(1rem,3vw,2.5rem)] py-[clamp(0.875rem,4vh,2.5rem)] rounded-4xl">
         <div className="flex flex-col font-extrabold text-center">
           <CountUp to={32} suffix="Mins" />
           <h3 className="text-[#8E8E8E] font-normal text-sm">
