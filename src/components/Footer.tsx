@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import CtaButton from "./CtaButton";
+import FancyButton from "./FancyButton";
 import Schdule from "../assets/schdule.svg";
 import Phone from "../assets/Phone.svg";
 import Message from "../assets/Message.svg";
@@ -175,7 +176,7 @@ const Footer = () => {
             </p>
           </div>
           <div className="w-full flex justify-center md:justify-start">
-            <CtaButton
+            <FancyButton
               variant="primary"
               onClick={() => {
                 window.open(
@@ -184,9 +185,14 @@ const Footer = () => {
                 );
               }}
             >
-              <Schdule />
-              Schedule a meet
-            </CtaButton>
+              <span data-name="icon" className="inline-flex pr-1">
+                <Schdule />
+              </span>
+              <span data-name="hover">
+                Schedule<span className="schedule-now-hover"> now</span>
+              </span>
+              <span data-name="me"> a meet</span>
+            </FancyButton>
           </div>
         </section>
       </div>
