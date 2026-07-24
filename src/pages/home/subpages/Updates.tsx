@@ -131,7 +131,7 @@ const UpdatePage = () => {
                 rotate: { duration: 1, ease: "easeOut" },
                 opacity: { duration: 0.9, ease: "easeInOut" },
               }}
-              className="absolute bottom-10 sm:bottom-5 md:-bottom-15 left-1/2 -translate-x-1/2 translate-y-[40%] w-[min(max(100%,100vh),150vh)] aspect-square"
+              className="absolute bottom-10 sm:bottom-5 md:-bottom-15 left-1/2 -translate-x-1/2 translate-y-[max(40%,calc(100%_-_0.85*var(--viewport-height)_-_60px))] w-[max(100%,100vh)] aspect-square"
             />
           )}
 
@@ -140,7 +140,7 @@ const UpdatePage = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: globeReady ? 1 : 0 }}
               transition={{ duration: 0.9, ease: "easeInOut" }}
-              className="globe-canvas absolute bottom-10 sm:bottom-5 md:-bottom-15 left-1/2 -translate-x-1/2 translate-y-[40%] w-[min(max(100%,100vh),150vh)] aspect-square"
+              className="globe-canvas absolute bottom-10 sm:bottom-5 md:-bottom-15 left-1/2 -translate-x-1/2 translate-y-[max(40%,calc(100%_-_0.85*var(--viewport-height)_-_60px))] w-[max(100%,100vh)] aspect-square"
               aria-label="Interactive 3D globe — drag to spin"
             >
               <GlobeBoundary onFail={() => setGlobeFailed(true)}>
@@ -185,7 +185,7 @@ const UpdatePage = () => {
         {show3D && (
           <div
             ref={markerPortalRef}
-            className="pointer-events-none absolute bottom-10 sm:bottom-5 md:-bottom-15 left-1/2 -translate-x-1/2 translate-y-[40%] w-[min(max(100%,100vh),150vh)] aspect-square z-20"
+            className="pointer-events-none absolute bottom-10 sm:bottom-5 md:-bottom-15 left-1/2 -translate-x-1/2 translate-y-[max(40%,calc(100%_-_0.85*var(--viewport-height)_-_60px))] w-[max(100%,100vh)] aspect-square z-20"
           />
         )}
       </div>
