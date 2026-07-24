@@ -1,4 +1,13 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import {
+  Component,
+  lazy,
+  Suspense,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { motion, useInView } from "framer-motion";
 import { Summary } from "../../../components/Summary";
 import { GlobeCard } from "../../../components/GlobeCards";
@@ -21,6 +30,31 @@ function canUseWebGL() {
   }
 }
 
+/**
+ * If the WebGL globe throws (texture 404, driver issue, context loss during
+ * init), swallow the error and tell the parent to fall back to the static
+ * earth — a missing texture must never blank the whole page.
+ */
+class GlobeBoundary extends Component<
+  { onFail: () => void; children: ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  componentDidCatch(error: unknown) {
+    console.warn("3D globe failed — falling back to static earth.", error);
+    this.props.onFail();
+  }
+
+  render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
+
 const UpdatePage = () => {
   const earthRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(earthRef, { once: true, amount: 0.15 });
@@ -37,6 +71,8 @@ const UpdatePage = () => {
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
     [],
   );
+  const [globeFailed, setGlobeFailed] = useState(false);
+  const show3D = use3D && !globeFailed;
 
   // Warm up the globe right after load (idle time): download the three.js
   // chunk + textures and render the first frames off-screen, so the real
@@ -72,24 +108,24 @@ const UpdatePage = () => {
             shows through, so there is no seam to color-match. The marker
             layer lives outside this wrapper and stays at full opacity. */}
         <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black_38%,rgba(0,0,0,0.35)_72%,transparent_96%)]">
-          {!(use3D && placeholderGone) && (
+          {!(show3D && placeholderGone) && (
             <motion.img
               src="/earth2.webp"
               alt="earth"
-              initial={{ rotate: use3D ? 0 : 180, opacity: 1 }}
+              initial={{ rotate: show3D ? 0 : 180, opacity: 1 }}
               animate={
                 isInView
                   ? {
-                      rotate: !use3D
+                      rotate: !show3D
                         ? showCard === "card1"
                           ? 45
                           : showCard === "card2"
                             ? -45
                             : 0
                         : 0,
-                      opacity: use3D && globeReady ? 0 : 1,
+                      opacity: show3D && globeReady ? 0 : 1,
                     }
-                  : { rotate: use3D ? 0 : 210 }
+                  : { rotate: show3D ? 0 : 210 }
               }
               transition={{
                 rotate: { duration: 1, ease: "easeOut" },
@@ -99,7 +135,7 @@ const UpdatePage = () => {
             />
           )}
 
-          {use3D && (globeMounted || isInView) && (
+          {show3D && (globeMounted || isInView) && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: globeReady ? 1 : 0 }}
@@ -107,23 +143,25 @@ const UpdatePage = () => {
               className="globe-canvas absolute bottom-10 sm:bottom-5 md:-bottom-15 left-1/2 -translate-x-1/2 translate-y-[40%] w-[max(100%,100vh)] aspect-square"
               aria-label="Interactive 3D globe — drag to spin"
             >
-              <Suspense fallback={null}>
-                <Globe3D
-                  activeCard={showCard}
-                  setActiveCard={setShowCard}
-                  onReady={() => setGlobeReady(true)}
-                  active={isActive || !globeReady}
-                  markerPortal={markerPortalRef}
-                  entered={isInView}
-                />
-              </Suspense>
+              <GlobeBoundary onFail={() => setGlobeFailed(true)}>
+                <Suspense fallback={null}>
+                  <Globe3D
+                    activeCard={showCard}
+                    setActiveCard={setShowCard}
+                    onReady={() => setGlobeReady(true)}
+                    active={isActive || !globeReady}
+                    markerPortal={markerPortalRef}
+                    entered={isInView}
+                  />
+                </Suspense>
+              </GlobeBoundary>
             </motion.div>
           )}
         </div>
 
         {/* Flat fallback keeps the clickable info points when WebGL is
-            unavailable or the user prefers reduced motion. */}
-        {!use3D && (
+            unavailable, the globe failed, or reduced motion is preferred. */}
+        {!show3D && (
           <div
             className="absolute top-[86%] lg:top-5/7 left-1/2 -translate-x-1/2 flex justify-between items-center w-[50%] sm:w-[45%] md:w-[40%] lg:w-[50%] "
             style={{ zIndex: 2 }}
@@ -144,7 +182,7 @@ const UpdatePage = () => {
 
         {/* Marker layer: mirrors the canvas geometry exactly but sits outside
             the masked earth wrapper, so the pinned info points stay bright. */}
-        {use3D && (
+        {show3D && (
           <div
             ref={markerPortalRef}
             className="pointer-events-none absolute bottom-10 sm:bottom-5 md:-bottom-15 left-1/2 -translate-x-1/2 translate-y-[40%] w-[max(100%,100vh)] aspect-square z-20"
