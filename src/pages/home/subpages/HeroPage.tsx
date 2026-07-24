@@ -91,7 +91,8 @@ export const HeroSection = () => {
           <motion.h1
             className="tracking-tighter leading-none text-center relative"
             style={{
-              fontSize: "clamp(1.5rem, 7vw, 6rem)",
+              // vh term keeps the headline from swallowing short laptops
+              fontSize: "clamp(1.5rem, min(7vw, 11vh), 6rem)",
               x: headlineX,
               y: headlineY,
             }}
