@@ -18,20 +18,21 @@ No test suite exists — this is a marketing/portfolio site.
 - **React 19** with the **React Compiler** enabled (`babel-plugin-react-compiler`) — do not add manual `useMemo`/`useCallback`; the compiler handles memoization automatically
 - **Vite** aliased to `rolldown-vite` (Rolldown-powered build, same API as Vite)
 - **Tailwind CSS v4** — uses `@import "tailwindcss"` in `index.css`, not the legacy `@tailwind` directives
-- **React Router v7** (`react-router-dom`)
+- **React Router v7** (`react-router-dom` only — do not add `react-router` as a direct dependency)
 - **Framer Motion** for animations
+- **Lenis** (`lenis/react`) — site-wide smooth scrolling. `SmoothScroll.tsx` wraps the app; programmatic scrolling must go through `smoothScrollTo()` in `src/lib/scroll.ts` (falls back to native for reduced-motion users). Never call `scrollIntoView` directly.
+- **three.js + @react-three/fiber + drei** — used ONLY by the lazy-loaded 3D globe (`Globe3D.tsx`); it ships in its own chunk, don't import three from eagerly-loaded code
 - **vite-plugin-svgr** — all `.svg` files in `src/assets/` are imported as React components, not URLs
 
 ## Architecture
 
 ### Routing (`src/main.tsx`)
 - `/` → `HomePage` (shell that renders all sections in one scroll page)
-- `/about` → `AboutPage`
-- `/test` → `TestComponent` (dev scratchpad using Bootstrap, not part of the main site)
+- `/about` → `AboutPage` (lazy-loaded)
 - Nested routes (`/solutions`, `/aboutus`, etc.) are defined but sections are rendered inline inside `HomePage`
 
 ### Homepage navigation
-Menu links use `to="/#section-id"`. `HomePage` reads `hash` from `useLocation()` and calls `scrollIntoView` to smooth-scroll to the matching `<section id="...">`. Section IDs: `solutions`, `aboutus`, `clients`, `whyus`, `ourproject`, `contactus`.
+Menu links use `to="/#section-id"`. `HomePage` reads `hash` from `useLocation()` and smooth-scrolls (via Lenis `smoothScrollTo`) to the matching `<section id="...">`. Section IDs: `solutions`, `aboutus`, `clients`, `whyus`, `ourprojects`, `contactus`.
 
 ### Styling conventions
 - **Main site**: pure Tailwind utility classes. Dark navy background (`#000016` → `#000C30` gradient).
@@ -39,13 +40,15 @@ Menu links use `to="/#section-id"`. `HomePage` reads `hash` from `useLocation()`
 - Custom CSS in `index.css`: `--viewport-height` (uses `100dvh` where supported for mobile address bar), `.jaffee-*` brochure flip animation, `.btn-style510/511/902` button shimmer effects, `.typewriter` animation.
 - Global font: `Bricolage Grotesque`; `.manrope-font` class for `Manrope`.
 
-### Video card pattern
-`ProjectCards.tsx` is the production component; `testComponent.tsx` is the prototype. Both share the same logic:
-- Hover (desktop): `onMouseEnter` plays video, `onMouseLeave` stops and resets
-- Touch (mobile): `onTouchStart` with `e.preventDefault()` to suppress synthetic mouse events — first tap plays, second tap on same card stops
-- A `useRef` tracks the currently playing `<video>` element so switching cards pauses the previous one before playing the new one
-- Cover image and video swap via `hidden`/`block` (Tailwind) — no `position: absolute` needed since only one is visible at a time
+### Project cards
+`ProjectCards.tsx` shows static cover images only — the owner removed the hover-to-play video previews (and the old `/test` prototype + `.mp4` assets), do not reintroduce them. The "Take a sneak peek" panel reveals its device mockups via scroll progress (`useScroll` on the panel), not hover.
+
+### 3D & interactive pieces
+- `Globe3D.tsx` — photoreal WebGL earth in the Updates section. `/public/textures/earth-day.webp` is NASA Blue Marble (public domain, 4096×2048). Lazy-loaded; the static `/earth2.webp` paints first and crossfades out — that file is a capture of the rendered globe at its initial orientation (regenerate by temporarily setting `preserveDrawingBuffer: true` and saving `canvas.toDataURL()`), so keep them in sync if the initial view changes. Info points are pinned at real lat/long and portal into a marker layer that escapes the earth's alpha mask. The earth and the hero band background dissolve into the page gradient via CSS `mask-image` — never reintroduce a color-matched overlay fade; masks are what keep the section edge seamless. Falls back to the flat image + dot row when WebGL is unavailable or reduced motion is set.
+- `Tilt3D.tsx` — generic mouse-follow perspective tilt used on project cards, solutions grid, and testimonials. Inert on touch/reduced-motion.
+- The Why-Us hourglass is deliberately a plain image with only a hover zoom — the owner does not want particle/flip effects on it.
 
 ### Public assets
-Static files served from `/public/`: `/Badge.webp`, `/bg-image.webp`, `/Outer_Spread.png`, `/32mins_emp/` (employee portraits).
-Asset files referenced in code (e.g. cover images, videos) live in `src/assets/` and are imported with relative paths like `src/assets/nmicps_cover.png`.
+Static files served from `/public/`: `/Badge.webp`, `/bg-image.webp`, `/Outer_Spread.webp`, `/32mins_emp/` (employee portraits), `/textures/` (globe maps).
+Asset files referenced in code (e.g. cover images, videos) live in `src/assets/` and are imported with relative paths like `src/assets/nmicps_cover.webp`.
+All raster assets are WebP sized close to their largest display size — run `node scripts/optimize-images.mjs` to convert new heavy PNG/JPGs (it only writes new files, never deletes). Below-the-fold `<img>`s take `loading="lazy" decoding="async"`; `<video>`s take `preload="none"`.

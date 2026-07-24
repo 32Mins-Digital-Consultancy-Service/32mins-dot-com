@@ -1,5 +1,6 @@
-import { SubpageHeader } from "../../../components/SubpageHeader";
+import { SectionHeader } from "../../../components/SectionHeader";
 import Marquee from "../../../components/marquee";
+import Tilt3D from "../../../components/Tilt3D";
 import { motion } from "framer-motion";
 
 // Testimonials data
@@ -33,24 +34,31 @@ const TestimonialCard = ({
     whileInView={{
       opacity: 1,
       y: 0,
-      transition: { delay: 0.2, duration: 0.5 },
+      transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
     }}
-    viewport={{ once: true, amount: 0.5 }}
-    className="bg-linear-to-r from-[#0A0A0A]/20 via-[#707070]/20 to-[#0A0A0A]/20
-               rounded-xl sm:rounded-2xl flex-1 w-full max-w-2xl flex flex-col border border-[#1B1B1B]
-               p-3 sm:p-4 md:p-7 lg:p-9 gap-2.5 sm:gap-4 md:gap-5 lg:gap-6"
+    viewport={{ once: true, amount: 0.2 }}
+    className="flex-1 w-full max-w-2xl flex"
   >
-    <h3 className="font-bold tracking-tigher text-white text-xs sm:text-sm md:text-base lg:text-lg leading-snug">
-      {title}
-    </h3>
-    <blockquote className="font-normal tracking-tigher text-[#8E8E8E] text-[11px] leading-snug sm:text-sm sm:leading-normal md:text-base md:leading-relaxed lg:text-lg">
-      <p>{quote}</p>
-      <footer className="mt-2 sm:mt-3">
-        <cite className="font-normal tracking-tigher text-white text-[11px] sm:text-sm md:text-base lg:text-lg not-italic">
-          {author}
-        </cite>
-      </footer>
-    </blockquote>
+    <Tilt3D
+      className="w-full flex"
+      innerClassName="bg-[#06041A]/80
+                 rounded-xl sm:rounded-2xl w-full flex flex-col border border-white/10
+                 p-3 sm:p-4 md:p-7 lg:p-9 gap-2.5 sm:gap-4 md:gap-5 lg:gap-6"
+      maxTilt={4}
+      glare
+    >
+      <h3 className="font-bold tracking-tigher text-white text-xs sm:text-sm md:text-base lg:text-lg leading-snug">
+        {title}
+      </h3>
+      <blockquote className="font-normal tracking-tigher text-[#8E8E8E] text-[11px] leading-snug sm:text-sm sm:leading-normal md:text-base md:leading-relaxed lg:text-lg">
+        <p>{quote}</p>
+        <footer className="mt-2 sm:mt-3">
+          <cite className="font-normal tracking-tigher text-white text-[11px] sm:text-sm md:text-base lg:text-lg not-italic">
+            {author}
+          </cite>
+        </footer>
+      </blockquote>
+    </Tilt3D>
   </motion.article>
 );
 
@@ -58,25 +66,10 @@ const TestimonialCard = ({
 export const ClientsPage = () => (
   <div
     className="flex flex-col items-center justify-center w-full mx-auto max-w-[1700px]
-                  gap-8 md:gap-10 lg:gap-12
+                  gap-[clamp(2.5rem,6vw,4rem)]
                   px-3 sm:px-4 md:px-12 lg:px-16"
   >
-    {/* Header Section */}
-    <div className="flex flex-col items-center justify-center gap-2 md:gap-3">
-      <SubpageHeader title="Our Clients" />
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-          transition: { delay: 0.2, duration: 0.5 },
-        }}
-        viewport={{ once: true, amount: 0.5 }}
-        className="font-bold tracking-tigher text-white text-lg sm:text-xl md:text-2xl lg:text-3xl text-center"
-      >
-        Helping businesses grow
-      </motion.h2>
-    </div>
+    <SectionHeader pill="Our Clients" title="Helping businesses grow" />
 
     {/* Marquee */}
     <Marquee />
@@ -84,7 +77,7 @@ export const ClientsPage = () => (
     {/* Testimonials Section */}
     <div
       className="flex flex-col items-center justify-center w-full
-                    gap-5 sm:gap-6 md:gap-5 lg:gap-6
+                    gap-[clamp(1.25rem,3vw,1.75rem)]
                     px-0 sm:px-4 md:px-8 lg:px-10"
     >
       <motion.h3
@@ -92,9 +85,9 @@ export const ClientsPage = () => (
         whileInView={{
           opacity: 1,
           y: 0,
-          transition: { delay: 0.2, duration: 0.5 },
+          transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
         }}
-        viewport={{ once: true, amount: 0.5 }}
+        viewport={{ once: true, amount: 0.2 }}
         className="font-normal tracking-tigher text-[#8E8E8E] text-center
                    text-xs sm:text-sm md:text-base lg:text-lg"
       >

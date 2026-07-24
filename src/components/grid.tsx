@@ -1,5 +1,6 @@
 import VerticalCarousel from "./VerticalCarousel";
 import SpotlightCard from "./SpotlightCard";
+import Tilt3D from "./Tilt3D";
 import { motion } from "framer-motion";
 
 interface ServiceCard {
@@ -59,8 +60,12 @@ const GRID_LAYOUT = [
 
 const cardAnimation = {
   initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0, transition: { delay: 0.2, duration: 0.5 } },
-  viewport: { once: true, amount: 0.5 },
+  whileInView: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+  },
+  viewport: { once: true, amount: 0.2 },
 };
 
 const ServiceCard = ({ title, description }: ServiceCard) => (
@@ -84,19 +89,21 @@ const Grid = () => {
             {...cardAnimation}
             className={`${item.rows || "row-span-1"} ${item.cols}`}
           >
-            <SpotlightCard
-              className={`bg-[#0A0A0A] rounded-[15px] p-3.5 sm:p-5 md:p-6 lg:p-7.5 flex flex-col h-full ${
-                item.carousel
-                  ? "justify-center gap-4"
-                  : "justify-start items-start"
-              }`}
-            >
-              {item.carousel ? (
-                <VerticalCarousel />
-              ) : (
-                <ServiceCard {...SERVICES[item.service!]} />
-              )}
-            </SpotlightCard>
+            <Tilt3D className="h-full" innerClassName="h-full" maxTilt={4}>
+              <SpotlightCard
+                className={`bg-[#06041A] border border-white/10 rounded-[15px] p-3.5 sm:p-5 md:p-6 lg:p-7.5 flex flex-col h-full ${
+                  item.carousel
+                    ? "justify-center gap-4"
+                    : "justify-start items-start"
+                }`}
+              >
+                {item.carousel ? (
+                  <VerticalCarousel />
+                ) : (
+                  <ServiceCard {...SERVICES[item.service!]} />
+                )}
+              </SpotlightCard>
+            </Tilt3D>
           </motion.div>
         ))}
       </div>

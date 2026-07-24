@@ -1,4 +1,4 @@
-import { SubpageHeader } from "../../../components/SubpageHeader";
+import { SectionHeader } from "../../../components/SectionHeader";
 import CtaButton from "../../../components/CtaButton";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -7,24 +7,19 @@ import Rightarro from "../../../assets/Rightarro.svg";
 export const WhyUsPage = () => {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col max-w-6xl gap-4 px-[clamp(1rem,4vw,2.5rem)]">
-      <SubpageHeader title="Why Us" />
+    <div className="flex w-full max-w-6xl flex-col items-center gap-[clamp(2.5rem,6vw,4rem)] px-[clamp(1rem,4vw,2.5rem)]">
+      <SectionHeader pill="Why Us" title="What makes us stand out in the industry" />
       <div className="flex flex-col lg:flex-row items-center justify-center gap-[clamp(2rem,5vw,6rem)] w-full max-w-6xl px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{
             opacity: 1,
             y: 0,
-            transition: { delay: 0.2, duration: 0.5 },
+            transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
           }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.2 }}
           className="flex flex-col gap-[clamp(1.5rem,3vw,2.25rem)] max-w-xl w-full lg:w-auto"
         >
-          <div className="flex flex-col gap-[clamp(0.5rem,1.5vw,0.75rem)] ">
-            <h2 className="font-bold text-[clamp(1.25rem,4vw,1.875rem)] tracking-tigher text-white">
-              What makes us stand out in the industry
-            </h2>
-          </div>
           <p className="text-[clamp(0.875rem,2vw,1.125rem)] font-normal tracking-tigher text-[#8E8E8E]">
             We focus on creating compelling, engaging, high-quality digital
             education and corporate training video content that is tailor-made
@@ -48,15 +43,17 @@ export const WhyUsPage = () => {
           whileInView={{
             opacity: 1,
             y: 0,
-            transition: { delay: 0.2, duration: 0.5 },
+            transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
           }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.2 }}
           className="hidden lg:flex max-w-xl h-full relative"
         >
           <motion.img
-            src="./hourglass.webp"
+            src="/hourglass.webp"
             alt="Hourglass representing time efficiency in digital content production"
-            className="absolute right-1/2 bottom-1/6"
+            loading="lazy"
+            decoding="async"
+            className="absolute right-1/2 bottom-1/6 z-10"
             whileHover={{ scale: 1.1 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
           />

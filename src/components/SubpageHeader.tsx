@@ -27,8 +27,8 @@ export const SubpageHeader = ({
 }: SubpageHeaderProps) => {
   const wrapClass =
     variant === "small"
-      ? "bg-linear-to-r from-[#1D1D1B]/10 via-[#FFFFFF]/10 to-[#1D1D1B]/10 rounded-lg w-fit min-w-0 max-w-full"
-      : "bg-linear-to-r from-[#1D1D1B]/10 via-[#FFFFFF]/10 to-[#1D1D1B]/10 rounded-lg w-fit";
+      ? "bg-white/5 rounded-lg w-fit min-w-0 max-w-full"
+      : "bg-white/5 rounded-lg w-fit";
 
   return (
     <div className={wrapClass}>
@@ -37,9 +37,9 @@ export const SubpageHeader = ({
         whileInView={{
           opacity: 1,
           y: 0,
-          transition: { delay: 0.2, duration: 0.5 },
+          transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
         }}
-        viewport={{ once: true, amount: 0.5 }}
+        viewport={{ once: true, amount: 0.2 }}
         className={subpageHeaderTitleVariants({ variant })}
       >
         {title}

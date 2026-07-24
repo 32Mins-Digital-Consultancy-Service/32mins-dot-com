@@ -1,154 +1,65 @@
-import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import { Summary } from "../../../components/Summary";
+import { GlobeCard } from "../../../components/GlobeCards";
+import {
+  cardData,
+  type CardType,
+} from "../../../components/globeCardData";
 
-type CardType = "" | "card1" | "card2" | "card3";
+// three.js + react-three-fiber load in their own chunk, only when the globe
+// section approaches the viewport. The flat earth image paints immediately
+// and crossfades out once the first WebGL frame is ready.
+const Globe3D = lazy(() => import("../../../components/Globe3D"));
 
-interface GlobeCardData {
-  id: CardType;
-  ariaLabel: string;
-  cardPosition: "left" | "center" | "right";
-  content: React.ReactNode;
+function canUseWebGL() {
+  try {
+    const canvas = document.createElement("canvas");
+    return !!(canvas.getContext("webgl2") || canvas.getContext("webgl"));
+  } catch {
+    return false;
+  }
 }
-
-interface GlobeCardProps {
-  data: GlobeCardData;
-  isActive: boolean;
-  onToggle: () => void;
-  onClose: () => void;
-}
-
-const CloseButton = ({ onClick }: { onClick: () => void }) => (
-  <button
-    onClick={onClick}
-    type="button"
-    className="absolute top-2 right-2 sm:top-3 sm:right-3 text-gray-200 bg-transparent   rounded-lg text-sm w-7 h-7 sm:w-8 sm:h-8 inline-flex justify-center items-center  cursor-pointer"
-    aria-label="Close modal"
-  >
-    <svg
-      className="w-3 h-3 sm:w-[14px] sm:h-[14px]"
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 14 14"
-    >
-      <path
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-      />
-    </svg>
-  </button>
-);
-
-const GlobeCard = ({ data, isActive, onToggle, onClose }: GlobeCardProps) => {
-  const positionClasses = {
-    left: "left-1/2 -translate-x-1/3",
-    center: "left-1/2 -translate-x-1/2",
-    right: "left-1/2 -translate-x-2/3",
-  };
-
-  return (
-    <div className="relative flex items-center justify-center ">
-      <button
-        className="bg-white rounded-full w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 border p-0.5 sm:p-1 bg-clip-content hover:scale-110 transition-transform cursor-pointer shadow-lg"
-        style={{
-          transform: isActive ? "rotate(45deg)" : "rotate(0deg)",
-        }}
-        onClick={onToggle}
-        aria-label={data.ariaLabel}
-      />
-      <AnimatePresence>
-        {isActive && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.2 }}
-            className={`absolute z-50 backdrop-blur-md  bottom-full mb-3 w-[280px] sm:w-[300px] md:min-w-[400px] md:max-w-lg p-4 sm:p-5 md:p-6 border border-gray-200 rounded-lg shadow dark:border-gray-500 border-opacity-20 bg-black/10 ${
-              positionClasses[data.cardPosition]
-            }`}
-          >
-            <CloseButton onClick={onClose} />
-            {data.content}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
-
-const cardData: GlobeCardData[] = [
-  {
-    id: "card1",
-    ariaLabel: "Show SDG4 info",
-    cardPosition: "left",
-    content: (
-      <>
-        <img
-          src="/UN x SDG4.png"
-          alt="UN SDG4"
-          className="max-w-full sm:max-w-[280px] md:max-w-[300px]"
-        />
-        <p className="mb-3 mt-4 sm:mt-6 text-sm sm:text-base font-normal text-gray-200">
-          Ensure inclusive and equitable quality education and promote lifelong
-          learning opportunities for all.
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "card3",
-    ariaLabel: "Show GeM & Startup India info",
-    cardPosition: "center",
-    content: (
-      <>
-        <div className="flex gap-2 sm:gap-4 justify-start">
-          <img
-            src="/GeM.png"
-            alt="GeM"
-            className="max-w-[80px] sm:max-w-[100px] md:max-w-[120px]"
-          />
-          <img
-            src="/SI.png"
-            alt="Startup India"
-            className="max-w-[80px] sm:max-w-[100px] md:max-w-[120px]"
-          />
-        </div>
-        <p className="mb-3 mt-4 sm:mt-6 text-sm sm:text-base font-normal text-gray-200">
-          Proud Part of Startup India and GeM
-        </p>
-      </>
-    ),
-  },
-  {
-    id: "card2",
-    ariaLabel: "Show IITM Pravartak info",
-    cardPosition: "right",
-    content: (
-      <>
-        <img
-          src="/IITM PIS.png"
-          alt="IITM Pravartak"
-          className="max-w-[120px] sm:max-w-[150px] md:max-w-[175px]"
-        />
-        <p className="mb-3 mt-4 sm:mt-6 text-sm sm:text-base font-normal text-gray-200">
-          We're proud to share that 32Mins Digital Consultancy Services is now
-          incubated under the esteemed wing of the IITM Pravartak Technologies
-          Foundation
-        </p>
-      </>
-    ),
-  },
-];
 
 const UpdatePage = () => {
   const earthRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(earthRef, { once: true, amount: 0.15 });
+  const isActive = useInView(earthRef, { amount: 0.02 });
   const summaryRef = useRef<HTMLDivElement | null>(null);
+  const markerPortalRef = useRef<HTMLDivElement>(null);
   const [showCard, setShowCard] = useState<CardType>("");
+  const [globeReady, setGlobeReady] = useState(false);
+  const [placeholderGone, setPlaceholderGone] = useState(false);
+
+  const use3D = useMemo(
+    () =>
+      canUseWebGL() &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    [],
+  );
+
+  // Warm up the globe right after load (idle time): download the three.js
+  // chunk + textures and render the first frames off-screen, so the real
+  // earth is already in place when the user scrolls down to it.
+  const [globeMounted, setGlobeMounted] = useState(false);
+  useEffect(() => {
+    if (!use3D) return;
+    const idle =
+      window.requestIdleCallback ??
+      ((cb: IdleRequestCallback) =>
+        window.setTimeout(() => cb({} as IdleDeadline), 400));
+    const cancel =
+      window.cancelIdleCallback ?? ((id: number) => window.clearTimeout(id));
+    const handle = idle(() => setGlobeMounted(true));
+    return () => cancel(handle);
+  }, [use3D]);
+
+  // Free the placeholder image once the crossfade to WebGL has finished.
+  useEffect(() => {
+    if (!globeReady) return;
+    const t = setTimeout(() => setPlaceholderGone(true), 1000);
+    return () => clearTimeout(t);
+  }, [globeReady]);
 
   return (
     <section className="z-10 relative scroll-mt-20 w-full max-w-full min-w-0 flex flex-col items-center justify-center overflow-hidden min-h-[var(--viewport-height)] h-[var(--viewport-height)]">
@@ -156,46 +67,89 @@ const UpdatePage = () => {
         ref={earthRef}
         className="globe-section relative w-full h-full overflow-hidden"
       >
-        <motion.img
-          src="/earth2.webp"
-          alt="earth"
-          initial={{ y: "40%", rotate: 180 }}
-          animate={
-            isInView
-              ? {
-                  rotate:
-                    showCard === "card1"
-                      ? 270 + 45
-                      : showCard === "card2"
-                        ? 270 - 45
-                        : 270,
-                }
-              : { rotate: 300 }
-          }
-          transition={{ duration: 1, ease: "easeOut" }}
-          className="absolute bottom-10 sm:bottom-5 md:-bottom-15 left-1/2 -translate-x-1/2 w-[max(100%,100vh)]"
-        />
-
-        <div
-          className="absolute top-[86%] lg:top-5/7 left-1/2 -translate-x-1/2 flex justify-between items-center w-[50%] sm:w-[45%] md:w-[40%] lg:w-[50%] "
-          style={{ zIndex: 2 }}
-        >
-          {cardData.map((card) => (
-            <GlobeCard
-              key={card.id}
-              data={card}
-              isActive={showCard === card.id}
-              onToggle={() => setShowCard(showCard === card.id ? "" : card.id)}
-              onClose={() => setShowCard("")}
+        {/* The earth (placeholder image + WebGL canvas) dissolves toward the
+            section's bottom edge via an alpha mask — the page background
+            shows through, so there is no seam to color-match. The marker
+            layer lives outside this wrapper and stays at full opacity. */}
+        <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black_38%,rgba(0,0,0,0.35)_72%,transparent_96%)]">
+          {!(use3D && placeholderGone) && (
+            <motion.img
+              src="/earth2.webp"
+              alt="earth"
+              initial={{ rotate: use3D ? 0 : 180, opacity: 1 }}
+              animate={
+                isInView
+                  ? {
+                      rotate: !use3D
+                        ? showCard === "card1"
+                          ? 45
+                          : showCard === "card2"
+                            ? -45
+                            : 0
+                        : 0,
+                      opacity: use3D && globeReady ? 0 : 1,
+                    }
+                  : { rotate: use3D ? 0 : 210 }
+              }
+              transition={{
+                rotate: { duration: 1, ease: "easeOut" },
+                opacity: { duration: 0.9, ease: "easeInOut" },
+              }}
+              className="absolute bottom-10 sm:bottom-5 md:-bottom-15 left-1/2 -translate-x-1/2 translate-y-[40%] w-[max(100%,100vh)] aspect-square"
             />
-          ))}
+          )}
+
+          {use3D && (globeMounted || isInView) && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: globeReady ? 1 : 0 }}
+              transition={{ duration: 0.9, ease: "easeInOut" }}
+              className="globe-canvas absolute bottom-10 sm:bottom-5 md:-bottom-15 left-1/2 -translate-x-1/2 translate-y-[40%] w-[max(100%,100vh)] aspect-square"
+              aria-label="Interactive 3D globe — drag to spin"
+            >
+              <Suspense fallback={null}>
+                <Globe3D
+                  activeCard={showCard}
+                  setActiveCard={setShowCard}
+                  onReady={() => setGlobeReady(true)}
+                  active={isActive || !globeReady}
+                  markerPortal={markerPortalRef}
+                  entered={isInView}
+                />
+              </Suspense>
+            </motion.div>
+          )}
         </div>
 
-        {/* Light overall darkening */}
-        {/* <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#000b2f] via-black/10 to-transparent" /> */}
+        {/* Flat fallback keeps the clickable info points when WebGL is
+            unavailable or the user prefers reduced motion. */}
+        {!use3D && (
+          <div
+            className="absolute top-[86%] lg:top-5/7 left-1/2 -translate-x-1/2 flex justify-between items-center w-[50%] sm:w-[45%] md:w-[40%] lg:w-[50%] "
+            style={{ zIndex: 2 }}
+          >
+            {cardData.map((card) => (
+              <GlobeCard
+                key={card.id}
+                data={card}
+                isActive={showCard === card.id}
+                onToggle={() =>
+                  setShowCard(showCard === card.id ? "" : card.id)
+                }
+                onClose={() => setShowCard("")}
+              />
+            ))}
+          </div>
+        )}
 
-        {/* Tall smooth bottom fade — black masks the earth, ends in #000C30 to match the parent bg shown in the section gap */}
-        <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-[55%] bg-gradient-to-t from-[#000b2f] via-black/75 to-transparent" />
+        {/* Marker layer: mirrors the canvas geometry exactly but sits outside
+            the masked earth wrapper, so the pinned info points stay bright. */}
+        {use3D && (
+          <div
+            ref={markerPortalRef}
+            className="pointer-events-none absolute bottom-10 sm:bottom-5 md:-bottom-15 left-1/2 -translate-x-1/2 translate-y-[40%] w-[max(100%,100vh)] aspect-square z-20"
+          />
+        )}
       </div>
       <Summary ref={summaryRef} />
     </section>

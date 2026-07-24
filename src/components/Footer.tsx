@@ -32,9 +32,9 @@ const Footer = () => {
 
   return (
     <footer
-      className="bg-[#0A0A0A] w-full flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16"
+      className="bg-[linear-gradient(to_bottom,#000016_0px,#040314_160px)] w-full flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16"
       style={{
-        paddingTop: "clamp(1.5rem, 5vw, 3rem)",
+        paddingTop: "clamp(2.5rem, 6vw, 4rem)",
         paddingBottom: "clamp(1.5rem, 5vw, 3rem)",
         gap: "clamp(2rem, 5vw, 4rem)",
       }}

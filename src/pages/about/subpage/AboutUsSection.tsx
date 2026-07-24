@@ -81,8 +81,10 @@ const AboutUsSection = () => {
         className="w-full flex items-center justify-center"
       >
         <img
-          src="ape.webp"
+          src="/ape.webp"
           alt="ape"
+          loading="lazy"
+          decoding="async"
           className="w-full max-w-[556px] h-auto object-contain rounded-lg"
         />
       </motion.figure>

@@ -28,8 +28,8 @@
     <link rel="canonical" href="https://32mins.com/" />
 
     <!-- Favicon -->
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -112,9 +112,15 @@
     </script>
 
     <!-- Fonts -->
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800");
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Manrope:wght@400..800&display=swap"
+    />
+
+    <!-- LCP hero background -->
+    <link rel="preload" as="image" href="/bg-image.webp" fetchpriority="high" />
   </head>
   <body>
     <div id="root"></div>

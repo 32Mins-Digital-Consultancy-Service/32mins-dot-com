@@ -1,5 +1,7 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import { useLenis } from "lenis/react";
+import { smoothScrollTo } from "../../lib/scroll";
 import { Menu } from "../../components/Menu";
 import { ContactUsPage } from "../../components/ContactUs";
 import Footer from "../../components/Footer";
@@ -20,18 +22,20 @@ export const AboutPage = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const lenis = useLenis();
+
   useEffect(() => {
     if (hash) {
       const id = hash.slice(1);
       if (SECTION_IDS.includes(id)) {
         const el = document.getElementById(id);
-        el?.scrollIntoView({ behavior: "smooth", block: "start" });
+        if (el) smoothScrollTo(lenis, el);
       }
     }
-  }, [hash]);
+  }, [hash, lenis]);
 
   return (
-    <div className="w-full bg-[#000016] items-center justify-center gap-10 sm:gap-14 md:gap-18 lg:gap-24 flex flex-col max-w-full min-w-0 overflow-x-hidden">
+    <div className="w-full bg-[#000016] items-center justify-center gap-[clamp(4.5rem,9vw,7.5rem)] flex flex-col max-w-full min-w-0 overflow-x-hidden">
       <SEO
         title="About Us | 32Mins - Empowering Digital Education & eLearning"
         description="Learn about 32Mins Digital Consultancy Services — founded in 2023, incubated at IIT Madras Research Park. We empower learning through AI-powered eLearning, digital media production, and interactive educational content for rural India and beyond."
@@ -69,12 +73,12 @@ export const AboutPage = () => {
         }}
       />
       <Menu />
-      <main className="pt-24 sm:pt-28 md:pt-32 lg:pt-36 flex flex-col items-center justify-center w-full gap-10 sm:gap-14 md:gap-18 lg:gap-24">
+      <main className="pt-24 sm:pt-28 md:pt-32 lg:pt-36 flex flex-col items-center justify-center w-full gap-[clamp(4.5rem,9vw,7.5rem)]">
         <section
           ref={aboutusRef}
           data-reveal-section="aboutus"
           id="aboutus"
-          className="scroll-mt-24 w-full flex flex-col items-center justify-center"
+          className="scroll-mt-32 w-full flex flex-col items-center justify-center"
         >
           <AboutUsSection />
         </section>
@@ -82,7 +86,7 @@ export const AboutPage = () => {
           ref={employeesRef}
           data-reveal-section="employees"
           id="employees"
-          className="scroll-mt-24 w-full flex flex-col items-center justify-center"
+          className="scroll-mt-32 w-full flex flex-col items-center justify-center"
         >
           <EmployeesSection />
         </section>

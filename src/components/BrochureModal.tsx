@@ -83,7 +83,10 @@ export const BrochureModal = ({ isOpen, onClose }: BrochureModalProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center">
+    <div
+      className="fixed inset-0 z-[60] flex items-center justify-center"
+      data-lenis-prevent
+    >
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/70 backdrop-blur-sm"
@@ -91,7 +94,7 @@ export const BrochureModal = ({ isOpen, onClose }: BrochureModalProps) => {
       />
 
       {/* Modal */}
-      <div className="relative z-10 flex flex-col gap-4 sm:gap-6 shadow-xl bg-[#0A0A0A] py-5 sm:py-7 px-4 sm:px-8 md:px-12 rounded-2xl max-w-[95vw] max-h-[95vh]">
+      <div className="relative z-10 flex flex-col gap-4 sm:gap-6 shadow-xl bg-[#06041A] py-5 sm:py-7 px-4 sm:px-8 md:px-12 rounded-2xl max-w-[95vw] max-h-[95vh]">
         {/* Header */}
         <header className="flex justify-between items-center gap-2 sm:gap-4">
           <h4 className="text-white font-bold text-xs sm:text-sm md:text-base truncate">
@@ -183,7 +186,7 @@ export const BrochureModal = ({ isOpen, onClose }: BrochureModalProps) => {
             <span
               className={`jaffee${backOpen ? " open" : ""}`}
               style={
-                { "--bg": "url('/Inner_Spread.png')" } as React.CSSProperties
+                { "--bg": "url('/Inner_Spread.webp')" } as React.CSSProperties
               }
             >
               <span className="bc">
@@ -192,7 +195,7 @@ export const BrochureModal = ({ isOpen, onClose }: BrochureModalProps) => {
               </span>
               <span className={`a${pageCount >= 1 ? " open" : ""}`} />
               <img
-                src="/Inner_Spread.png"
+                src="/Inner_Spread.webp"
                 alt="Brochure"
                 draggable={false}
                 loading="eager"

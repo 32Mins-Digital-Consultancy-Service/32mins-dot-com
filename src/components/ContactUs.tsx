@@ -47,7 +47,7 @@ export const ContactUsPage = () => {
   };
 
   return (
-    <section className="relative bg-linear-to-b from-[#0A1953] to-[#2842F7] w-[90%] max-w-full h-[360px] rounded-2xl p-7.5 flex flex-col gap-6 items-center justify-center overflow-hidden">
+    <section className="relative bg-linear-to-b from-[#0A1953] to-[#2842F7] w-[90%] max-w-full min-h-[360px] rounded-2xl px-7.5 py-[clamp(2.5rem,6vw,4rem)] flex flex-col gap-6 items-center justify-center overflow-hidden">
       <h1 className="font-bold text-[clamp(96px,30vw,480px)] tracking-[-0.04em] text-white/16 text-center absolute mix-blend-soft-light z-0  left-1/2 -translate-x-1/2 whitespace-nowrap">
         Reach Us
       </h1>
@@ -57,9 +57,9 @@ export const ContactUsPage = () => {
           whileInView={{
             opacity: 1,
             y: 0,
-            transition: { delay: 0.2, duration: 0.5 },
+            transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
           }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.2 }}
           className="font-bold text-[clamp(1.5rem,4vw,3rem)] tracking-tighter text-white"
         >
           Reach Us
@@ -69,9 +69,9 @@ export const ContactUsPage = () => {
           whileInView={{
             opacity: 1,
             y: 0,
-            transition: { delay: 0.2, duration: 0.5 },
+            transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
           }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.2 }}
           className="flex flex-col "
         >
           <p className="font-normal text-[clamp(1rem,2vw,1.25rem)] tracking-tighter text-white text-center">

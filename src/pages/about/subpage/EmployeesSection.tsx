@@ -16,103 +16,103 @@ const employees: Employee[] = [
     id: 1,
     name: "Aadharsh Srinivas R",
     position: "Designer & COO",
-    image: "./32mins_emp/Aadharsh Srinivas R.jpg",
+    image: "/32mins_emp/Aadharsh Srinivas R.webp",
   },
   {
     id: 2,
     name: "Akshaya Dharshini S",
     position: "Full Stack Developer",
-    image: "./32mins_emp/Akshaya Dharshini S.jpg",
+    image: "/32mins_emp/Akshaya Dharshini S.webp",
   },
   {
     id: 3,
     name: "Annuradha M",
     position: "Operations Manager",
-    image: "./32mins_emp/Annuradha M.jpg",
+    image: "/32mins_emp/Annuradha M.webp",
   },
   {
     id: 4,
     name: "Ashwin Preyan M",
     position: "Back-end Developer",
-    image: "./32mins_emp/Ashwin Preyan M.jpg",
+    image: "/32mins_emp/Ashwin Preyan M.webp",
   },
   {
     id: 5,
     name: "Divakar G",
     position: "Senior Executive",
-    image: "./32mins_emp/Divakar G.jpg",
+    image: "/32mins_emp/Divakar G.webp",
   },
   {
     id: 6,
     name: "Elakiyan D",
     position: "Jr. Visual Designer",
-    image: "./32mins_emp/Elakiyan D.jpg",
+    image: "/32mins_emp/Elakiyan D.webp",
   },
   {
     id: 7,
     name: "Ganesh R",
     position: "Digital Studio Manager",
-    image: "./32mins_emp/Ganesh R.jpg",
+    image: "/32mins_emp/Ganesh R.webp",
   },
   {
     id: 8,
     name: "Gaushikha B J",
     position: "Back-end Developer",
-    image: "./32mins_emp/Gaushikha B J.jpg",
+    image: "/32mins_emp/Gaushikha B J.webp",
   },
   {
     id: 9,
     name: "Hashini Ravishankar",
     position: "UI/UX Designer",
-    image: "./32mins_emp/Hashini Ravishankar.jpg",
+    image: "/32mins_emp/Hashini Ravishankar.webp",
   },
   {
     id: 10,
     name: "Karthikeyan",
     position: "Digital Video Specialist",
-    image: "./32mins_emp/Karthikeyan.jpg",
+    image: "/32mins_emp/Karthikeyan.webp",
   },
   {
     id: 11,
     name: "Lavanya",
     position: "Jr. Moodle Developer",
-    image: "./32mins_emp/Lavanya.jpg",
+    image: "/32mins_emp/Lavanya.webp",
   },
   {
     id: 12,
     name: "Logeshwari",
     position: "eLearning Web Developer",
-    image: "./32mins_emp/Logeshwari.jpg",
+    image: "/32mins_emp/Logeshwari.webp",
   },
   {
     id: 13,
     name: "Pandi Durai S",
     position: "Software Engineer",
-    image: "./32mins_emp/Pandi Durai S.jpg",
+    image: "/32mins_emp/Pandi Durai S.webp",
   },
   {
     id: 14,
     name: "Ponnulakshmi S",
     position: "Application Developer",
-    image: "./32mins_emp/Ponnulakshmi S.jpg",
+    image: "/32mins_emp/Ponnulakshmi S.webp",
   },
   {
     id: 15,
     name: "Rajendran SP",
     position: "Full Stack Developer",
-    image: "./32mins_emp/Rajendran SP.jpg",
+    image: "/32mins_emp/Rajendran SP.webp",
   },
   {
     id: 16,
     name: "Sarveshwaran J",
     position: "Data Analyst",
-    image: "./32mins_emp/Sarveshwaran J.jpg",
+    image: "/32mins_emp/Sarveshwaran J.webp",
   },
   {
     id: 17,
     name: "Sribalaji Ravi",
     position: "CEO & Founder",
-    image: "./32mins_emp/Sribalaji Ravi.jpg",
+    image: "/32mins_emp/Sribalaji Ravi.webp",
   },
 ];
 
@@ -149,12 +149,14 @@ const EmployeeCard = ({ employee }: { employee: Employee }) => {
         containerWidth="100%"
         showMobileWarning={false}
       >
-        <article className="bg-[#0A0A0A] rounded-xl sm:rounded-4xl p-2 sm:p-4 flex flex-col items-center text-center gap-2 sm:gap-5 border border-[#1B1B1B] h-full w-full">
+        <article className="bg-[#06041A] rounded-xl sm:rounded-4xl p-2 sm:p-4 flex flex-col items-center text-center gap-2 sm:gap-5 border border-white/10 h-full w-full">
           <div className="w-full aspect-square sm:h-48 md:h-56 lg:h-62 rounded-xl sm:rounded-4xl overflow-hidden flex-shrink-0">
             {imageAvailable ? (
               <img
                 src={image2Available ? employee.image2 : employee.image}
                 alt={employee.name}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover object-top rounded-xl sm:rounded-4xl"
                 onError={() => setImageError(true)}
               />
@@ -186,9 +188,9 @@ const EmployeesSection = () => {
           whileInView={{
             opacity: 1,
             y: 0,
-            transition: { delay: 0.2, duration: 0.5 },
+            transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
           }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.2 }}
           className="text-white text-[clamp(1.25rem,4vw,1.875rem)] font-bold tracking-tighter text-center"
         >
           Meet the Minds Behind 32Mins
@@ -198,9 +200,9 @@ const EmployeesSection = () => {
           whileInView={{
             opacity: 1,
             y: 0,
-            transition: { delay: 0.2, duration: 0.5 },
+            transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
           }}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.2 }}
           className="text-[#8E8E8E] text-[clamp(0.875rem,2vw,1.125rem)] font-normal tracking-tighter text-center max-w-2xl"
         >
           We bring together technology and strategy to create tailor-made

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import CtaButton from "../../../components/CtaButton";
-import { SubpageHeader } from "../../../components/SubpageHeader";
+import { SectionHeader } from "../../../components/SectionHeader";
 import { useNavigate } from "react-router-dom";
 import Rightarro from "../../../assets/Rightarro.svg";
 
@@ -8,25 +8,20 @@ export const AboutUsPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center justify-center max-w-6xl gap-[clamp(4rem,8vw,5rem)] px-[clamp(1rem,5vw,3rem)]">
-      <div className="flex flex-col gap-[clamp(1rem,4vw,2rem)]">
-        <SubpageHeader title="About Us" />
+    <div className="flex flex-col items-center justify-center max-w-6xl gap-[clamp(2.5rem,6vw,4rem)] px-[clamp(1rem,5vw,3rem)]">
+      <div className="flex w-full flex-col items-center gap-[clamp(2.5rem,6vw,4rem)]">
+        <SectionHeader pill="About Us" title="Who we are" />
         <div className="flex flex-col lg:flex-row items-center justify-center gap-[clamp(1.5rem,6vw,4rem)] px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{
               opacity: 1,
               y: 0,
-              transition: { delay: 0.2, duration: 0.5 },
+              transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
             }}
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.2 }}
             className="flex flex-col gap-[clamp(1rem,4vw,2.5rem)] max-w-xl w-full lg:w-auto"
           >
-            <div className="flex flex-col gap-2">
-              <h1 className="font-bold text-[clamp(1.25rem,4vw,1.875rem)] tracking-tighter text-white">
-                Who we are
-              </h1>
-            </div>
             <p className="text-[clamp(0.875rem,2vw,1.125rem)] font-normal tracking-tigher text-[#8E8E8E] leading-relaxed">
               32Mins is an organisation established with a vision to transform
               conventional learning into interactive digital content. We want to
@@ -45,19 +40,23 @@ export const AboutUsPage = () => {
             whileInView={{
               opacity: 1,
               y: 0,
-              transition: { delay: 0.2, duration: 0.5 },
+              transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
             }}
-            viewport={{ once: true, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.2 }}
             className="flex items-center justify-center gap-[clamp(0.5rem,2vw,1.25rem)] flex-shrink-0"
           >
             <img
-              src="./image1.webp"
+              src="/image1.webp"
               alt="32Mins team collaborating on digital content production"
+              loading="lazy"
+              decoding="async"
               className="w-[clamp(140px,22vw,232px)] h-[clamp(193px,30.5vw,321px)] mb-[clamp(1rem,3vw,2.5rem)] rounded-lg object-cover"
             />
             <img
-              src="./image2.webp"
+              src="/image2.webp"
               alt="32Mins workspace at IIT Madras Research Park"
+              loading="lazy"
+              decoding="async"
               className="w-[clamp(140px,22vw,232px)] h-[clamp(193px,30.5vw,321px)] mt-[clamp(1rem,3vw,2.5rem)] rounded-lg object-cover"
             />
           </motion.div>
@@ -68,10 +67,10 @@ export const AboutUsPage = () => {
         whileInView={{
           opacity: 1,
           y: 0,
-          transition: { delay: 0.2, duration: 0.5 },
+          transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
         }}
-        viewport={{ once: true, amount: 0.5 }}
-        className="rounded-4xl bg-gradient-to-r from-[#1D1D1B]/20 via-white/20 to-[#1D1D1B]/20 max-w-4xl h-fit w-full"
+        viewport={{ once: true, amount: 0.2 }}
+        className="rounded-4xl bg-[#050B26]/60 max-w-4xl h-fit w-full"
       >
         <blockquote className="backdrop-blur-2xl border border-[#1B1B1B] flex gap-[clamp(0.5rem,2vw,1rem)] p-[clamp(1rem,3vw,2rem)] rounded-2xl items-center justify-center">
           <span

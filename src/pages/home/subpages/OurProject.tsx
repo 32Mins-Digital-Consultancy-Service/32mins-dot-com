@@ -1,39 +1,14 @@
-import { SubpageHeader } from "../../../components/SubpageHeader";
-import { motion } from "framer-motion";
+import { SectionHeader } from "../../../components/SectionHeader";
 import ProjectCards from "../../../components/ProjectCards";
 
 export default function OurPerjectPage() {
   return (
-    <div className="flex flex-col items-center justify-center w-full gap-6 sm:gap-7 md:gap-9 px-4 sm:px-6 md:px-8">
-      <div className="flex flex-col items-center justify-center w-full gap-4 sm:gap-6 max-w-5xl">
-        <div className="flex flex-col items-center justify-center gap-4 sm:gap-3">
-          <SubpageHeader title="Our Projects" />
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-              transition: { delay: 0.2, duration: 0.5 },
-            }}
-            viewport={{ once: true, amount: 0.5 }}
-            className="font-bold text-xl sm:text-2xl md:text-3xl tracking-tigher text-white text-center px-2"
-          >
-            A glimpse into our customized solutions
-          </motion.h2>
-        </div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-            transition: { delay: 0.2, duration: 0.5 },
-          }}
-          viewport={{ once: true, amount: 0.5 }}
-          className="text-[#8E8E8E] text-base sm:text-lg tracking-tigher text-center px-2"
-        >
-          Quick answers to your million dollar question
-        </motion.div>
-      </div>
+    <div className="flex w-full flex-col items-center justify-center gap-[clamp(2.5rem,6vw,4rem)] px-[clamp(1rem,4vw,2rem)]">
+      <SectionHeader
+        pill="Our Projects"
+        title="A glimpse into our customized solutions"
+        subtitle="Quick answers to your million dollar question"
+      />
       <ProjectCards />
     </div>
   );

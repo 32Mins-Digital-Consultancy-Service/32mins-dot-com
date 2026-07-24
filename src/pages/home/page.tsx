@@ -1,6 +1,8 @@
 // HomePage.tsx
 import { useEffect, useLayoutEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import { useLenis } from "lenis/react";
+import { smoothScrollTo } from "../../lib/scroll";
 import { Menu } from "../../components/Menu";
 import HeroSection from "./subpages/HeroPage";
 import { SolutionsPage } from "./subpages/Solutions";
@@ -31,6 +33,8 @@ export const HomePage = () => {
   const ourprojectsRef = useRef<HTMLElement>(null);
   const contactusRef = useRef<HTMLElement>(null);
 
+  const lenis = useLenis();
+
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -43,14 +47,14 @@ export const HomePage = () => {
 
     const timeout = setTimeout(() => {
       const el = document.getElementById(id);
-      el?.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (el) smoothScrollTo(lenis, el);
     }, 100);
 
     return () => clearTimeout(timeout);
-  }, [hash]);
+  }, [hash, lenis]);
 
   return (
-    <div className="bg-linear-to-t from-[#000016] to-[#000C30] flex flex-col items-center justify-center gap-10 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 w-full max-w-full min-w-0 overflow-x-hidden">
+    <div className="bg-linear-to-t from-[#000016] to-[#000C30] flex flex-col items-center justify-center gap-[clamp(4.5rem,9vw,7.5rem)] w-full max-w-full min-w-0 overflow-x-hidden">
       <SEO
         title="32Mins | Converting Meaningful Knowledge Into Impactful Digital Content"
         description="32Mins transforms meaningful knowledge into impactful digital content. Specializing in eLearning production, digital media, lab & industry learning videos, LMS management, and eLearning consulting. Trusted by IIT Madras, Virginia Tech & more."
@@ -106,9 +110,14 @@ export const HomePage = () => {
         }}
       />
       <Menu />
-      <div className="relative bg-[url('/bg-image.webp')] bg-center bg-cover w-full bg-no-repeat flex flex-col items-stretch">
-        <div className="absolute inset-0 bg-[#091951] w-full mix-blend-overlay "></div>
-        <div className="absolute inset-0 bg-linear-to-t from-[#000000] to-[#000000]/0 w-full mix-blend-overlay "></div>
+      <div className="relative w-full flex flex-col items-stretch">
+        {/* Textured backdrop dissolves into the page gradient via an alpha
+            mask. It fades out early in the globe section so the artwork's
+            wave shapes never show as arcs beside the earth. */}
+        <div className="absolute inset-0 bg-[url('/bg-image.webp')] bg-center bg-cover bg-no-repeat [mask-image:linear-gradient(to_bottom,black_42%,transparent_66%)]">
+          <div className="absolute inset-0 bg-[#091951] w-full mix-blend-overlay "></div>
+          <div className="absolute inset-0 bg-linear-to-t from-[#000000] to-[#000000]/0 w-full mix-blend-overlay "></div>
+        </div>
         <section className="z-10 relative scroll-mt-20 w-full max-w-full min-w-0 flex flex-col items-center justify-center overflow-x-hidden min-h-[var(--viewport-height)] h-[var(--viewport-height)]">
           <HeroSection />
         </section>
@@ -117,35 +126,35 @@ export const HomePage = () => {
       <section
         ref={solutionsRef}
         id="solutions"
-        className="scroll-mt-24 w-full flex flex-col items-center justify-center"
+        className="scroll-mt-32 w-full flex flex-col items-center justify-center"
       >
         <SolutionsPage />
       </section>
       <section
         ref={aboutusRef}
         id="aboutus"
-        className="scroll-mt-24 w-full flex flex-col items-center justify-center"
+        className="scroll-mt-32 w-full flex flex-col items-center justify-center"
       >
         <AboutUsPage />
       </section>
       <section
         ref={clientsRef}
         id="clients"
-        className="scroll-mt-24 w-full flex flex-col items-center justify-center"
+        className="scroll-mt-32 w-full flex flex-col items-center justify-center"
       >
         <ClientsPage />
       </section>
       <section
         ref={whyusRef}
         id="whyus"
-        className="scroll-mt-24 w-full flex flex-col items-center justify-center"
+        className="scroll-mt-32 w-full flex flex-col items-center justify-center"
       >
         <WhyUsPage />
       </section>
       <section
         ref={ourprojectsRef}
         id="ourprojects"
-        className="scroll-mt-24 w-full flex flex-col items-center justify-center"
+        className="scroll-mt-32 w-full flex flex-col items-center justify-center"
       >
         <OurPerjectPage />
       </section>

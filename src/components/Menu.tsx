@@ -1,8 +1,14 @@
 // Menu.tsx
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect, useLayoutEffect, lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
+import { useLenis } from "lenis/react";
 import CtaButton from "./CtaButton";
-import { BrochureModal } from "./BrochureModal";
+import { smoothScrollTo } from "../lib/scroll";
+
+// The brochure modal (and its heavy spread images) loads on first open only.
+const BrochureModal = lazy(() =>
+  import("./BrochureModal").then((m) => ({ default: m.BrochureModal })),
+);
 
 const menuItems = [
   { name: "Solutions", id: "solutions" },
@@ -19,21 +25,27 @@ export const Menu = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrollToTop, setScrollToTop] = useState(false);
+  const lenis = useLenis();
 
   useLayoutEffect(() => {
     if (scrollToTop) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      smoothScrollTo(lenis, 0);
       setScrollToTop(false);
     }
-  }, [scrollToTop]);
+  }, [scrollToTop, lenis]);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 50);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        setIsScrolled(window.scrollY > 50);
+        ticking = false;
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -51,17 +63,17 @@ export const Menu = () => {
     setIsMobileMenuOpen(false);
   };
 
-  // Prevent body scroll when mobile menu is open
+  // Prevent body scroll when mobile menu or brochure modal is open
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    const locked = isMobileMenuOpen || activeBrochure;
+    document.body.style.overflow = locked ? "hidden" : "unset";
+    if (locked) lenis?.stop();
+    else lenis?.start();
     return () => {
       document.body.style.overflow = "unset";
+      lenis?.start();
     };
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, activeBrochure, lenis]);
 
   // Close mobile menu on Escape
   useEffect(() => {
@@ -161,10 +173,14 @@ export const Menu = () => {
       </header>
 
       {/* Brochure Modal */}
-      <BrochureModal
-        isOpen={activeBrochure}
-        onClose={() => setActiveBrochure(false)}
-      />
+      {activeBrochure && (
+        <Suspense fallback={null}>
+          <BrochureModal
+            isOpen={activeBrochure}
+            onClose={() => setActiveBrochure(false)}
+          />
+        </Suspense>
+      )}
 
       {/* Mobile Menu Overlay */}
       {isMobile && (
@@ -184,10 +200,11 @@ export const Menu = () => {
 
           {/* Menu Panel */}
           <nav
-            className={`absolute top-0 right-0 h-full w-[min(18rem,100vw-2rem)] max-w-[85vw] bg-[#0A0A0A]/95 backdrop-blur-lg border-l border-[#1B1B1B]  transition-transform duration-300 flex flex-col pt-[calc(5rem+env(safe-area-inset-top))] pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)] ${
+            className={`absolute top-0 right-0 h-full w-[min(18rem,100vw-2rem)] max-w-[85vw] bg-[#06041A]/95 backdrop-blur-lg border-l border-[#1B1B1B]  transition-transform duration-300 flex flex-col pt-[calc(5rem+env(safe-area-inset-top))] pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)] ${
               isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
             }`}
             aria-label="Mobile navigation"
+            data-lenis-prevent
           >
             <div className="flex flex-col gap-1 overflow-y-auto flex-1 px-6 py-4">
               {menuItems.map((item) => (

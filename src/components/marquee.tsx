@@ -1,16 +1,16 @@
 import { motion } from "framer-motion";
 
 const CLIENT_LOGOS: { src: string; alt: string }[] = [
-  { src: "./chai.webp", alt: "Chai logo" },
-  { src: "./digivisicom.webp", alt: "Digivisicom logo" },
-  { src: "./fundaspring.webp", alt: "Fundaspring logo" },
-  { src: "./iitmadras.webp", alt: "IIT Madras logo" },
-  { src: "./iitmpravartak.webp", alt: "IITM Pravartak logo" },
-  { src: "./rajendental.webp", alt: "Rajen Dental logo" },
-  { src: "./shaktidb.webp", alt: "Shakti DB logo" },
-  { src: "./swayam.webp", alt: "Swayam logo" },
-  { src: "./thsti.webp", alt: "THSTI logo" },
-  { src: "./virginiatech.webp", alt: "Virginia Tech logo" },
+  { src: "/chai.webp", alt: "Chai logo" },
+  { src: "/digivisicom.webp", alt: "Digivisicom logo" },
+  { src: "/fundaspring.webp", alt: "Fundaspring logo" },
+  { src: "/iitmadras.webp", alt: "IIT Madras logo" },
+  { src: "/iitmpravartak.webp", alt: "IITM Pravartak logo" },
+  { src: "/rajendental.webp", alt: "Rajen Dental logo" },
+  { src: "/shaktidb.webp", alt: "Shakti DB logo" },
+  { src: "/swayam.webp", alt: "Swayam logo" },
+  { src: "/thsti.webp", alt: "THSTI logo" },
+  { src: "/virginiatech.webp", alt: "Virginia Tech logo" },
 ];
 
 export default function Marquee() {
@@ -30,6 +30,8 @@ export default function Marquee() {
             key={index}
             src={logo.src}
             alt={logo.alt}
+            loading="lazy"
+            decoding="async"
             className={`object-contain pr-8 ${
               logo.src.includes("thsti") || logo.src.includes("iitmadras")
                 ? "h-[80px] w-[150px]"
