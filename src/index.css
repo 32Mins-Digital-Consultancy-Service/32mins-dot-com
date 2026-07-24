@@ -162,14 +162,17 @@ body {
     transition: all 0.25s;
     opacity: 1;
   }
+  /* Circular arrow chip: a perfect circle inset from the button's edge,
+     so it reads as a deliberate badge instead of a smeared highlight. */
   .block {
-    width: 30%;
-    height: 100%;
+    --chip-inset: 0.3em;
+    height: calc(100% - 2 * var(--chip-inset));
+    aspect-ratio: 1;
     position: absolute;
-    top: 0;
-    left: -30%;
+    top: var(--chip-inset);
+    left: -100%;
     border-radius: 9999px;
-    opacity: 0.7;
+    opacity: 0;
     transition: all 0.25s;
     z-index: 1;
     display: flex;
@@ -202,14 +205,15 @@ body {
     }
     .block {
       transition-delay: 0.2s;
-      left: 0;
+      left: var(--chip-inset);
+      opacity: 1;
     }
   }
 }
 
 .btn-style902-primary {
   .block {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.25);
   }
   &:hover {
     background: linear-gradient(to bottom, #0a1953, #2842f7);
