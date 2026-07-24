@@ -184,22 +184,25 @@ body {
       filter: invert(1);
     }
   }
-  &:hover {
-    span[data-name="me"] {
-      opacity: 0;
-    }
-    span[data-name="icon"],
-    span[data-name="hover"] {
-      transition-delay: 0.2s;
-      transform: translate(2.2em, 0);
-      .schedule-now-hover {
-        width: 2.5em;
-        opacity: 1;
+  /* hover: hover keeps taps on touch devices from sticking the morphed state */
+  @media (hover: hover) {
+    &:hover {
+      span[data-name="me"] {
+        opacity: 0;
       }
-    }
-    .block {
-      transition-delay: 0.2s;
-      left: 0;
+      span[data-name="icon"],
+      span[data-name="hover"] {
+        transition-delay: 0.2s;
+        transform: translate(2.2em, 0);
+        .schedule-now-hover {
+          width: 2.5em;
+          opacity: 1;
+        }
+      }
+      .block {
+        transition-delay: 0.2s;
+        left: 0;
+      }
     }
   }
 }
@@ -208,9 +211,11 @@ body {
   .block {
     background-color: rgba(255, 255, 255, 0.3);
   }
-  &:hover {
-    background: linear-gradient(to bottom, #0a1953, #2842f7);
-    border-color: #2842f7;
+  @media (hover: hover) {
+    &:hover {
+      background: linear-gradient(to bottom, #0a1953, #2842f7);
+      border-color: #2842f7;
+    }
   }
 }
 
