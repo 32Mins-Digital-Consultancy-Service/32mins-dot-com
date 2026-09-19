@@ -25,36 +25,42 @@ const media_urls = [
   {
     id: 1,
     title: "NMICPS",
+    url: "https://nmicps.gov.in/",
     cover_image: nmicpsCover,
     tags: ["UI/UX", "Dashboard"],
   },
   {
     id: 2,
     title: "SWAYAM Plus",
+    url: "https://swayamplus.education.gov.in/",
     cover_image: swayamPlusCover,
     tags: ["Full-Stack", "UI/UX", "LMS"],
   },
   {
     id: 3,
     title: "Rajan Dental",
+    url: "https://rajandental.com/",
     cover_image: rajenDentalCover,
     tags: ["UI/UX", "LMS"],
   },
   {
     id: 4,
     title: "CHAI",
+    url: "https://chai-iitmp.org/",
     cover_image: chaiCover,
     tags: ["Branding", "UI/UX"],
   },
   {
     id: 5,
     title: "ShaktiDB",
+    url: "https://shaktidb.iitmpravartak.net/",
     cover_image: shaktiDbCover,
     tags: ["Branding", "Newsletter"],
   },
   {
     id: 6,
     title: "DigiViscom",
+    url: "https://digiviscom.in/",
     cover_image: digiViscomCover,
     tags: ["Branding", "UI/UX", "LMS"],
   },
@@ -83,7 +89,14 @@ const ProjectCards = () => {
     <div className="w-full px-2 sm:px-4 md:px-10 lg:px-16 xl:px-20">
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5 lg:gap-6 max-w-6xl mx-auto">
         {media_urls.map((media) => (
-          <div key={media.id} className="min-w-0 h-full">
+          <a
+            key={media.id}
+            href={media.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open the ${media.title} website in a new tab`}
+            className="group block min-w-0 h-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/70 rounded-sm"
+          >
             <Tilt3D
               className="h-full"
               innerClassName="rounded-sm flex flex-col justify-between h-full gap-2 sm:gap-3 md:gap-4 min-w-0"
@@ -99,7 +112,7 @@ const ProjectCards = () => {
                 />
               </div>
               <div className="flex-col flex flex-wrap justify-between items-center lg:items-start lg:flex-row gap-1.5 sm:gap-2 min-w-0">
-                <h3 className="text-white text-xs sm:text-sm md:text-lg lg:text-xl font-semibold leading-tight w-fit break-words min-w-0">
+                <h3 className="text-white text-xs sm:text-sm md:text-lg lg:text-xl font-semibold leading-tight w-fit break-words min-w-0 underline-offset-4 decoration-white/60 group-hover:underline">
                   {media.title}
                 </h3>
                 <div className="flex flex-wrap gap-1 sm:gap-1.5 md:gap-2 min-w-0 shrink">
@@ -109,7 +122,7 @@ const ProjectCards = () => {
                 </div>
               </div>
             </Tilt3D>
-          </div>
+          </a>
         ))}
         <div className="flex flex-col items-center justify-center gap-2 sm:gap-3 md:gap-4 w-full rounded-sm col-span-2 md:col-span-3 min-w-0 mt-4 sm:mt-6 md:mt-8">
           <section
