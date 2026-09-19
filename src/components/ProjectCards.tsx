@@ -30,7 +30,7 @@ const media_urls = [
   },
   {
     id: 2,
-    title: "SwayamPlus",
+    title: "SWAYAM Plus",
     cover_image: swayamPlusCover,
     tags: ["Full-Stack", "UI/UX", "LMS"],
   },

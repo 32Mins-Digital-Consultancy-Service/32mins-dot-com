@@ -38,9 +38,9 @@ export const AboutPage = () => {
     <div className="w-full bg-[#000016] items-center justify-center gap-[clamp(4.5rem,9vw,7.5rem)] flex flex-col max-w-full min-w-0 overflow-x-hidden">
       <SEO
         title="About Us | 32Mins - Empowering Digital Education & eLearning"
-        description="32Mins Digital Consultancy Services is an IITM Pravartak-incubated EdTech consultancy at IIT Madras Research Park, Chennai, founded in 2023 by Sribalaji Ravi. We architect AI-driven eLearning platforms, adaptive digital applications and digital media, and power platforms such as SwayamPlus and NM-ICPS."
+        description="32Mins Digital Consultancy Services is an IITM Pravartak-incubated EdTech consultancy at IIT Madras Research Park, Chennai, founded in 2023 by Sribalaji Ravi. We architect AI-driven eLearning platforms, adaptive digital applications and digital media, and power platforms such as SWAYAM Plus and NM-ICPS."
         canonical="https://32mins.com/about"
-        keywords="32Mins about, eLearning company India, digital education, IIT Madras Research Park, IITM Pravartak, educational technology, AI eLearning platform, EdTech consultancy, Moodle engineers, SwayamPlus, NM-ICPS, team, digital consultancy Chennai"
+        keywords="32Mins about, eLearning company India, digital education, IIT Madras Research Park, IITM Pravartak, educational technology, AI eLearning platform, EdTech consultancy, Moodle engineers, SWAYAM Plus, NM-ICPS, team, digital consultancy Chennai"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "AboutPage",

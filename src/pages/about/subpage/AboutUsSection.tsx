@@ -24,7 +24,7 @@ const FACTS = [
   },
 ];
 
-const PLATFORMS = ["SwayamPlus", "NM-ICPS", "IITM Pravartak ecosystem"];
+const PLATFORMS = ["SWAYAM Plus", "NM-ICPS", "IITM Pravartak ecosystem"];
 
 const AboutUsSection = () => {
   const navigate = useNavigate();
