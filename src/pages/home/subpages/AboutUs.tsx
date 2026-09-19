@@ -68,9 +68,9 @@ export const AboutUsPage = () => {
           transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
         }}
         viewport={{ once: true, amount: 0.2 }}
-        className="rounded-2xl liquid-glass max-w-4xl h-fit w-full"
+        className="rounded-4xl bg-[#050B26]/60 max-w-4xl h-fit w-full"
       >
-        <blockquote className="flex gap-[clamp(0.5rem,2vw,1rem)] p-[clamp(1rem,3vw,2rem)] rounded-2xl items-center justify-center">
+        <blockquote className="backdrop-blur-2xl border border-[#1B1B1B] flex gap-[clamp(0.5rem,2vw,1rem)] p-[clamp(1rem,3vw,2rem)] rounded-2xl items-center justify-center">
           <span
             aria-hidden="true"
             className="text-[#8E8E8E]   font-extrabold leading-[clamp(2rem,5vw,5rem)] flex-shrink-0 manrope-font text-[120px]"

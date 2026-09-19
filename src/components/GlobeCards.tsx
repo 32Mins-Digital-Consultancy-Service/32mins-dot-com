@@ -89,7 +89,7 @@ export const GlobeCard = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
-            className={`absolute z-50 bottom-full mb-3 w-[280px] sm:w-[300px] md:min-w-[400px] md:max-w-lg p-4 sm:p-5 md:p-6 rounded-lg liquid-glass [--glass-tint:rgba(5,11,38,0.45)] ${
+            className={`absolute z-50 backdrop-blur-md  bottom-full mb-3 w-[280px] sm:w-[300px] md:min-w-[400px] md:max-w-lg p-4 sm:p-5 md:p-6 border border-white/10 rounded-lg shadow bg-[#050B26]/70 ${
               positionClasses[data.cardPosition]
             }`}
           >

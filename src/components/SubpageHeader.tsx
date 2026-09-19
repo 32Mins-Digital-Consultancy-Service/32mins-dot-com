@@ -2,7 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { motion } from "framer-motion";
 
 const subpageHeaderTitleVariants = cva(
-  "text-white font-normal tracking-tighter text-center rounded-lg w-fit",
+  "text-white font-normal tracking-tighter text-center backdrop-blur-sm border border-[#1B1B1B] rounded-lg w-fit",
   {
     variants: {
       variant: {
@@ -27,8 +27,8 @@ export const SubpageHeader = ({
 }: SubpageHeaderProps) => {
   const wrapClass =
     variant === "small"
-      ? "liquid-glass rounded-lg w-fit min-w-0 max-w-full"
-      : "liquid-glass rounded-lg w-fit";
+      ? "bg-white/5 rounded-lg w-fit min-w-0 max-w-full"
+      : "bg-white/5 rounded-lg w-fit";
 
   return (
     <div className={wrapClass}>

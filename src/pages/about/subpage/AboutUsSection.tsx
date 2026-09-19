@@ -219,7 +219,7 @@ const AboutUsSection = () => {
             {PLATFORMS.map((name) => (
               <li
                 key={name}
-                className="rounded-lg liquid-glass px-3 py-1.5 text-xs text-white sm:text-sm"
+                className="rounded-lg border border-[#1B1B1B] bg-white/5 px-3 py-1.5 text-xs text-white sm:text-sm"
               >
                 {name}
               </li>

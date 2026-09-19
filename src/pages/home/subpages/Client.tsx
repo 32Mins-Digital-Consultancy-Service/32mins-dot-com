@@ -41,7 +41,8 @@ const TestimonialCard = ({
   >
     <Tilt3D
       className="w-full flex"
-      innerClassName="liquid-glass [--glass-tint:rgba(6,4,26,0.45)] rounded-xl sm:rounded-2xl w-full flex flex-col
+      innerClassName="bg-[#06041A]/80
+                 rounded-xl sm:rounded-2xl w-full flex flex-col border border-white/10
                  p-3 sm:p-4 md:p-7 lg:p-9 gap-2.5 sm:gap-4 md:gap-5 lg:gap-6"
       maxTilt={4}
       glare

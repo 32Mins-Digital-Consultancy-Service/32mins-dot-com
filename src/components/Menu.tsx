@@ -108,8 +108,10 @@ export const Menu = () => {
         {/* Desktop and Tablet Navigation */}
         {!isMobile && (
           <nav
-            className={`flex gap-3 md:gap-4 lg:gap-8 py-3 md:py-3.5 lg:py-4 px-4 md:px-5 lg:px-6 rounded-2xl liquid-glass transition-all duration-300 ${
-              isScrolled ? "[--glass-tint:rgba(6,4,26,0.35)]" : ""
+            className={`flex gap-3 md:gap-4 lg:gap-8 py-3 md:py-3.5 lg:py-4 px-4 md:px-5 lg:px-6 rounded-2xl transition-all duration-300 border border-[#1B1B1B] ${
+              isScrolled
+                ? "bg-white/10 backdrop-blur-sm  hover:bg-white/15"
+                : "bg-white/5 backdrop-blur-none hover:bg-white/10"
             }`}
           >
             {menuItems.map((item) => (
@@ -142,8 +144,10 @@ export const Menu = () => {
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`flex flex-col justify-center gap-1.5 min-w-[44px] min-h-[44px] p-3 rounded-xl liquid-glass transition-all duration-300 touch-manipulation ${
-                isScrolled ? "[--glass-tint:rgba(6,4,26,0.35)]" : ""
+              className={`flex flex-col justify-center gap-1.5 min-w-[44px] min-h-[44px] p-3 rounded-xl transition-all duration-300 border border-[#1B1B1B] touch-manipulation ${
+                isScrolled
+                  ? "bg-white/10 backdrop-blur-sm "
+                  : "bg-white/5 backdrop-blur-none"
               }`}
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMobileMenuOpen}
@@ -196,7 +200,7 @@ export const Menu = () => {
 
           {/* Menu Panel */}
           <nav
-            className={`absolute top-0 right-0 h-full w-[min(18rem,100vw-2rem)] max-w-[85vw] liquid-glass [--glass-tint:rgba(6,4,26,0.78)] rounded-none transition-transform duration-300 flex flex-col pt-[calc(5rem+env(safe-area-inset-top))] pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)] ${
+            className={`absolute top-0 right-0 h-full w-[min(18rem,100vw-2rem)] max-w-[85vw] bg-[#06041A]/95 backdrop-blur-lg border-l border-[#1B1B1B]  transition-transform duration-300 flex flex-col pt-[calc(5rem+env(safe-area-inset-top))] pb-[env(safe-area-inset-bottom)] pr-[env(safe-area-inset-right)] ${
               isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
             }`}
             aria-label="Mobile navigation"
