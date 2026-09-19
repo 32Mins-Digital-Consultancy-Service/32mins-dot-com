@@ -3,7 +3,6 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /assets/
 
 # Sitemap
 Sitemap: https://32mins.com/sitemap.xml

@@ -7,7 +7,7 @@ export const SolutionsPage = () => {
       <SectionHeader
         pill="Our Services"
         title="Solutions that take your business to the next level"
-        subtitle="We specialise in educational video production, offering tailored content for course lectures, online learning, coaching, and industry-focused training programs that enhance knowledge delivery and learner engagement."
+        subtitle="An IITM Pravartak-incubated EdTech consultancy building AI-driven eLearning platforms, digital applications and intelligent media that scale education globally."
       />
       <Grid />
     </div>

@@ -14,6 +14,7 @@ import Footer from "../../components/Footer";
 import UpdatePage from "./subpages/Updates";
 import { SEO } from "../../components/SEO";
 import OurPerjectPage from "./subpages/OurProject";
+import { SERVICES } from "../../components/servicesData";
 
 const SECTION_IDS = [
   "solutions",
@@ -57,56 +58,29 @@ export const HomePage = () => {
     <div className="bg-linear-to-t from-[#000016] to-[#000C30] flex flex-col items-center justify-center gap-[clamp(4.5rem,9vw,7.5rem)] w-full max-w-full min-w-0 overflow-x-hidden">
       <SEO
         title="32Mins | Converting Meaningful Knowledge Into Impactful Digital Content"
-        description="32Mins transforms meaningful knowledge into impactful digital content. Specializing in eLearning production, digital media, lab & industry learning videos, LMS management, and eLearning consulting. Trusted by IIT Madras, Virginia Tech & more."
+        description="32Mins is an IITM Pravartak-incubated EdTech consultancy building AI-enabled learning platforms, eLearning production, digital media, Moodle LMS management and EdTech consulting. Trusted by IIT Madras, Virginia Tech & more."
         canonical="https://32mins.com/"
-        keywords="eLearning production, digital media production, LMS management, corporate training videos, educational video production, digital content, eLearning consulting, lab learning videos, industry learning, 32Mins, IIT Madras, Chennai"
+        keywords="eLearning production, digital media production, LMS management, Moodle LMS, AI eLearning platform, EdTech development, eLearning consulting, human-in-the-loop content, vernacular eLearning, UI/UX design for learning, corporate training videos, educational video production, IITM Pravartak, 32Mins, IIT Madras, Chennai"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "WebPage",
           name: "32Mins - Digital Content & eLearning Solutions",
           description:
-            "Converting meaningful knowledge into impactful digital content for everyone.",
+            "IITM Pravartak-incubated EdTech consultancy architecting AI-driven eLearning platforms, adaptive digital applications and intelligent digital media to scale education globally.",
           url: "https://32mins.com/",
           provider: {
             "@type": "Organization",
             name: "32Mins Digital Consultancy Services Pvt. Ltd.",
             url: "https://32mins.com",
           },
-          offers: [
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Digital Media Production",
-              },
+          offers: SERVICES.map((service) => ({
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: service.title,
+              description: `${service.description} ${service.detail}`,
             },
-            {
-              "@type": "Offer",
-              itemOffered: { "@type": "Service", name: "eLearning Production" },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Lab & Industry Learning Video Production",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: {
-                "@type": "Service",
-                name: "Media Content Marketing",
-              },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: { "@type": "Service", name: "eLearning Consulting" },
-            },
-            {
-              "@type": "Offer",
-              itemOffered: { "@type": "Service", name: "LMS Management" },
-            },
-          ],
+          })),
         }}
       />
       <Menu />

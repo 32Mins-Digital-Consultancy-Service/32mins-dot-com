@@ -38,14 +38,14 @@ export const AboutPage = () => {
     <div className="w-full bg-[#000016] items-center justify-center gap-[clamp(4.5rem,9vw,7.5rem)] flex flex-col max-w-full min-w-0 overflow-x-hidden">
       <SEO
         title="About Us | 32Mins - Empowering Digital Education & eLearning"
-        description="Learn about 32Mins Digital Consultancy Services — founded in 2023, incubated at IIT Madras Research Park. We empower learning through AI-powered eLearning, digital media production, and interactive educational content for rural India and beyond."
+        description="32Mins Digital Consultancy Services is an IITM Pravartak-incubated EdTech consultancy at IIT Madras Research Park, Chennai, founded in 2023 by Sribalaji Ravi. We architect AI-driven eLearning platforms, adaptive digital applications and digital media, and power platforms such as SwayamPlus and NM-ICPS."
         canonical="https://32mins.com/about"
-        keywords="32Mins about, eLearning company India, digital education, IIT Madras Research Park, educational technology, AI eLearning, team, digital consultancy Chennai"
+        keywords="32Mins about, eLearning company India, digital education, IIT Madras Research Park, IITM Pravartak, educational technology, AI eLearning platform, EdTech consultancy, Moodle engineers, SwayamPlus, NM-ICPS, team, digital consultancy Chennai"
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "AboutPage",
           "name": "About 32Mins",
-          "description": "Learn about 32Mins Digital Consultancy Services — empowering learning through AI-powered eLearning and digital media production.",
+          "description": "IITM Pravartak-incubated EdTech consultancy architecting AI-driven eLearning platforms, adaptive digital applications and intelligent digital media to scale education globally.",
           "url": "https://32mins.com/about",
           "mainEntity": {
             "@type": "Organization",
@@ -54,9 +54,13 @@ export const AboutPage = () => {
             "founder": {
               "@type": "Person",
               "name": "Sribalaji Ravi",
-              "jobTitle": "Founder & CEO",
+              "jobTitle": "CEO & Founder",
             },
             "numberOfEmployees": { "@type": "QuantitativeValue", "value": 17 },
+            "memberOf": {
+              "@type": "Organization",
+              "name": "IITM Pravartak Technologies Foundation",
+            },
             "location": {
               "@type": "Place",
               "name": "IIT Madras Research Park",
