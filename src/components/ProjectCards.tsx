@@ -4,10 +4,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import chaiCover from "../assets/chai_cover.webp";
 import digiViscomCover from "../assets/DigiViscom_cover.webp";
 import deviceImage from "../assets/device.webp";
-import iitmCover from "../assets/IITMPTF_cover.webp";
 import nmicpsCover from "../assets/nmicps_cover.webp";
 import rajenDentalCover from "../assets/rajen_dental_cover.webp";
 import shaktiDbCover from "../assets/ShaktiDB_cover.webp";
+import swayamPlusCover from "../assets/swayamplus_cover.webp";
 import sneakPeakImage1 from "../assets/SneakPeak_image1.webp";
 import sneakPeakImage2 from "../assets/SneakPeak_image2.webp";
 import sneakPeakImage3 from "../assets/SneakPeak_image3.webp";
@@ -30,9 +30,9 @@ const media_urls = [
   },
   {
     id: 2,
-    title: "IITM Pravartak",
-    cover_image: iitmCover,
-    tags: ["Graphic Design", "UI/UX"],
+    title: "SwayamPlus",
+    cover_image: swayamPlusCover,
+    tags: ["Full-Stack", "UI/UX", "LMS"],
   },
   {
     id: 3,
