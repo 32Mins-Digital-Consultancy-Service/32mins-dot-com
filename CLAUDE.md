@@ -37,6 +37,7 @@ Menu links use `to="/#section-id"`. `HomePage` reads `hash` from `useLocation()`
 ### Styling conventions
 - **Main site**: pure Tailwind utility classes. Dark navy background (`#000016` → `#000C30` gradient).
 - **`/test` route only**: Bootstrap classes mixed with Tailwind — Bootstrap is not used anywhere else.
+- **Translucent surfaces** all use the `liquid-glass` utility in `index.css` (Apple Liquid Glass look: blurred + saturated fill, gradient rim via masked `::before`, specular sheen via `::after`, both at `z-index:-1` inside an isolated stacking context). Pair it with a `rounded-*` class and never add your own `bg-*/NN`, `backdrop-blur-*` or `border` alongside it; for a denser panel set the tint with an arbitrary property, e.g. `[--glass-tint:rgba(6,4,26,0.78)]` (mobile drawer) or `0.45` (testimonials, globe popovers). Applied to: nav pill and hamburger, mobile drawer, `SubpageHeader` (section pills and tag chips), the globe stats strip, the founding quote, globe popovers, testimonial cards and the About page platform chips. Modal/drawer scrims stay plain `bg-black/70`. Falls back to a near-opaque fill under `prefers-reduced-transparency`.
 - Custom CSS in `index.css`: `--viewport-height` (uses `100dvh` where supported for mobile address bar), `.jaffee-*` brochure flip animation, `.btn-style510/511/902` button shimmer effects, `.typewriter` animation.
 - Global font: `Bricolage Grotesque`; `.manrope-font` class for `Manrope`.
 
