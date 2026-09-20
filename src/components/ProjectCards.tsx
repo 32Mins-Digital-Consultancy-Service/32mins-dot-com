@@ -98,7 +98,7 @@ const media_urls = [
     links: [{ label: "Website", url: "https://sdbpro.iitmpravartak.net/" }],
     cover_image: shaktiDbCover,
     logo: logoShaktiDb,
-    tone: "light",
+    tone: "dark",
     tags: ["Branding", "Newsletter", "LMS"],
   },
   {
@@ -120,7 +120,9 @@ const EASE = "transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]";
 const SITE_IMG = `absolute inset-0 h-full w-full object-cover blur-[5px] group-hover:blur-none ${EASE}`;
 const tintClass = (tone: Tone) =>
   `pointer-events-none absolute inset-0 ${tone === "light" ? "bg-white/40" : "bg-[#000016]/45"} group-hover:opacity-0 ${EASE}`;
-const LOGO_IMG = `pointer-events-none absolute left-1/2 top-1/2 w-[64%] -translate-x-1/2 -translate-y-1/2 group-hover:opacity-0 group-hover:scale-95 ${EASE}`;
+/** Logo box: wordmarks may span 64% of the width, but nothing may exceed 58% of the height, so tall badges stay modest. */
+const LOGO_BOX = `pointer-events-none absolute inset-0 flex items-center justify-center px-[18%] py-[21%] group-hover:opacity-0 group-hover:scale-95 ${EASE}`;
+const LOGO_IMG = "max-h-full max-w-full object-contain";
 
 /** One site behind one logo; hovering hides the logo and sharpens the site. */
 const Cover = ({
@@ -138,7 +140,7 @@ const Cover = ({
     <img src={cover} alt="" aria-hidden="true" className="w-full h-auto invisible" />
     <img src={cover} alt="" aria-hidden="true" loading="lazy" decoding="async" className={SITE_IMG} />
     <div aria-hidden="true" className={tintClass(tone)} />
-    <img src={logo} alt={title} loading="lazy" decoding="async" className={LOGO_IMG} />
+    <div className={LOGO_BOX}><img src={logo} alt={title} loading="lazy" decoding="async" className={LOGO_IMG} /></div>
   </div>
 );
 
@@ -172,7 +174,7 @@ const SplitCover = ({
       <img src={covers[0]} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ clipPath: `inset(0 ${100 - leftPct}% 0 0)` }} className={SITE_IMG} />
       <img src={covers[1]} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ clipPath: `inset(0 0 0 ${leftPct}%)` }} className={SITE_IMG} />
       <div aria-hidden="true" className={tintClass(tone)} />
-      <img src={logo} alt={title} loading="lazy" decoding="async" className={LOGO_IMG} />
+      <div className={LOGO_BOX}><img src={logo} alt={title} loading="lazy" decoding="async" className={LOGO_IMG} /></div>
       {links.map((link, i) => {
         const isLeft = i === 0;
         const width = isLeft ? leftPct : 100 - leftPct;
