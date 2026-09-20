@@ -11,8 +11,9 @@ import { cardData, type CardType } from "./globeCardData";
  * - info points pinned to real locations, hidden behind the horizon
  * - opening a card eases the globe so that point faces the viewer
  *
- * Loaded via React.lazy — the static earth2.webp placeholder paints first and
- * crossfades out once the first WebGL frame renders (see Updates.tsx).
+ * Loaded via React.lazy — it is the only earth on capable devices; the static
+ * earth2.webp is a fallback shown only if WebGL is unavailable or this never
+ * produces a frame (see Updates.tsx).
  */
 
 const DAY_MAP = "/textures/earth-day.webp";

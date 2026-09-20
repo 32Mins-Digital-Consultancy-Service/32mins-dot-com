@@ -16,10 +16,14 @@ import {
   type CardType,
 } from "../../../components/globeCardData";
 
-// three.js + react-three-fiber load in their own chunk, only when the globe
-// section approaches the viewport. The flat earth image paints immediately
-// and crossfades out once the first WebGL frame is ready.
+// three.js + react-three-fiber load in their own chunk. The WebGL globe is
+// the only earth on a capable device; the flat image is a fallback that
+// appears only when WebGL is unavailable, the globe fails, or it has not
+// produced a frame within GLOBE_TIMEOUT_MS of being in view.
 const Globe3D = lazy(() => import("../../../components/Globe3D"));
+
+/** How long the in-view section waits for a first WebGL frame before falling back. */
+const GLOBE_TIMEOUT_MS = 6000;
 
 function canUseWebGL() {
   try {
@@ -63,7 +67,6 @@ const UpdatePage = () => {
   const markerPortalRef = useRef<HTMLDivElement>(null);
   const [showCard, setShowCard] = useState<CardType>("");
   const [globeReady, setGlobeReady] = useState(false);
-  const [placeholderGone, setPlaceholderGone] = useState(false);
 
   const use3D = useMemo(
     () =>
@@ -73,6 +76,8 @@ const UpdatePage = () => {
   );
   const [globeFailed, setGlobeFailed] = useState(false);
   const show3D = use3D && !globeFailed;
+  // Flat earth only when 3D is out of the picture.
+  const showFlat = !show3D;
 
   // Warm up the globe right after load (idle time): download the three.js
   // chunk + textures and render the first frames off-screen, so the real
@@ -90,12 +95,13 @@ const UpdatePage = () => {
     return () => cancel(handle);
   }, [use3D]);
 
-  // Free the placeholder image once the crossfade to WebGL has finished.
+  // If the section is on screen and the globe still has no frame after the
+  // timeout, treat it as failed and show the flat earth instead.
   useEffect(() => {
-    if (!globeReady) return;
-    const t = setTimeout(() => setPlaceholderGone(true), 1000);
+    if (!show3D || !isInView || globeReady) return;
+    const t = setTimeout(() => setGlobeFailed(true), GLOBE_TIMEOUT_MS);
     return () => clearTimeout(t);
-  }, [globeReady]);
+  }, [show3D, isInView, globeReady]);
 
   return (
     <section className="z-10 relative scroll-mt-20 w-full max-w-full min-w-0 flex flex-col items-center justify-center overflow-hidden min-h-[var(--viewport-height)] h-[var(--viewport-height)]">
@@ -108,30 +114,24 @@ const UpdatePage = () => {
             shows through, so there is no seam to color-match. The marker
             layer lives outside this wrapper and stays at full opacity. */}
         <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black_38%,rgba(0,0,0,0.35)_72%,transparent_96%)]">
-          {!(show3D && placeholderGone) && (
+          {showFlat && (
             <motion.img
               src="/earth2.webp"
               alt="earth"
-              initial={{ rotate: show3D ? 0 : 180, opacity: 1 }}
-              // Hide the flat earth the moment the WebGL globe has a frame,
-              // even off-screen: otherwise the pre-warmed globe (parked
-              // below its seat) and the image both show while the section
-              // scrolls in, reading as two globes.
+              initial={{ rotate: 180, opacity: 0 }}
               animate={{
-                rotate: show3D
-                  ? 0
-                  : isInView
-                    ? showCard === "card1"
-                      ? 45
-                      : showCard === "card2"
-                        ? -45
-                        : 0
-                    : 210,
-                opacity: show3D && globeReady ? 0 : 1,
+                rotate: isInView
+                  ? showCard === "card1"
+                    ? 45
+                    : showCard === "card2"
+                      ? -45
+                      : 0
+                  : 210,
+                opacity: 1,
               }}
               transition={{
                 rotate: { duration: 1, ease: "easeOut" },
-                opacity: { duration: 0.9, ease: "easeInOut" },
+                opacity: { duration: 0.6, ease: "easeOut" },
               }}
               className="absolute bottom-10 sm:bottom-5 md:-bottom-15 left-1/2 -translate-x-1/2 translate-y-[max(40%,calc(100%_-_0.85*var(--viewport-height)_-_60px))] w-[max(100%,100vh)] aspect-square"
             />
