@@ -56,7 +56,7 @@ export const AboutPage = () => {
               "name": "Sribalaji Ravi",
               "jobTitle": "CEO & Founder",
             },
-            "numberOfEmployees": { "@type": "QuantitativeValue", "value": 17 },
+            "numberOfEmployees": { "@type": "QuantitativeValue", "value": 21 },
             "memberOf": {
               "@type": "Organization",
               "name": "IITM Pravartak Technologies Foundation",
