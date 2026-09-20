@@ -10,6 +10,8 @@ import rajenDentalCover from "../assets/rajan_dental_site_cover.webp";
 import shaktiDbCover from "../assets/shaktidb_site_cover.webp";
 import smartSutraCover from "../assets/smartsutra_cover.webp";
 import swayamPlusCover from "../assets/swayamplus_cover.webp";
+import swayamPlusLmsCover from "../assets/swayamplus_lms_cover.webp";
+import swayamPlusLogo from "../assets/swayamplus_logo.webp";
 import sneakPeakImage1 from "../assets/SneakPeak_image1.webp";
 import sneakPeakImage2 from "../assets/SneakPeak_image2.webp";
 import sneakPeakImage3 from "../assets/SneakPeak_image3.webp";
@@ -32,7 +34,9 @@ const media_urls = [
       { label: "LMS", url: "https://swayam-plus-lms.iitmpravartak.org.in/" },
     ],
     cover_image: swayamPlusCover,
-    tags: ["Platform Build", "UI/UX", "LMS", "KMS"],
+    split_covers: [swayamPlusCover, swayamPlusLmsCover],
+    logo: swayamPlusLogo,
+    tags: ["Platform Build", "UI/UX", "LMS"],
   },
   {
     id: 2,
@@ -95,28 +99,53 @@ type ProjectLink = { readonly label: string; readonly url: string };
  */
 const SplitCover = ({
   title,
-  cover,
+  covers,
+  logo,
   links,
 }: {
   title: string;
-  cover: string;
+  /** Full-size covers for the left and right zones. */
+  covers: readonly [string, string];
+  logo: string;
   links: readonly [ProjectLink, ProjectLink];
 }) => {
   const [active, setActive] = useState<0 | 1 | null>(null);
   const leftPct = active === 0 ? 84 : active === 1 ? 16 : 50;
-  const ease = "transition-[width,left,opacity,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]";
+  const ease = "transition-[width,left,opacity,background-color,clip-path] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]";
 
   return (
     <div
       className="relative w-full overflow-hidden rounded-sm"
       onMouseLeave={() => setActive(null)}
     >
+      {/* Sizing image (invisible) keeps the box at the cover aspect. */}
+      <img src={covers[0]} alt="" aria-hidden="true" className="w-full h-auto invisible" />
+      {/* Each background fills the whole card and is clipped to its zone, so
+          hovering a half reveals more of that site instead of stretching it. */}
       <img
-        src={cover}
+        src={covers[0]}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        style={{ clipPath: `inset(0 ${100 - leftPct}% 0 0)` }}
+        className={`absolute inset-0 w-full h-full object-cover ${ease}`}
+      />
+      <img
+        src={covers[1]}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+        style={{ clipPath: `inset(0 0 0 ${leftPct}%)` }}
+        className={`absolute inset-0 w-full h-full object-cover ${ease}`}
+      />
+      <img
+        src={logo}
         alt={title}
         loading="lazy"
         decoding="async"
-        className="w-full h-auto object-cover rounded-sm"
+        className="pointer-events-none absolute left-1/2 top-1/2 w-[64%] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_2px_6px_rgba(255,255,255,0.6)]"
       />
       {links.map((link, i) => {
         const isLeft = i === 0;
@@ -134,8 +163,8 @@ const SplitCover = ({
             onFocus={() => setActive(i as 0 | 1)}
             onBlur={() => setActive(null)}
             style={{ width: `${width}%`, left: isLeft ? 0 : `${leftPct}%` }}
-            className={`group/half absolute top-0 bottom-0 flex items-end p-2 sm:p-3 ${ease} ${
-              dimmed ? "bg-[#000016]/60" : "bg-[#000016]/0 hover:bg-[#000016]/10"
+            className={`absolute top-0 bottom-0 flex items-end p-2 sm:p-3 ${ease} ${
+              dimmed ? "bg-[#000016]/45" : "bg-[#000016]/0"
             } ${isLeft ? "justify-start" : "justify-end"} focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white/80`}
           >
             <span
@@ -148,11 +177,10 @@ const SplitCover = ({
           </a>
         );
       })}
-      {/* divider between the halves */}
       <span
         aria-hidden="true"
         style={{ left: `${leftPct}%` }}
-        className={`pointer-events-none absolute top-0 bottom-0 w-px -translate-x-1/2 bg-white/50 ${ease}`}
+        className={`pointer-events-none absolute top-0 bottom-0 w-px -translate-x-1/2 bg-white/60 ${ease}`}
       />
     </div>
   );
@@ -182,7 +210,8 @@ const ProjectCards = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-4 md:gap-5 lg:gap-6 max-w-6xl mx-auto">
         {media_urls.map((media) => {
           const primary = media.links[0];
-          const split = media.links.length === 2 ? media.links : null;
+          const split =
+            media.links.length === 2 && "split_covers" in media ? media : null;
           const linkClass =
             "group block w-full min-w-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/70 rounded-sm";
           const titleClass =
@@ -198,8 +227,9 @@ const ProjectCards = () => {
                   <>
                     <SplitCover
                       title={media.title}
-                      cover={media.cover_image}
-                      links={[split[0], split[1]]}
+                      covers={split.split_covers}
+                      logo={split.logo}
+                      links={[split.links[0], split.links[1]]}
                     />
                     <a
                       href={primary.url}

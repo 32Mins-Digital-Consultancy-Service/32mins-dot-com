@@ -23,10 +23,12 @@ export const AboutUsPage = () => {
             className="flex flex-col gap-[clamp(1rem,4vw,2.5rem)] max-w-xl w-full lg:w-auto"
           >
             <p className="text-[clamp(0.875rem,2vw,1.125rem)] font-normal tracking-tigher text-[#8E8E8E] leading-relaxed">
-              32Mins is an IITM Pravartak-incubated EdTech consultancy at IIT
-              Madras Research Park. We build AI-driven eLearning platforms,
-              digital applications and media that scale education, including
-              vernacular content for rural India.
+              32Mins is an organisation established with a vision to transform
+              conventional learning into interactive digital content. We want to
+              make educational equality in rural India by offering high-quality
+              digital learning content in vernacular languages and eradicate the
+              barriers to learning by creating engaging education materials
+              available to everyone.
             </p>
             <CtaButton variant="primary" onClick={() => navigate("/about")}>
               Know More

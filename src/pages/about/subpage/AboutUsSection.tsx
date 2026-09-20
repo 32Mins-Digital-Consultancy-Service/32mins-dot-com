@@ -4,28 +4,6 @@ import { SubpageHeader } from "../../../components/SubpageHeader";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Rightarro from "../../../assets/Rightarro.svg";
-import SpotlightCard from "../../../components/SpotlightCard";
-
-const FACTS = [
-  {
-    label: "Headquarters",
-    value: "IIT Madras Research Park",
-    detail: "Chennai, India",
-  },
-  {
-    label: "Leadership",
-    value: "Sribalaji Ravi, CEO & Founder",
-    detail: "Full-stack developers, Moodle engineers, designers, data analysts",
-  },
-  {
-    label: "Philosophy",
-    value: "AI precision, human judgment",
-    detail: "Personalised, learner-centric environments",
-  },
-];
-
-const PLATFORMS = ["SWAYAM Plus", "NM-ICPS", "IITM Pravartak ecosystem"];
-
 const AboutUsSection = () => {
   const navigate = useNavigate();
   return (
@@ -70,9 +48,11 @@ const AboutUsSection = () => {
           viewport={{ once: true, amount: 0.25 }}
           className="text-[clamp(0.875rem,2vw,1.125rem)] font-normal tracking-tight text-[#8E8E8E] max-w-lg text-center px-2"
         >
-          An IITM Pravartak-incubated EdTech consultancy. We architect
-          AI-driven eLearning platforms, adaptive digital applications and
-          intelligent digital media to scale education globally.
+          Education serves as the foundation for human intellectual growth,
+          fostering lifelong learning and equipping individuals to adapt to the
+          accelerating digital revolution. As technology reshapes our world,
+          seamless integration of digital tools into education becomes critical
+          to prepare learners for the future.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -120,37 +100,27 @@ const AboutUsSection = () => {
         >
           <TriangleWithLine />
         </motion.div>
-        <div className="grid w-auto self-stretch grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4 -mx-2 sm:-mx-6 md:-mx-10 lg:-mx-16 xl:-mx-24">
-          {FACTS.map((fact, i) => (
-            <motion.div
-              key={fact.label}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: 0.15 + i * 0.1,
-                  duration: 0.6,
-                  ease: [0.22, 1, 0.36, 1],
-                },
-              }}
-              viewport={{ once: true, amount: 0.25 }}
-              className="h-full"
-            >
-              <SpotlightCard className="flex h-full flex-col gap-1.5 rounded-[15px] border border-white/10 bg-[#06041A] p-4 sm:p-5 text-left">
-                <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-[#8E8E8E]">
-                  {fact.label}
-                </span>
-                <span className="text-sm font-semibold leading-snug text-white sm:text-base">
-                  {fact.value}
-                </span>
-                <span className="text-xs leading-snug text-[#8E8E8E] sm:text-sm">
-                  {fact.detail}
-                </span>
-              </SpotlightCard>
-            </motion.div>
-          ))}
-        </div>
+        <motion.p
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+            transition: {
+              delay: 0.25,
+              duration: 0.65,
+              ease: [0.22, 1, 0.36, 1],
+            },
+          }}
+          viewport={{ once: true, amount: 0.25 }}
+          className="text-[clamp(0.875rem,2vw,1.125rem)] font-normal tracking-tight text-[#8E8E8E] max-w-lg text-center px-2"
+        >
+          Sustainable development in digital education requires AI to
+          personalise learning, guided by human expertise. At 32Mins, we harness
+          Artificial Intelligence to design dynamic eLearning platforms that
+          empower both learners and educators. By merging cutting-edge
+          technology with human expertise, we cultivate a collaborative
+          ecosystem where innovation and pedagogy thrive together.
+        </motion.p>
       </section>
       <section className="flex items-center justify-center gap-6 sm:gap-9 flex-col">
         <motion.header
@@ -195,37 +165,11 @@ const AboutUsSection = () => {
           viewport={{ once: true, amount: 0.25 }}
           className="text-[clamp(0.875rem,2vw,1.125rem)] font-normal tracking-tight text-[#8E8E8E] max-w-lg text-center px-2"
         >
-          Engaging eLearning in science, medicine, engineering, culture and
-          livelihood that improves outcomes and builds real skills.
+          We aim to support education & skill development by creating engaging
+          e-learning courses in science, medicine, engineering, culture, and
+          livelihood to improve learning outcomes and empower learners with
+          valuable skills.
         </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-            transition: {
-              delay: 0.35,
-              duration: 0.6,
-              ease: [0.22, 1, 0.36, 1],
-            },
-          }}
-          viewport={{ once: true, amount: 0.25 }}
-          className="flex flex-col items-center gap-3"
-        >
-          <span className="text-[11px] font-medium uppercase tracking-[0.14em] text-[#8E8E8E]">
-            Technology engine behind
-          </span>
-          <ul className="flex flex-wrap justify-center gap-2">
-            {PLATFORMS.map((name) => (
-              <li
-                key={name}
-                className="rounded-lg border border-[#1B1B1B] bg-white/5 px-3 py-1.5 text-xs text-white sm:text-sm"
-              >
-                {name}
-              </li>
-            ))}
-          </ul>
-        </motion.div>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{
