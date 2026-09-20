@@ -45,11 +45,11 @@ export const AboutUsPage = () => {
           >
             <img
               src="/team.webp"
-              alt="The 32Mins team"
+              alt="The 32Mins team at IIT Madras Research Park"
               loading="lazy"
               decoding="async"
               width="1600"
-              height="776"
+              height="1026"
               className="w-full max-w-[min(100%,820px)] lg:w-[clamp(480px,46vw,820px)] h-auto"
             />
           </motion.div>
