@@ -113,20 +113,22 @@ const UpdatePage = () => {
               src="/earth2.webp"
               alt="earth"
               initial={{ rotate: show3D ? 0 : 180, opacity: 1 }}
-              animate={
-                isInView
-                  ? {
-                      rotate: !show3D
-                        ? showCard === "card1"
-                          ? 45
-                          : showCard === "card2"
-                            ? -45
-                            : 0
-                        : 0,
-                      opacity: show3D && globeReady ? 0 : 1,
-                    }
-                  : { rotate: show3D ? 0 : 210 }
-              }
+              // Hide the flat earth the moment the WebGL globe has a frame,
+              // even off-screen: otherwise the pre-warmed globe (parked
+              // below its seat) and the image both show while the section
+              // scrolls in, reading as two globes.
+              animate={{
+                rotate: show3D
+                  ? 0
+                  : isInView
+                    ? showCard === "card1"
+                      ? 45
+                      : showCard === "card2"
+                        ? -45
+                        : 0
+                    : 210,
+                opacity: show3D && globeReady ? 0 : 1,
+              }}
               transition={{
                 rotate: { duration: 1, ease: "easeOut" },
                 opacity: { duration: 0.9, ease: "easeInOut" },

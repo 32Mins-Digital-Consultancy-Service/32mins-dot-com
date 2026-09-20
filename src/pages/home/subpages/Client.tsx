@@ -69,8 +69,10 @@ export const ClientsPage = () => (
   >
     <SectionHeader pill="Our Clients" title="Helping businesses grow" />
 
-    {/* Marquee */}
-    <Marquee />
+    {/* Marquee runs edge to edge, outside the shared content measure. */}
+    <div className="w-screen max-w-none shrink-0">
+      <Marquee />
+    </div>
 
     {/* Testimonials Section */}
     <div
