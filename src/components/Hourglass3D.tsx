@@ -34,6 +34,7 @@ export default function Hourglass3D({
   onOutline,
 }: Hourglass3DProps) {
   const host = useRef<HTMLDivElement>(null);
+  const grabRef = useRef<HTMLDivElement>(null);
   const activeRef = useRef(active);
   const callbacks = useRef({ onReady, onFail, onOutline });
   useEffect(() => {
@@ -65,7 +66,24 @@ export default function Hourglass3D({
     };
     view.onContextLost = () =>
       callbacks.current.onFail(new Error("WebGL context lost"));
-    view.onOutline = (points) => callbacks.current.onOutline?.(points);
+    view.onOutline = (points) => {
+      // Only the vessel itself takes the pointer; the rest of the canvas box
+      // lets clicks through to the copy and the call-to-action beneath it.
+      const grab = grabRef.current;
+      if (grab && points.length >= 4) {
+        let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+        for (let i = 0; i < points.length; i += 2) {
+          minX = Math.min(minX, points[i]); maxX = Math.max(maxX, points[i]);
+          minY = Math.min(minY, points[i + 1]); maxY = Math.max(maxY, points[i + 1]);
+        }
+        const pad = 10;
+        grab.style.left = `${minX - pad}px`;
+        grab.style.top = `${minY - pad}px`;
+        grab.style.width = `${maxX - minX + pad * 2}px`;
+        grab.style.height = `${maxY - minY + pad * 2}px`;
+      }
+      callbacks.current.onOutline?.(points);
+    };
 
     const loop = (now: number) => {
       if (disposed) return;
@@ -117,7 +135,14 @@ export default function Hourglass3D({
       role="group"
       tabIndex={0}
       aria-label="Interactive 3D hourglass: grains flow from one chamber to the other, then it turns over. Drag sideways to roll it, drag up or down to tilt it in depth, shift-drag to lift it. Arrow keys do the same."
-      className="h-full w-full touch-pan-y select-none cursor-grab active:cursor-grabbing focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/60 rounded-xl"
-    />
+      className="relative h-full w-full select-none pointer-events-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/60 rounded-xl"
+    >
+      <div
+        ref={grabRef}
+        aria-hidden="true"
+        className="absolute pointer-events-auto touch-pan-y cursor-grab active:cursor-grabbing"
+        style={{ left: "25%", top: "12%", width: "50%", height: "76%" }}
+      />
+    </div>
   );
 }

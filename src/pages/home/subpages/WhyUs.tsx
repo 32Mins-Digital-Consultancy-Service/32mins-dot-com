@@ -349,7 +349,7 @@ export const WhyUsPage = () => {
           <motion.div
             ref={visualRef}
             {...REVEAL}
-            className="absolute left-1/2 z-20 -translate-x-1/2"
+            className="pointer-events-none absolute left-1/2 z-20 -translate-x-1/2"
             style={{ width: CANVAS_W, height: CANVAS_H, top: -CANVAS_OVERHANG }}
           >
             {isNear && (

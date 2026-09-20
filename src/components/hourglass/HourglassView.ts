@@ -35,7 +35,9 @@ interface PointerDrag {
 
 /**
  * Owns the WebGL renderer, scene, GLB vessel and the 3,200-grain granular
- * simulation for the Why-Us hourglass. It never owns the clock: the caller
+ * simulation for the Why-Us hourglass. No shadow maps or shadow floor: the
+ * stage is transparent over the page gradient, so a cast shadow would read as
+ * a dark smear behind the copy. It never owns the clock: the caller
  * advances the metered cycle via `setProgress()` and drives frames with
  * `render(delta)`.
  *
@@ -98,8 +100,6 @@ export class HourglassView {
     this.renderer.setClearColor(0x080d22, 0);
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.05;
-    this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.PCFShadowMap;
     this.renderer.domElement.setAttribute("aria-hidden", "true");
     this.renderer.domElement.addEventListener("webglcontextlost", this.handleContextLost);
     container.appendChild(this.renderer.domElement);
@@ -144,13 +144,6 @@ export class HourglassView {
     this.scene.add(new THREE.HemisphereLight(0xb9cdfb, 0x282238, 1));
     const key = new THREE.DirectionalLight(0xe4edff, 2.5);
     key.position.set(-3, 5, 4);
-    key.castShadow = true;
-    key.shadow.mapSize.set(1024, 1024);
-    key.shadow.camera.left = -3;
-    key.shadow.camera.right = 3;
-    key.shadow.camera.top = 3;
-    key.shadow.camera.bottom = -3;
-    key.shadow.bias = -0.002;
     this.scene.add(key);
     const rim = new THREE.DirectionalLight(0x839dff, 1.5);
     rim.position.set(3, 2, -2);
@@ -158,12 +151,6 @@ export class HourglassView {
     const fill = new THREE.DirectionalLight(0xffd398, 0.8);
     fill.position.set(1, 1, 4);
     this.scene.add(fill);
-
-    const floor = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), new THREE.ShadowMaterial({ opacity: 0.3 }));
-    floor.rotation.x = -Math.PI / 2;
-    floor.position.y = -1.965 * 0.82;
-    floor.receiveShadow = true;
-    this.scene.add(floor);
 
     this.scene.add(this.object);
     this.physics = new GranularSand(GRAIN_COUNT, { radius: GRAIN_RADIUS });
@@ -210,10 +197,7 @@ export class HourglassView {
             specularIntensity: 0.6,
           });
           for (const m of Array.isArray(old) ? old : [old]) m.dispose();
-          mesh.castShadow = false;
         } else {
-          mesh.castShadow = true;
-          mesh.receiveShadow = true;
           for (const m of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) {
             (m as THREE.MeshStandardMaterial).envMapIntensity = 0.85;
           }
