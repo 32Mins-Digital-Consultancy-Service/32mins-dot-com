@@ -2,11 +2,13 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 import chaiCover from "../assets/chai_cover.webp";
+import chitraVaaniCover from "../assets/chitravaani_cover.webp";
 import digiViscomCover from "../assets/DigiViscom_cover.webp";
 import deviceImage from "../assets/device.webp";
 import nmicpsCover from "../assets/nmicps_cover.webp";
 import rajenDentalCover from "../assets/rajen_dental_cover.webp";
 import shaktiDbCover from "../assets/ShaktiDB_cover.webp";
+import smartSutraCover from "../assets/smartsutra_cover.webp";
 import swayamPlusCover from "../assets/swayamplus_cover.webp";
 import sneakPeakImage1 from "../assets/SneakPeak_image1.webp";
 import sneakPeakImage2 from "../assets/SneakPeak_image2.webp";
@@ -24,13 +26,6 @@ const sneakPeakData = {
 const media_urls = [
   {
     id: 1,
-    title: "NMICPS",
-    links: [{ label: "Website", url: "https://nmicps.gov.in/" }],
-    cover_image: nmicpsCover,
-    tags: ["UI/UX", "Dashboard"],
-  },
-  {
-    id: 2,
     title: "SWAYAM Plus",
     links: [
       { label: "Website", url: "https://swayamplus.education.gov.in/" },
@@ -41,28 +36,49 @@ const media_urls = [
     tags: ["Full-Stack", "UI/UX", "LMS", "KMS"],
   },
   {
+    id: 2,
+    title: "ChitraVaani",
+    links: [{ label: "Website", url: "https://chitravaani.in/" }],
+    cover_image: chitraVaaniCover,
+    tags: ["Full-Stack", "AI", "Video"],
+  },
+  {
     id: 3,
+    title: "Smart Sutra",
+    links: [{ label: "Website", url: "https://www.smartsutra.32mins.in/" }],
+    cover_image: smartSutraCover,
+    tags: ["Full-Stack", "AI", "UI/UX"],
+  },
+  {
+    id: 4,
+    title: "NMICPS",
+    links: [{ label: "Website", url: "https://nmicps.gov.in/" }],
+    cover_image: nmicpsCover,
+    tags: ["UI/UX", "Dashboard"],
+  },
+  {
+    id: 5,
     title: "Rajan Dental",
     links: [{ label: "Website", url: "https://rajandental.com/" }],
     cover_image: rajenDentalCover,
     tags: ["UI/UX", "LMS"],
   },
   {
-    id: 4,
+    id: 6,
     title: "CHAI",
     links: [{ label: "Website", url: "https://chai-iitmp.org/" }],
     cover_image: chaiCover,
     tags: ["Branding", "UI/UX"],
   },
   {
-    id: 5,
+    id: 7,
     title: "ShaktiDB",
     links: [{ label: "Website", url: "https://shaktidb.iitmpravartak.net/" }],
     cover_image: shaktiDbCover,
     tags: ["Branding", "Newsletter", "LMS"],
   },
   {
-    id: 6,
+    id: 8,
     title: "DigiViscom",
     links: [{ label: "Website", url: "https://digiviscom.in/" }],
     cover_image: digiViscomCover,
@@ -91,7 +107,7 @@ const ProjectCards = () => {
 
   return (
     <div className="w-full px-2 sm:px-4 md:px-10 lg:px-16 xl:px-20">
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5 lg:gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 max-w-6xl mx-auto">
         {media_urls.map((media) => {
           const [primary, ...more] = media.links;
           return (
@@ -148,7 +164,7 @@ const ProjectCards = () => {
             </div>
           );
         })}
-        <div className="flex flex-col items-center justify-center gap-2 sm:gap-3 md:gap-4 w-full rounded-sm col-span-2 md:col-span-3 min-w-0 mt-4 sm:mt-6 md:mt-8">
+        <div className="flex flex-col items-center justify-center gap-2 sm:gap-3 md:gap-4 w-full rounded-sm col-span-2 md:col-span-3 lg:col-span-4 min-w-0 mt-4 sm:mt-6 md:mt-8">
           <section
             ref={sneakRef}
             className="relative bg-[#000030] border border-[#2943FC]/25 shadow-[0_0_80px_-16px_rgba(41,67,252,0.45)] rounded-lg overflow-hidden w-full min-h-[100px] sm:min-h-[150px] md:min-h-[200px] lg:min-h-[250px] flex items-start justify-center"
