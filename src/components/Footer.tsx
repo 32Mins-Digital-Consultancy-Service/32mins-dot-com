@@ -137,15 +137,18 @@ const Footer = () => {
           </div>
         </address>
 
-        {/* IIT Madras Image */}
-        <div className="flex justify-center items-center overflow-visible ">
+        {/* Incubation badge */}
+        <figure className="flex flex-col items-center justify-center gap-3 overflow-visible">
           <img
-            src="./iitmp-image.webp"
+            src="/iitmpravartak.webp"
             alt="IITM Pravartak Technologies Foundation"
-            className="h-auto object-contain"
-            style={{ width: "clamp(7rem, 15vw, 12rem)" }}
+            className="h-auto object-contain rounded-xl bg-white p-3"
+            style={{ width: "clamp(9rem, 17vw, 13rem)" }}
           />
-        </div>
+          <figcaption className="text-white font-semibold tracking-wide uppercase text-xs sm:text-sm">
+            Incubated Startup
+          </figcaption>
+        </figure>
 
         {/* Request Proposal Section */}
         <section
