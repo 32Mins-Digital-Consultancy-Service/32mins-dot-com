@@ -58,7 +58,7 @@ const media_urls = [
   {
     id: 5,
     title: "Rajan Dental",
-    links: [{ label: "Website", url: "https://rajandental.com/" }],
+    links: [{ label: "Website", url: "https://courses.rajandental.com/" }],
     cover_image: rajenDentalCover,
     tags: ["UI/UX", "LMS"],
   },
