@@ -32,21 +32,21 @@ const media_urls = [
       { label: "LMS", url: "https://swayam-plus-lms.iitmpravartak.org.in/" },
     ],
     cover_image: swayamPlusCover,
-    tags: ["Full-Stack", "UI/UX", "LMS", "KMS"],
+    tags: ["Platform Build", "UI/UX", "LMS", "KMS"],
   },
   {
     id: 2,
     title: "ChitraVaani",
     links: [{ label: "Website", url: "https://chitravaani.in/" }],
     cover_image: chitraVaaniCover,
-    tags: ["Full-Stack", "AI", "Video"],
+    tags: ["Platform Build", "AI", "Video Production"],
   },
   {
     id: 3,
     title: "Smart Sutra",
     links: [{ label: "Website", url: "https://www.smartsutra.32mins.in/" }],
     cover_image: smartSutraCover,
-    tags: ["Full-Stack", "AI", "UI/UX"],
+    tags: ["Platform Build", "AI", "UI/UX"],
   },
   {
     id: 4,
@@ -179,7 +179,7 @@ const ProjectCards = () => {
 
   return (
     <div className="w-full px-2 sm:px-4 md:px-10 lg:px-16 xl:px-20">
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-4 md:gap-5 lg:gap-6 max-w-6xl mx-auto">
         {media_urls.map((media) => {
           const primary = media.links[0];
           const split = media.links.length === 2 ? media.links : null;
@@ -240,7 +240,7 @@ const ProjectCards = () => {
             </div>
           );
         })}
-        <div className="flex flex-col items-center justify-center gap-2 sm:gap-3 md:gap-4 w-full rounded-sm col-span-2 md:col-span-3 lg:col-span-4 min-w-0 mt-4 sm:mt-6 md:mt-8">
+        <div className="flex flex-col items-center justify-center gap-2 sm:gap-3 md:gap-4 w-full rounded-sm col-span-full min-w-0 mt-4 sm:mt-6 md:mt-8">
           <section
             ref={sneakRef}
             className="relative bg-[#000030] border border-[#2943FC]/25 shadow-[0_0_80px_-16px_rgba(41,67,252,0.45)] rounded-lg overflow-hidden w-full min-h-[100px] sm:min-h-[150px] md:min-h-[200px] lg:min-h-[250px] flex items-start justify-center"
