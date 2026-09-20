@@ -117,7 +117,7 @@ type Tone = "light" | "dark";
 
 const EASE = "transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]";
 /** Site capture: blurred and tinted at rest so the logo reads; clear on hover. */
-const SITE_IMG = `absolute inset-0 h-full w-full object-cover blur-[5px] scale-[1.04] group-hover:blur-none group-hover:scale-100 ${EASE}`;
+const SITE_IMG = `absolute inset-0 h-full w-full object-cover blur-[5px] group-hover:blur-none ${EASE}`;
 const tintClass = (tone: Tone) =>
   `pointer-events-none absolute inset-0 ${tone === "light" ? "bg-white/40" : "bg-[#000016]/45"} group-hover:opacity-0 ${EASE}`;
 const LOGO_IMG = `pointer-events-none absolute left-1/2 top-1/2 w-[64%] -translate-x-1/2 -translate-y-1/2 group-hover:opacity-0 group-hover:scale-95 ${EASE}`;
