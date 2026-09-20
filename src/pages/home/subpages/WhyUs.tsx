@@ -31,14 +31,14 @@ import {
 const Hourglass3D = lazy(() => import("../../../components/Hourglass3D"));
 
 /** Canvas box at lg and up; the copy columns wrap around it. */
-const CANVAS_W = 320;
-const CANVAS_H = 400;
+const CANVAS_W = 420;
+const CANVAS_H = 480;
 /**
  * The canvas has empty margin above and below the vessel, so it is allowed to
  * overhang the copy row by this much on each side. That keeps the section
  * short without shrinking the hourglass.
  */
-const CANVAS_OVERHANG = 60;
+const CANVAS_OVERHANG = 90;
 const ROW_H = CANVAS_H - CANVAS_OVERHANG * 2;
 /** Tailwind `gap-x-8` between the two copy columns. */
 const COLUMN_GAP = 32;

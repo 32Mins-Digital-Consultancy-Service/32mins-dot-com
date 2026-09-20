@@ -4,8 +4,9 @@
  * reports its own projected hull; this analytic version stands in for the
  * upright pose until the first frame arrives.
  *
- * The camera in HourglassView is fixed (fov 34°, ~8.3 units from the vessel),
- * so the projection reduces to a scale and a mild horizontal foreshortening.
+ * The camera in HourglassView starts at ~9.4 units from the vessel with a
+ * 34° fov that widens for boxes narrower than they are tall, so the upright
+ * projection reduces to a scale and a mild horizontal foreshortening.
  * The outline is the frame's bounding box (caps + pillars) with bevelled
  * corners; the glass waist is narrower but the pillars define what text must
  * avoid.
@@ -18,8 +19,15 @@ export interface HourglassPose {
   lift: number;
 }
 
+/** Camera distance to its look-at target, scene units. */
+const CAMERA_DISTANCE = 9.42;
+const BASE_FOV_DEG = 34;
 /** Scene units spanned by the canvas height at the vessel's distance. */
-const VISIBLE_UNITS = 5.08;
+function visibleUnits(canvasWidth: number, canvasHeight: number): number {
+  const base = Math.tan((BASE_FOV_DEG * Math.PI) / 360);
+  const halfTan = base / Math.min(1, canvasWidth / canvasHeight);
+  return 2 * CAMERA_DISTANCE * halfTan;
+}
 /**
  * Frame half extents as they project on screen, in scene units. Larger than
  * the model's true bounds because the camera looks slightly down at the
@@ -30,8 +38,8 @@ const HALF_H = 1.76;
 /** Corner bevel sizes. */
 const BEVEL_X = 0.2;
 const BEVEL_Y = 0.14;
-/** The camera sits ~27° around from the front; x reads slightly compressed. */
-const FORESHORTEN = 0.89;
+/** The camera sits ~21° around from the front; x reads slightly compressed. */
+const FORESHORTEN = 0.93;
 /** Lookat target is 0.05 units below the origin, so the origin sits above center. */
 const TARGET_Y = -0.05;
 
@@ -55,7 +63,7 @@ export function silhouettePoints(
   canvasWidth: number,
   canvasHeight: number,
 ): Float32Array {
-  const scale = canvasHeight / VISIBLE_UNITS;
+  const scale = canvasHeight / visibleUnits(canvasWidth, canvasHeight);
   const cx = canvasWidth / 2;
   const cy = canvasHeight / 2 + TARGET_Y * scale;
   const cos = Math.cos(pose.tilt);

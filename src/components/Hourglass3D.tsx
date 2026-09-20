@@ -2,10 +2,13 @@ import { useEffect, useRef } from "react";
 import { HourglassView } from "./hourglass/HourglassView";
 
 const MODEL_URL = "/hourglass/hourglass.glb";
-/** Active upright time for one metered pass of every numeral through the neck. */
+/** Active flow time for one metered pass of every grain through the neck. */
 const CYCLE_SECONDS = 32;
-/** If a grain wedges and the pile never "settles", flip anyway after this long. */
-const SETTLE_TIMEOUT_SECONDS = 10;
+/**
+ * The engine itself never forces a turn while grains remain upstream; this
+ * long safety only guards against a permanently wedged grain on a live page.
+ */
+const SETTLE_TIMEOUT_SECONDS = 45;
 
 interface Hourglass3DProps {
   /** Step physics and draw frames only while true (section in view). */
@@ -19,10 +22,10 @@ interface Hourglass3DProps {
 }
 
 /**
- * The Why-Us hourglass: GLB vessel plus a live granular simulation of 1,000
- * camera-facing "32" numerals. Runs a 32-second metered cycle, waits for the
- * pile to settle, turns itself over and repeats. Loaded via React.lazy so
- * three.js and the simulation ship in their own chunk (see WhyUs.tsx).
+ * The Why-Us hourglass: GLB vessel plus a live granular simulation of 3,200
+ * small metallic grains. Runs a 32-second metered cycle, waits until every
+ * grain is through and still, turns itself over and repeats. Loaded via
+ * React.lazy so three.js and the simulation ship in their own chunk.
  */
 export default function Hourglass3D({
   active,
@@ -60,9 +63,6 @@ export default function Hourglass3D({
       session.flipped = false;
       session.overtime = 0;
     };
-    view.onFlipInterrupted = () => {
-      session.flipped = false;
-    };
     view.onContextLost = () =>
       callbacks.current.onFail(new Error("WebGL context lost"));
     view.onOutline = (points) => callbacks.current.onOutline?.(points);
@@ -77,18 +77,19 @@ export default function Hourglass3D({
       const delta = previous ? Math.min((now - previous) / 1000, 0.05) : 0;
       previous = now;
 
-      // The clock only runs while the vessel is upright (or inverted) enough
-      // to flow — it pauses while the user holds it sideways or mid-flip.
+      // The clock only runs while the receiving side is downhill and no
+      // flip is in progress — it pauses while the user holds it sideways.
       if (view.canFlow) {
         session.elapsed = Math.min(CYCLE_SECONDS, session.elapsed + delta);
       }
-      view.setProgress(session.elapsed / CYCLE_SECONDS);
+      view.setProgress(session.elapsed / CYCLE_SECONDS, true);
       view.render(delta);
 
-      if (session.elapsed >= CYCLE_SECONDS && !session.flipped) {
+      if (session.elapsed >= CYCLE_SECONDS && !session.flipped && !view.flipping) {
         session.overtime += delta;
         if (view.readyToFlip || session.overtime > SETTLE_TIMEOUT_SECONDS) {
-          session.flipped = view.flip();
+          view.flip();
+          session.flipped = true;
         }
       }
     };
@@ -113,9 +114,10 @@ export default function Hourglass3D({
   return (
     <div
       ref={host}
-      role="img"
-      aria-label="Interactive 3D hourglass: numerals flow from one chamber to the other, then it turns over. Drag sideways to tilt it, drag up or down to lift it."
-      className="h-full w-full touch-pan-y select-none cursor-grab active:cursor-grabbing"
+      role="group"
+      tabIndex={0}
+      aria-label="Interactive 3D hourglass: grains flow from one chamber to the other, then it turns over. Drag sideways to roll it, drag up or down to tilt it in depth, shift-drag to lift it. Arrow keys do the same."
+      className="h-full w-full touch-pan-y select-none cursor-grab active:cursor-grabbing focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/60 rounded-xl"
     />
   );
 }
