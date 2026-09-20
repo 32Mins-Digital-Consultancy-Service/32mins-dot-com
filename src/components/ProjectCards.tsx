@@ -29,8 +29,7 @@ const media_urls = [
     title: "SWAYAM Plus",
     links: [
       { label: "Website", url: "https://swayamplus.education.gov.in/" },
-      // TODO(owner): replace with the SWAYAM Plus LMS address.
-      { label: "LMS", url: "https://swayamplus.education.gov.in/login" },
+      { label: "LMS", url: "https://swayam-plus-lms.iitmpravartak.org.in/" },
     ],
     cover_image: swayamPlusCover,
     tags: ["Full-Stack", "UI/UX", "LMS", "KMS"],

@@ -11,7 +11,7 @@ export const AboutUsPage = () => {
     <div className="flex flex-col items-center justify-center max-w-6xl gap-[clamp(2.5rem,6vw,4rem)] px-[clamp(1rem,5vw,3rem)]">
       <div className="flex w-full flex-col items-center gap-[clamp(2.5rem,6vw,4rem)]">
         <SectionHeader pill="About Us" title="Who we are" />
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-[clamp(1.5rem,6vw,4rem)] px-8">
+        <div className="flex flex-col lg:flex-row items-center justify-center gap-[clamp(1rem,2.5vw,2rem)] px-4 sm:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{
@@ -45,11 +45,11 @@ export const AboutUsPage = () => {
           >
             <img
               src="/team.webp"
-              alt="The 32Mins team at IIT Madras Research Park"
+              alt="The 32Mins team"
               loading="lazy"
               decoding="async"
               width="1600"
-              height="1026"
+              height="776"
               className="w-full max-w-[min(100%,820px)] lg:w-[clamp(480px,46vw,820px)] h-auto"
             />
           </motion.div>
