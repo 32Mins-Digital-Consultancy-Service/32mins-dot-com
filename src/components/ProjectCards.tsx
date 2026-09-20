@@ -11,11 +11,19 @@ import shaktiDbCover from "../assets/shaktidb_site_cover.webp";
 import smartSutraCover from "../assets/smartsutra_cover.webp";
 import swayamPlusCover from "../assets/swayamplus_cover.webp";
 import swayamPlusLmsCover from "../assets/swayamplus_lms_cover.webp";
-import swayamPlusLogo from "../assets/swayamplus_logo.webp";
 import sneakPeakImage1 from "../assets/SneakPeak_image1.webp";
 import sneakPeakImage2 from "../assets/SneakPeak_image2.webp";
 import sneakPeakImage3 from "../assets/SneakPeak_image3.webp";
 import sneakPeakImage4 from "../assets/SneakPeak_image4.webp";
+
+import logoChai from "../assets/logo_chai.webp";
+import logoChitraVaani from "../assets/logo_chitravaani.webp";
+import logoDigiViscom from "../assets/logo_digiviscom.webp";
+import logoNmicps from "../assets/logo_nmicps.webp";
+import logoRajanDental from "../assets/logo_rajan_dental.webp";
+import logoShaktiDb from "../assets/logo_shaktidb.webp";
+import logoSmartSutra from "../assets/logo_smartsutra.webp";
+import logoSwayamPlus from "../assets/logo_swayamplus.webp";
 
 import { SubpageHeader } from "./SubpageHeader";
 import Tilt3D from "./Tilt3D";
@@ -35,7 +43,8 @@ const media_urls = [
     ],
     cover_image: swayamPlusCover,
     split_covers: [swayamPlusCover, swayamPlusLmsCover],
-    logo: swayamPlusLogo,
+    logo: logoSwayamPlus,
+    tone: "light",
     tags: ["Platform Build", "UI/UX", "LMS"],
   },
   {
@@ -43,6 +52,8 @@ const media_urls = [
     title: "ChitraVaani",
     links: [{ label: "Website", url: "https://chitravaani.in/" }],
     cover_image: chitraVaaniCover,
+    logo: logoChitraVaani,
+    tone: "light",
     tags: ["Platform Build", "AI", "Video Production"],
   },
   {
@@ -50,6 +61,8 @@ const media_urls = [
     title: "Smart Sutra",
     links: [{ label: "Website", url: "https://www.smartsutra.32mins.in/" }],
     cover_image: smartSutraCover,
+    logo: logoSmartSutra,
+    tone: "dark",
     tags: ["Platform Build", "AI", "UI/UX"],
   },
   {
@@ -57,6 +70,8 @@ const media_urls = [
     title: "NMICPS",
     links: [{ label: "Website", url: "https://nmicps.gov.in/" }],
     cover_image: nmicpsCover,
+    logo: logoNmicps,
+    tone: "dark",
     tags: ["UI/UX", "Dashboard"],
   },
   {
@@ -64,6 +79,8 @@ const media_urls = [
     title: "Rajan Dental",
     links: [{ label: "Website", url: "https://courses.rajandental.com/" }],
     cover_image: rajenDentalCover,
+    logo: logoRajanDental,
+    tone: "dark",
     tags: ["UI/UX", "LMS"],
   },
   {
@@ -71,13 +88,17 @@ const media_urls = [
     title: "CHAI",
     links: [{ label: "Website", url: "https://chai-iitmp.org/" }],
     cover_image: chaiCover,
+    logo: logoChai,
+    tone: "dark",
     tags: ["Branding", "UI/UX"],
   },
   {
     id: 7,
     title: "ShaktiDB",
-    links: [{ label: "Website", url: "https://shaktidb.iitmpravartak.net/" }],
+    links: [{ label: "Website", url: "https://sdbpro.iitmpravartak.net/" }],
     cover_image: shaktiDbCover,
+    logo: logoShaktiDb,
+    tone: "light",
     tags: ["Branding", "Newsletter", "LMS"],
   },
   {
@@ -85,68 +106,73 @@ const media_urls = [
     title: "DigiViscom",
     links: [{ label: "Website", url: "https://digiviscom.in/" }],
     cover_image: digiViscomCover,
+    logo: logoDigiViscom,
+    tone: "dark",
     tags: ["Branding", "UI/UX", "LMS"],
   },
 ] as const;
 
 type ProjectLink = { readonly label: string; readonly url: string };
+type Tone = "light" | "dark";
+
+const EASE = "transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]";
+/** Site capture: blurred and tinted at rest so the logo reads; clear on hover. */
+const SITE_IMG = `absolute inset-0 h-full w-full object-cover blur-[5px] scale-[1.04] group-hover:blur-none group-hover:scale-100 ${EASE}`;
+const tintClass = (tone: Tone) =>
+  `pointer-events-none absolute inset-0 ${tone === "light" ? "bg-white/40" : "bg-[#000016]/45"} group-hover:opacity-0 ${EASE}`;
+const LOGO_IMG = `pointer-events-none absolute left-1/2 top-1/2 w-[64%] -translate-x-1/2 -translate-y-1/2 group-hover:opacity-0 group-hover:scale-95 ${EASE}`;
+
+/** One site behind one logo; hovering hides the logo and sharpens the site. */
+const Cover = ({
+  title,
+  cover,
+  logo,
+  tone,
+}: {
+  title: string;
+  cover: string;
+  logo: string;
+  tone: Tone;
+}) => (
+  <div className="relative w-full overflow-hidden rounded-sm">
+    <img src={cover} alt="" aria-hidden="true" className="w-full h-auto invisible" />
+    <img src={cover} alt="" aria-hidden="true" loading="lazy" decoding="async" className={SITE_IMG} />
+    <div aria-hidden="true" className={tintClass(tone)} />
+    <img src={logo} alt={title} loading="lazy" decoding="async" className={LOGO_IMG} />
+  </div>
+);
 
 /**
- * One cover image with two link zones. The left half opens `links[0]`, the
- * right half `links[1]`. Hovering (or focusing) a half widens it to most of
- * the card while the other half narrows and dims; the image itself never
- * moves, so the card still reads as a single picture.
+ * Two sites behind one logo. The left half opens `links[0]`, the right half
+ * `links[1]`; each site is clipped to its zone, so hovering a half widens it
+ * and reveals more of that site while the logo fades out.
  */
 const SplitCover = ({
   title,
   covers,
   logo,
+  tone,
   links,
 }: {
   title: string;
-  /** Full-size covers for the left and right zones. */
   covers: readonly [string, string];
   logo: string;
+  tone: Tone;
   links: readonly [ProjectLink, ProjectLink];
 }) => {
   const [active, setActive] = useState<0 | 1 | null>(null);
   const leftPct = active === 0 ? 84 : active === 1 ? 16 : 50;
-  const ease = "transition-[width,left,opacity,background-color,clip-path] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]";
 
   return (
     <div
-      className="relative w-full overflow-hidden rounded-sm"
+      className="group relative w-full overflow-hidden rounded-sm"
       onMouseLeave={() => setActive(null)}
     >
-      {/* Sizing image (invisible) keeps the box at the cover aspect. */}
       <img src={covers[0]} alt="" aria-hidden="true" className="w-full h-auto invisible" />
-      {/* Each background fills the whole card and is clipped to its zone, so
-          hovering a half reveals more of that site instead of stretching it. */}
-      <img
-        src={covers[0]}
-        alt=""
-        aria-hidden="true"
-        loading="lazy"
-        decoding="async"
-        style={{ clipPath: `inset(0 ${100 - leftPct}% 0 0)` }}
-        className={`absolute inset-0 w-full h-full object-cover ${ease}`}
-      />
-      <img
-        src={covers[1]}
-        alt=""
-        aria-hidden="true"
-        loading="lazy"
-        decoding="async"
-        style={{ clipPath: `inset(0 0 0 ${leftPct}%)` }}
-        className={`absolute inset-0 w-full h-full object-cover ${ease}`}
-      />
-      <img
-        src={logo}
-        alt={title}
-        loading="lazy"
-        decoding="async"
-        className="pointer-events-none absolute left-1/2 top-1/2 w-[64%] -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_2px_6px_rgba(255,255,255,0.6)]"
-      />
+      <img src={covers[0]} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ clipPath: `inset(0 ${100 - leftPct}% 0 0)` }} className={SITE_IMG} />
+      <img src={covers[1]} alt="" aria-hidden="true" loading="lazy" decoding="async" style={{ clipPath: `inset(0 0 0 ${leftPct}%)` }} className={SITE_IMG} />
+      <div aria-hidden="true" className={tintClass(tone)} />
+      <img src={logo} alt={title} loading="lazy" decoding="async" className={LOGO_IMG} />
       {links.map((link, i) => {
         const isLeft = i === 0;
         const width = isLeft ? leftPct : 100 - leftPct;
@@ -163,12 +189,12 @@ const SplitCover = ({
             onFocus={() => setActive(i as 0 | 1)}
             onBlur={() => setActive(null)}
             style={{ width: `${width}%`, left: isLeft ? 0 : `${leftPct}%` }}
-            className={`absolute top-0 bottom-0 flex items-end p-2 sm:p-3 ${ease} ${
+            className={`absolute top-0 bottom-0 flex items-end p-2 sm:p-3 ${EASE} ${
               dimmed ? "bg-[#000016]/45" : "bg-[#000016]/0"
             } ${isLeft ? "justify-start" : "justify-end"} focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white/80`}
           >
             <span
-              className={`rounded-md border border-white/15 bg-[#06041A]/75 px-2 py-1 text-[10px] sm:text-xs font-medium text-white whitespace-nowrap backdrop-blur-sm ${ease} ${
+              className={`rounded-md border border-white/15 bg-[#06041A]/75 px-2 py-1 text-[10px] sm:text-xs font-medium text-white whitespace-nowrap backdrop-blur-sm ${EASE} ${
                 collapsed ? "opacity-0" : "opacity-100"
               }`}
             >
@@ -180,7 +206,7 @@ const SplitCover = ({
       <span
         aria-hidden="true"
         style={{ left: `${leftPct}%` }}
-        className={`pointer-events-none absolute top-0 bottom-0 w-px -translate-x-1/2 bg-white/60 ${ease}`}
+        className={`pointer-events-none absolute top-0 bottom-0 w-px -translate-x-1/2 bg-white/60 ${EASE}`}
       />
     </div>
   );
@@ -206,10 +232,20 @@ const ProjectCards = () => {
   const deviceRise = useTransform(sneakProgress, [0.1, 1], ["80%", "0%"]);
 
   return (
-    <div className="w-full px-2 sm:px-4 md:px-10 lg:px-16 xl:px-20">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-4 md:gap-5 lg:gap-6 max-w-6xl mx-auto">
-        {media_urls.map((media) => {
+    <div className="w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 sm:gap-4 md:gap-5 lg:gap-6">
+        {media_urls.map((media, index) => {
           const primary = media.links[0];
+          // Three columns at lg (two tracks each). When the last row holds
+          // fewer than three cards, shift its first card so the row is centred.
+          const remainder = media_urls.length % 3;
+          const firstOfLastRow = index === media_urls.length - remainder;
+          const start =
+            firstOfLastRow && remainder === 2
+              ? "lg:col-start-2"
+              : firstOfLastRow && remainder === 1
+                ? "lg:col-start-3"
+                : "";
           const split =
             media.links.length === 2 && "split_covers" in media ? media : null;
           const linkClass =
@@ -217,7 +253,7 @@ const ProjectCards = () => {
           const titleClass =
             "text-white text-xs sm:text-sm md:text-lg lg:text-xl font-semibold leading-tight w-fit break-words min-w-0 underline-offset-4 decoration-white/60 group-hover:underline";
           return (
-            <div key={media.id} className="min-w-0 h-full">
+            <div key={media.id} className={`min-w-0 h-full lg:col-span-2 ${start}`}>
               <Tilt3D
                 className="h-full"
                 innerClassName="rounded-sm flex flex-col justify-start h-full gap-2 sm:gap-2.5 md:gap-3 min-w-0"
@@ -229,6 +265,7 @@ const ProjectCards = () => {
                       title={media.title}
                       covers={split.split_covers}
                       logo={split.logo}
+                      tone={split.tone}
                       links={[split.links[0], split.links[1]]}
                     />
                     <a
@@ -249,12 +286,11 @@ const ProjectCards = () => {
                     aria-label={`Open the ${media.title} ${primary.label.toLowerCase()} in a new tab`}
                     className={linkClass}
                   >
-                    <img
-                      src={media.cover_image}
-                      alt={media.title}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-auto object-cover rounded-sm"
+                    <Cover
+                      title={media.title}
+                      cover={media.cover_image}
+                      logo={media.logo}
+                      tone={media.tone}
                     />
                     <h3 className={`mt-2 sm:mt-2.5 md:mt-3 ${titleClass}`}>
                       {media.title}

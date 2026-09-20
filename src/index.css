@@ -5,6 +5,16 @@
   --breakpoint-xs: 30rem;
 }
 
+/* The one content measure for every homepage section, the contact band and
+   the footer: 76rem wide, centred, with the same fluid side padding. Sections
+   nest nothing wider than this, so all edges line up down the page. */
+@utility site-container {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+}
+
 /* Prevent horizontal overflow and right-side white bar on mobile */
 html,
 body {

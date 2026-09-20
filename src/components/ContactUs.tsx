@@ -47,7 +47,7 @@ export const ContactUsPage = () => {
   };
 
   return (
-    <section className="relative bg-linear-to-b from-[#0A1953] to-[#2842F7] w-[90%] max-w-full min-h-[360px] rounded-2xl px-7.5 py-[clamp(2.5rem,6vw,4rem)] flex flex-col gap-6 items-center justify-center overflow-hidden">
+    <section className="relative bg-linear-to-b from-[#0A1953] to-[#2842F7] w-[calc(100%-2*clamp(1.25rem,4vw,2.5rem))] max-w-[calc(76rem-2*clamp(1.25rem,4vw,2.5rem))] min-h-[360px] rounded-2xl px-7.5 py-[clamp(2.5rem,6vw,4rem)] flex flex-col gap-6 items-center justify-center overflow-hidden">
       <h1 className="font-bold text-[clamp(96px,30vw,480px)] tracking-[-0.04em] text-white/16 text-center absolute mix-blend-soft-light z-0  left-1/2 -translate-x-1/2 whitespace-nowrap">
         Reach Us
       </h1>

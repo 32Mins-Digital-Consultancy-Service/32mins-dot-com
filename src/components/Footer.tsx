@@ -32,7 +32,7 @@ const Footer = () => {
 
   return (
     <footer
-      className="bg-[linear-gradient(to_bottom,#000016_0px,#040314_160px)] w-full flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16"
+      className="bg-[linear-gradient(to_bottom,#000016_0px,#040314_160px)] w-full flex flex-col items-center justify-center"
       style={{
         paddingTop: "clamp(2.5rem, 6vw, 4rem)",
         paddingBottom: "clamp(1.5rem, 5vw, 3rem)",
@@ -40,7 +40,7 @@ const Footer = () => {
       }}
     >
       <div
-        className="flex flex-col md:flex-row lg:flex-row xl:flex-row items-center  justify-between max-w-7xl overflow-visible w-full"
+        className="flex flex-col md:flex-row lg:flex-row xl:flex-row items-center  justify-between site-container overflow-visible"
         style={{ gap: "clamp(2rem, 4vw, 4rem)" }}
       >
         {/* Address Section */}

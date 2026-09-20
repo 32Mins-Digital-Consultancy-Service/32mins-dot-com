@@ -8,10 +8,10 @@ export const AboutUsPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col items-center justify-center max-w-6xl gap-[clamp(2.5rem,6vw,4rem)] px-[clamp(1rem,5vw,3rem)]">
+    <div className="site-container flex flex-col items-center justify-center gap-[clamp(2.5rem,6vw,4rem)]">
       <div className="flex w-full flex-col items-center gap-[clamp(2.5rem,6vw,4rem)]">
         <SectionHeader pill="About Us" title="Who we are" />
-        <div className="flex flex-col lg:flex-row items-center justify-center gap-[clamp(1rem,2.5vw,2rem)] px-4 sm:px-8">
+        <div className="flex w-full flex-col lg:flex-row items-center justify-between gap-[clamp(1rem,2.5vw,2rem)]">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{
@@ -20,7 +20,7 @@ export const AboutUsPage = () => {
               transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
             }}
             viewport={{ once: true, amount: 0.2 }}
-            className="flex flex-col gap-[clamp(1rem,4vw,2.5rem)] max-w-xl w-full lg:w-auto"
+            className="flex flex-col gap-[clamp(1rem,4vw,2.5rem)] w-full max-w-xl lg:flex-1 lg:min-w-[22rem]"
           >
             <p className="text-[clamp(0.875rem,2vw,1.125rem)] font-normal tracking-tigher text-[#8E8E8E] leading-relaxed">
               32Mins is an organisation established with a vision to transform
@@ -43,7 +43,7 @@ export const AboutUsPage = () => {
               transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
             }}
             viewport={{ once: true, amount: 0.2 }}
-            className="flex items-center justify-center flex-shrink-0 w-full lg:w-auto"
+            className="flex items-center justify-center w-full lg:w-auto lg:shrink-0"
           >
             <img
               src="/team.webp"
@@ -52,7 +52,7 @@ export const AboutUsPage = () => {
               decoding="async"
               width="1600"
               height="1026"
-              className="w-full max-w-[min(100%,820px)] lg:w-[clamp(480px,46vw,820px)] h-auto"
+              className="w-full max-w-[min(100%,820px)] lg:w-[clamp(440px,44vw,760px)] lg:shrink-0 h-auto"
             />
           </motion.div>
         </div>
@@ -65,7 +65,7 @@ export const AboutUsPage = () => {
           transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
         }}
         viewport={{ once: true, amount: 0.2 }}
-        className="rounded-4xl bg-[#050B26]/60 max-w-4xl h-fit w-full"
+        className="rounded-4xl bg-[#050B26]/60 h-fit w-full"
       >
         <blockquote className="backdrop-blur-2xl border border-[#1B1B1B] flex gap-[clamp(0.5rem,2vw,1rem)] p-[clamp(1rem,3vw,2rem)] rounded-2xl items-center justify-center">
           <span

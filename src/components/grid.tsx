@@ -21,7 +21,7 @@ const cardAnimation = {
 };
 
 const Grid = () => (
-  <div className="w-full mx-auto max-w-[1700px] px-3 sm:px-6 md:px-10 lg:px-16 xl:px-20">
+  <div className="w-full">
     <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 sm:gap-4 lg:gap-5">
       {PILLARS.map((pillar) => (
         <motion.div key={pillar.title} {...cardAnimation}>

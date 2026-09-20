@@ -65,9 +65,7 @@ const TestimonialCard = ({
 // Main Component
 export const ClientsPage = () => (
   <div
-    className="flex flex-col items-center justify-center w-full mx-auto max-w-[1700px]
-                  gap-[clamp(2.5rem,6vw,4rem)]
-                  px-3 sm:px-4 md:px-12 lg:px-16"
+    className="site-container flex flex-col items-center justify-center gap-[clamp(2.5rem,6vw,4rem)]"
   >
     <SectionHeader pill="Our Clients" title="Helping businesses grow" />
 
@@ -76,9 +74,7 @@ export const ClientsPage = () => (
 
     {/* Testimonials Section */}
     <div
-      className="flex flex-col items-center justify-center w-full
-                    gap-[clamp(1.25rem,3vw,1.75rem)]
-                    px-0 sm:px-4 md:px-8 lg:px-10"
+      className="flex flex-col items-center justify-center w-full gap-[clamp(1.25rem,3vw,1.75rem)]"
     >
       <motion.h3
         initial={{ opacity: 0, y: 20 }}

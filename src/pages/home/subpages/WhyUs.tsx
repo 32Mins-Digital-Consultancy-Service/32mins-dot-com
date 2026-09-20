@@ -340,7 +340,7 @@ export const WhyUsPage = () => {
     "text-[clamp(0.875rem,2vw,1.125rem)] leading-relaxed text-[#8E8E8E]";
 
   return (
-    <div className="flex w-full max-w-6xl flex-col items-center gap-[clamp(1.25rem,2.5vw,2rem)] px-[clamp(1rem,4vw,2.5rem)]">
+    <div className="site-container flex flex-col items-center gap-[clamp(1.25rem,2.5vw,2rem)]">
       <SectionHeader pill="Why Us" title="What makes us stand out in the industry" />
 
       <div className="relative w-full">
