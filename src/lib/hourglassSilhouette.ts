@@ -1,6 +1,8 @@
 /**
- * Screen-space outline of the Why-Us hourglass for CSS `shape-outside`, so the
- * section copy wraps around the vessel and reflows as it tilts or lifts.
+ * Screen-space outline of the Why-Us hourglass, used to flow the section
+ * copy around the vessel (see WhyUs.tsx). While the WebGL view is live it
+ * reports its own projected hull; this analytic version stands in for the
+ * upright pose until the first frame arrives.
  *
  * The camera in HourglassView is fixed (fov 34°, ~8.3 units from the vessel),
  * so the projection reduces to a scale and a mild horizontal foreshortening.
@@ -45,44 +47,59 @@ const OUTLINE: ReadonlyArray<readonly [number, number]> = [
 ];
 
 /**
- * Outline in canvas pixels (origin top-left of the canvas, y down), shifted by
- * `offsetX`/`offsetY` into the coordinate space of the element that carries
- * the shape, and formatted as a CSS `polygon()`.
+ * Outline in canvas pixels (origin top-left of the canvas, y down), flattened
+ * as x0, y0, x1, y1, … — the same format HourglassView.onOutline emits.
  */
-export function silhouettePolygon(
+export function silhouettePoints(
   pose: HourglassPose,
   canvasWidth: number,
   canvasHeight: number,
-  offsetX: number,
-  offsetY: number,
-): string {
+): Float32Array {
   const scale = canvasHeight / VISIBLE_UNITS;
   const cx = canvasWidth / 2;
   const cy = canvasHeight / 2 + TARGET_Y * scale;
   const cos = Math.cos(pose.tilt);
   const sin = Math.sin(pose.tilt);
-  const points = OUTLINE.map(([x, y]) => {
+  const out = new Float32Array(OUTLINE.length * 2);
+  OUTLINE.forEach(([x, y], i) => {
     const rx = x * cos - y * sin;
     const ry = x * sin + y * cos + pose.lift;
-    const px = cx + rx * FORESHORTEN * scale + offsetX;
-    const py = cy - ry * scale + offsetY;
-    return `${px.toFixed(1)}px ${py.toFixed(1)}px`;
+    out[i * 2] = cx + rx * FORESHORTEN * scale;
+    out[i * 2 + 1] = cy - ry * scale;
   });
-  return `polygon(${points.join(", ")})`;
+  return out;
 }
 
 /**
- * Format a projected outline (canvas px, flattened x/y pairs, as emitted by
- * HourglassView.onOutline) as a CSS `polygon()` in an element's coordinates.
+ * Horizontal extent [minX, maxX] of a closed polygon within the horizontal
+ * band y0..y1, or null when the band misses it. Points are flattened x/y.
  */
-export function polygonFromPoints(
+export function outlineExtent(
   points: Float32Array,
-  offsetX: number,
-  offsetY: number,
-): string {
-  const parts: string[] = [];
-  for (let i = 0; i < points.length; i += 2) {
-    parts.push(`${(points[i] + offsetX).toFixed(1)}px ${(points[i + 1] + offsetY).toFixed(1)}px`);
+  y0: number,
+  y1: number,
+): [number, number] | null {
+  const n = points.length / 2;
+  let min = Infinity;
+  let max = -Infinity;
+  for (let i = 0; i < n; i++) {
+    const ax = points[i * 2];
+    const ay = points[i * 2 + 1];
+    const j = (i + 1) % n;
+    const bx = points[j * 2];
+    const by = points[j * 2 + 1];
+    if (ay >= y0 && ay <= y1) {
+      if (ax < min) min = ax;
+      if (ax > max) max = ax;
+    }
+    // Edge crossings of the band's two horizontals.
+    for (const yy of [y0, y1]) {
+      if ((ay - yy) * (by - yy) < 0) {
+        const x = ax + ((bx - ax) * (yy - ay)) / (by - ay);
+        if (x < min) min = x;
+        if (x > max) max = x;
+      }
+    }
   }
-  return `polygon(${parts.join(", ")})`;
+  return min === Infinity ? null : [min, max];
 }

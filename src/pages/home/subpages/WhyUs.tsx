@@ -7,14 +7,22 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import {
+  clearCache,
+  layoutNextLineRange,
+  materializeLineRange,
+  prepareWithSegments,
+  type LayoutCursor,
+  type PreparedTextWithSegments,
+} from "@chenglou/pretext";
 import { SectionHeader } from "../../../components/SectionHeader";
 import CtaButton from "../../../components/CtaButton";
 import { useNavigate } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import Rightarro from "../../../assets/Rightarro.svg";
 import {
-  polygonFromPoints,
-  silhouettePolygon,
+  outlineExtent,
+  silhouettePoints,
 } from "../../../lib/hourglassSilhouette";
 
 // three.js + the granular simulation ship in their own chunk and load only
@@ -32,52 +40,183 @@ const CANVAS_H = 400;
  */
 const CANVAS_OVERHANG = 60;
 const ROW_H = CANVAS_H - CANVAS_OVERHANG * 2;
-/**
- * Vertically places a copy column against the vessel: measures the column's
- * text and returns the top padding that puts its midpoint `rise` px above the
- * canvas centre (where the neck is). Debounced so a drag-induced re-wrap does
- * not jitter.
- */
-function useCenteredPad(ref: React.RefObject<HTMLDivElement | null>, enabled: boolean, rise: number) {
-  const [pad, setPad] = useState(0);
-  useEffect(() => {
-    const el = ref.current;
-    if (!enabled || !el) {
-      setPad(0);
-      return;
-    }
-    let timer = 0;
-    const measure = () => {
-      const next = Math.max(
-        0,
-        Math.round(ROW_H / 2 - el.getBoundingClientRect().height / 2 - rise),
-      );
-      setPad((current) => (Math.abs(current - next) > 6 ? next : current));
-    };
-    const observer = new ResizeObserver(() => {
-      window.clearTimeout(timer);
-      timer = window.setTimeout(measure, 150);
-    });
-    observer.observe(el);
-    measure();
-    return () => {
-      observer.disconnect();
-      window.clearTimeout(timer);
-    };
-  }, [ref, enabled, rise]);
-  return pad;
-}
-/**
- * Width of the invisible float in each column that carries the vessel's
- * silhouette. Wider than half the canvas so a tilted vessel can still push
- * text aside instead of overlapping it.
- */
-const FLOAT_W = CANVAS_W / 2 + 96;
+/** Tailwind `gap-x-8` between the two copy columns. */
+const COLUMN_GAP = 32;
+/** Breathing room between the vessel's outline and the copy. */
 const SHAPE_MARGIN = 18;
 /** Left copy sits this much above the vessel's centre line... */
 const LEFT_RISE = 28;
 /** ...and the right copy starts this far below the left. */
 const RIGHT_STAGGER = 44;
+/** A line narrower than this is skipped rather than squeezed. */
+const MIN_LINE_W = 48;
+/** `mt-8` above the call-to-action and the button's rendered height. */
+const CTA_GAP = 32;
+const CTA_H = 48;
+
+const LEFT_COPY =
+  "We focus on creating compelling, engaging, high-quality digital education and corporate training video content that is tailor-made according to the needs of your learner or the end listener.";
+const RIGHT_COPY =
+  "Our team of experts understand and deliver highly complex and informative materials converted into innovative, watchable, and captivating learning videos through online or offline mediums.";
+
+type Side = "left" | "right";
+
+interface WrapLine {
+  text: string;
+  /** Pixels this line gives up on the vessel side. */
+  inset: number;
+}
+
+interface TextMetrics {
+  /** Canvas-style font string matching the column's computed CSS. */
+  font: string;
+  lineHeight: number;
+  width: number;
+}
+
+/**
+ * How far the vessel pushes into a column for one line band. `y0..y1` is the
+ * band in canvas coordinates (canvas top = row top − CANVAS_OVERHANG). Each
+ * column's inner edge sits half the column gap from the canvas centre line.
+ */
+function intrusion(points: Float32Array, side: Side, y0: number, y1: number) {
+  const extent = outlineExtent(points, y0, y1);
+  if (!extent) return 0;
+  const edge =
+    side === "left" ? CANVAS_W / 2 - COLUMN_GAP / 2 : CANVAS_W / 2 + COLUMN_GAP / 2;
+  return side === "left"
+    ? Math.max(0, edge - (extent[0] - SHAPE_MARGIN))
+    : Math.max(0, extent[1] + SHAPE_MARGIN - edge);
+}
+
+/**
+ * Flow a paragraph down a column one line at a time with pretext, giving each
+ * line only the width the vessel leaves free at that height. Pure arithmetic
+ * over pretext's cached measurements — no DOM reads.
+ */
+function layoutColumn(
+  prepared: PreparedTextWithSegments,
+  side: Side,
+  points: Float32Array,
+  metrics: TextMetrics,
+  pad: number,
+): WrapLine[] {
+  const lines: WrapLine[] = [];
+  let cursor: LayoutCursor = { segmentIndex: 0, graphemeIndex: 0 };
+  let y = 0;
+  for (let guard = 0; guard < 80; guard++) {
+    const top = pad + y + CANVAS_OVERHANG;
+    const inset = Math.min(
+      metrics.width,
+      intrusion(points, side, top, top + metrics.lineHeight),
+    );
+    const available = metrics.width - inset;
+    y += metrics.lineHeight;
+    if (available < MIN_LINE_W) {
+      lines.push({ text: "", inset });
+      continue;
+    }
+    const range = layoutNextLineRange(prepared, cursor, available);
+    if (range === null) break;
+    lines.push({ text: materializeLineRange(prepared, range).text, inset });
+    cursor = range.end;
+  }
+  return lines;
+}
+
+/**
+ * Reads the font and line height the column actually renders with (the size
+ * is a viewport clamp) plus its width, and refreshes them on resize and once
+ * web fonts finish loading so pretext measures with the real face.
+ */
+function useTextMetrics(
+  ref: React.RefObject<HTMLDivElement | null>,
+  enabled: boolean,
+): TextMetrics | null {
+  const [metrics, setMetrics] = useState<TextMetrics | null>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!enabled || !el) {
+      setMetrics(null);
+      return;
+    }
+    const read = () => {
+      const cs = getComputedStyle(el);
+      const font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+      const lineHeight = parseFloat(cs.lineHeight) || parseFloat(cs.fontSize) * 1.625;
+      const width = el.clientWidth;
+      setMetrics((current) =>
+        current &&
+        current.font === font &&
+        current.lineHeight === lineHeight &&
+        current.width === width
+          ? current
+          : { font, lineHeight, width },
+      );
+    };
+    read();
+    const observer = new ResizeObserver(read);
+    observer.observe(el);
+    let cancelled = false;
+    document.fonts?.ready.then(() => {
+      if (cancelled) return;
+      // Widths measured before the web font arrived are stale.
+      clearCache();
+      setMetrics(null);
+      read();
+    });
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+    };
+  }, [ref, enabled]);
+  return metrics;
+}
+
+/** Prepare a paragraph for pretext once per font string. */
+function usePrepared(text: string, font: string | undefined) {
+  const [prepared, setPrepared] = useState<{
+    font: string;
+    value: PreparedTextWithSegments;
+  } | null>(null);
+  useEffect(() => {
+    if (!font) return;
+    setPrepared({ font, value: prepareWithSegments(text, font) });
+  }, [text, font]);
+  return prepared && prepared.font === font ? prepared.value : null;
+}
+
+/** Render pretext's lines as fixed-height rows; the whole copy stays readable. */
+const WrappedLines = ({
+  lines,
+  side,
+  lineHeight,
+  text,
+}: {
+  lines: WrapLine[];
+  side: Side;
+  lineHeight: number;
+  text: string;
+}) => (
+  <>
+    <div aria-hidden="true">
+      {lines.map((line, i) => (
+        <div
+          key={i}
+          className="whitespace-nowrap"
+          style={{
+            height: lineHeight,
+            paddingRight: side === "left" ? line.inset : 0,
+            paddingLeft: side === "right" ? line.inset : 0,
+          }}
+        >
+          {line.text}
+        </div>
+      ))}
+    </div>
+    <p className="sr-only">{text}</p>
+  </>
+);
 
 /** True at Tailwind's `lg` breakpoint and up, tracking viewport changes. */
 function useIsDesktop() {
@@ -103,7 +242,7 @@ function canUseWebGL2() {
 
 /**
  * If the lazy chunk or the WebGL hourglass throws during render, swallow it
- * and tell the parent to keep the static image — never blank the section.
+ * and tell the parent to fall back to plain copy — never blank the section.
  */
 class HourglassBoundary extends Component<
   { onFail: () => void; children: ReactNode },
@@ -116,7 +255,7 @@ class HourglassBoundary extends Component<
   }
 
   componentDidCatch(error: unknown) {
-    console.warn("3D hourglass failed — keeping the static image.", error);
+    console.warn("3D hourglass failed — falling back to plain copy.", error);
     this.props.onFail();
   }
 
@@ -135,6 +274,8 @@ const REVEAL = {
   viewport: { once: true, amount: 0.2 },
 };
 
+const UPRIGHT = silhouettePoints({ tilt: 0, lift: 0 }, CANVAS_W, CANVAS_H);
+
 export const WhyUsPage = () => {
   const navigate = useNavigate();
   const visualRef = useRef<HTMLDivElement>(null);
@@ -149,28 +290,54 @@ export const WhyUsPage = () => {
   );
   const [failed, setFailed] = useState(false);
   const [ready, setReady] = useState(false);
-  // Live projected outline of the vessel; the copy's wrap shapes follow it as
-  // it tilts or lifts. Null until the first WebGL frame (or for the image).
+  // Live projected outline of the vessel; the copy reflows as it tilts or
+  // lifts. Null until the first WebGL frame.
   const [outline, setOutline] = useState<Float32Array | null>(null);
-  // The 3D vessel is desktop-only; below lg the static image is the visual.
+  // The 3D vessel is desktop-only; below lg the copy is plain stacked text.
   const isDesktop = useIsDesktop();
   const show3D = use3D && !failed && isDesktop;
-  const leftText = useRef<HTMLDivElement>(null);
-  const leftPad = useCenteredPad(leftText, show3D, LEFT_RISE);
-  const rightPad = leftPad + RIGHT_STAGGER;
 
-  // The canvas is centered in the row; each column's float box ends 16px
-  // (half the column gap) short of that center line, and starts at the
-  // column's top padding, so the outline is shifted into each float's space.
-  const leftOffset = FLOAT_W - CANVAS_W / 2 + 16;
-  const rightOffset = -CANVAS_W / 2 - 16;
-  const upright = { tilt: 0, lift: 0 };
-  const leftShape = outline
-    ? polygonFromPoints(outline, leftOffset, -CANVAS_OVERHANG - leftPad)
-    : silhouettePolygon(upright, CANVAS_W, CANVAS_H, leftOffset, -CANVAS_OVERHANG - leftPad);
-  const rightShape = outline
-    ? polygonFromPoints(outline, rightOffset, -CANVAS_OVERHANG - rightPad)
-    : silhouettePolygon(upright, CANVAS_W, CANVAS_H, rightOffset, -CANVAS_OVERHANG - rightPad);
+  const leftCol = useRef<HTMLDivElement>(null);
+  const rightCol = useRef<HTMLDivElement>(null);
+  const leftMetrics = useTextMetrics(leftCol, show3D);
+  const rightMetrics = useTextMetrics(rightCol, show3D);
+  const leftPrepared = usePrepared(LEFT_COPY, leftMetrics?.font);
+  const rightPrepared = usePrepared(RIGHT_COPY, rightMetrics?.font);
+
+  const points = outline ?? UPRIGHT;
+
+  // Left column: its midpoint sits LEFT_RISE above the neck. The wrap depends
+  // on the top padding and the padding on the wrapped height, so iterate a few
+  // times; it converges immediately in practice.
+  let leftPad = 0;
+  let leftLines: WrapLine[] = [];
+  if (leftPrepared && leftMetrics) {
+    for (let i = 0; i < 4; i++) {
+      leftLines = layoutColumn(leftPrepared, "left", points, leftMetrics, leftPad);
+      const height = leftLines.length * leftMetrics.lineHeight;
+      const next = Math.max(0, Math.round(ROW_H / 2 - height / 2 - LEFT_RISE));
+      if (next === leftPad) break;
+      leftPad = next;
+    }
+  }
+  const rightPad = leftPad + RIGHT_STAGGER;
+  const rightLines =
+    rightPrepared && rightMetrics
+      ? layoutColumn(rightPrepared, "right", points, rightMetrics, rightPad)
+      : [];
+  // The call-to-action under the right copy steps aside for the vessel too.
+  const ctaTop =
+    rightPad +
+    (rightMetrics ? rightLines.length * rightMetrics.lineHeight : 0) +
+    CTA_GAP +
+    CANVAS_OVERHANG;
+  const ctaInset =
+    show3D && rightMetrics
+      ? Math.min(rightMetrics.width / 2, intrusion(points, "right", ctaTop, ctaTop + CTA_H))
+      : 0;
+
+  const copyClass =
+    "text-[clamp(0.875rem,2vw,1.125rem)] leading-relaxed text-[#8E8E8E]";
 
   return (
     <div className="flex w-full max-w-6xl flex-col items-center gap-[clamp(1.25rem,2.5vw,2rem)] px-[clamp(1rem,4vw,2.5rem)]">
@@ -210,10 +377,12 @@ export const WhyUsPage = () => {
           </motion.div>
         )}
 
-        {/* Copy in two columns around the vessel. Each column carries an
-            invisible float shaped like the vessel's outline, so the text wraps
-            the hourglass and reflows live when it tilts or lifts. Without the
-            vessel (mobile, no WebGL, reduced motion) it is plain stacked copy. */}
+        {/* Copy in two columns around the vessel. With the vessel showing,
+            each paragraph is laid out line by line with pretext and every
+            line is given only the width the vessel's live outline leaves
+            free, so the text hugs the hourglass and reflows as it tilts or
+            lifts. Without the vessel (mobile, no WebGL, reduced motion) it is
+            plain stacked copy. */}
         <div
           className={
             show3D
@@ -223,55 +392,48 @@ export const WhyUsPage = () => {
           style={show3D ? { minHeight: ROW_H } : undefined}
         >
           <motion.div
+            ref={leftCol}
             {...REVEAL}
-            className={`text-[clamp(0.875rem,2vw,1.125rem)] leading-relaxed text-[#8E8E8E] ${show3D ? "text-right" : ""}`}
+            className={`${copyClass} ${show3D ? "text-right" : ""}`}
             style={show3D ? { paddingTop: leftPad } : undefined}
           >
-            {show3D && (
-              <div
-                aria-hidden="true"
-                className="float-right"
-                style={{ width: FLOAT_W, height: Math.max(0, ROW_H + CANVAS_OVERHANG - leftPad), shapeOutside: leftShape, shapeMargin: SHAPE_MARGIN }}
+            {show3D && leftMetrics && leftLines.length > 0 ? (
+              <WrappedLines
+                lines={leftLines}
+                side="left"
+                lineHeight={leftMetrics.lineHeight}
+                text={LEFT_COPY}
               />
+            ) : (
+              <p>{LEFT_COPY}</p>
             )}
-            <div ref={leftText}>
-              <p>
-                We focus on creating compelling, engaging, high-quality digital
-                education and corporate training video content that is
-                tailor-made according to the needs of your learner or the end
-                listener.
-              </p>
-            </div>
           </motion.div>
           <motion.div
+            ref={rightCol}
             {...REVEAL}
-            className="text-[clamp(0.875rem,2vw,1.125rem)] leading-relaxed text-[#8E8E8E]"
+            className={copyClass}
             style={show3D ? { paddingTop: rightPad } : undefined}
           >
-            {show3D && (
-              <div
-                aria-hidden="true"
-                className="float-left"
-                style={{ width: FLOAT_W, height: Math.max(0, ROW_H + CANVAS_OVERHANG - rightPad), shapeOutside: rightShape, shapeMargin: SHAPE_MARGIN }}
+            {show3D && rightMetrics && rightLines.length > 0 ? (
+              <WrappedLines
+                lines={rightLines}
+                side="right"
+                lineHeight={rightMetrics.lineHeight}
+                text={RIGHT_COPY}
               />
+            ) : (
+              <p>{RIGHT_COPY}</p>
             )}
-            <div>
-              <p>
-                Our team of experts understand and deliver highly complex and
-                informative materials converted into innovative, watchable, and
-                captivating learning videos through online or offline mediums.
-              </p>
-              <div className="mt-8 flex">
-                <CtaButton
-                  variant="primary"
-                  onClick={() => {
-                    navigate("/#contactus");
-                  }}
-                >
-                  Get in touch
-                  <Rightarro className="w-4 -ml-1 -mr-2 pt-0.5" />
-                </CtaButton>
-              </div>
+            <div className="mt-8 flex" style={{ paddingLeft: ctaInset }}>
+              <CtaButton
+                variant="primary"
+                onClick={() => {
+                  navigate("/#contactus");
+                }}
+              >
+                Get in touch
+                <Rightarro className="w-4 -ml-1 -mr-2 pt-0.5" />
+              </CtaButton>
             </div>
           </motion.div>
         </div>
