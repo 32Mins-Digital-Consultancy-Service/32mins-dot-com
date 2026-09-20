@@ -62,7 +62,7 @@ export const cardData: GlobeCardData[] = [
     content: (
       <>
         <img
-          src="/IITM PIS.png"
+          src="/iitmpravartak.webp"
           alt="IITM Pravartak"
           className="max-w-[120px] sm:max-w-[150px] md:max-w-[175px]"
         />

@@ -41,21 +41,16 @@ export const AboutUsPage = () => {
               transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
             }}
             viewport={{ once: true, amount: 0.2 }}
-            className="flex items-center justify-center gap-[clamp(0.5rem,2vw,1.25rem)] flex-shrink-0"
+            className="flex items-center justify-center flex-shrink-0 w-full lg:w-auto"
           >
             <img
-              src="/image1.webp"
-              alt="32Mins team collaborating on digital content production"
+              src="/team.webp"
+              alt="The 32Mins team at IIT Madras Research Park"
               loading="lazy"
               decoding="async"
-              className="w-[clamp(140px,22vw,232px)] h-[clamp(193px,30.5vw,321px)] mb-[clamp(1rem,3vw,2.5rem)] rounded-lg object-cover"
-            />
-            <img
-              src="/image2.webp"
-              alt="32Mins workspace at IIT Madras Research Park"
-              loading="lazy"
-              decoding="async"
-              className="w-[clamp(140px,22vw,232px)] h-[clamp(193px,30.5vw,321px)] mt-[clamp(1rem,3vw,2.5rem)] rounded-lg object-cover"
+              width="1600"
+              height="1026"
+              className="w-full max-w-[min(100%,820px)] lg:w-[clamp(480px,46vw,820px)] h-auto"
             />
           </motion.div>
         </div>
