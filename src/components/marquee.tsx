@@ -5,7 +5,8 @@ const CLIENT_LOGOS: { src: string; alt: string }[] = [
   { src: "/digivisicom.webp", alt: "Digivisicom logo" },
   { src: "/fundaspring.webp", alt: "Fundaspring logo" },
   { src: "/iitmadras.webp", alt: "IIT Madras logo" },
-  { src: "/iitmpravartak.webp", alt: "IITM Pravartak logo" },
+  { src: "/iitmpravartak.webp", alt: "IITM Pravartak Technologies Foundation logo" },
+  { src: "/cdsco.webp", alt: "CDSCO logo" },
   { src: "/rajendental.webp", alt: "Rajen Dental logo" },
   { src: "/shaktidb.webp", alt: "Shakti DB logo" },
   { src: "/swayam.webp", alt: "Swayam logo" },
@@ -33,7 +34,9 @@ export default function Marquee() {
             loading="lazy"
             decoding="async"
             className={`object-contain pr-8 ${
-              logo.src.includes("thsti") || logo.src.includes("iitmadras")
+              logo.src.includes("thsti") ||
+              logo.src.includes("iitmadras") ||
+              logo.src.includes("cdsco")
                 ? "h-[80px] w-[150px]"
                 : "h-[50px] w-[150px]"
             }`}

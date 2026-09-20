@@ -141,7 +141,7 @@ const Footer = () => {
         <div className="flex justify-center items-center overflow-visible ">
           <img
             src="./iitmp-image.webp"
-            alt="IIT Madras Research Park"
+            alt="IITM Pravartak Technologies Foundation"
             className="h-auto object-contain"
             style={{ width: "clamp(7rem, 15vw, 12rem)" }}
           />
