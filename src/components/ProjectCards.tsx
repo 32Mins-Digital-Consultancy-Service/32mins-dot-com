@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 import chaiCover from "../assets/chai_site_cover.webp";
@@ -86,6 +86,79 @@ const media_urls = [
   },
 ] as const;
 
+type ProjectLink = { readonly label: string; readonly url: string };
+
+/**
+ * One cover image with two link zones. The left half opens `links[0]`, the
+ * right half `links[1]`. Hovering (or focusing) a half widens it to most of
+ * the card while the other half narrows and dims; the image itself never
+ * moves, so the card still reads as a single picture.
+ */
+const SplitCover = ({
+  title,
+  cover,
+  links,
+}: {
+  title: string;
+  cover: string;
+  links: readonly [ProjectLink, ProjectLink];
+}) => {
+  const [active, setActive] = useState<0 | 1 | null>(null);
+  const leftPct = active === 0 ? 84 : active === 1 ? 16 : 50;
+  const ease = "transition-[width,left,opacity,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]";
+
+  return (
+    <div
+      className="relative w-full overflow-hidden rounded-sm"
+      onMouseLeave={() => setActive(null)}
+    >
+      <img
+        src={cover}
+        alt={title}
+        loading="lazy"
+        decoding="async"
+        className="w-full h-auto object-cover rounded-sm"
+      />
+      {links.map((link, i) => {
+        const isLeft = i === 0;
+        const width = isLeft ? leftPct : 100 - leftPct;
+        const dimmed = active !== null && active !== i;
+        const collapsed = width < 30;
+        return (
+          <a
+            key={link.label}
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Open the ${title} ${link.label.toLowerCase()} in a new tab`}
+            onMouseEnter={() => setActive(i as 0 | 1)}
+            onFocus={() => setActive(i as 0 | 1)}
+            onBlur={() => setActive(null)}
+            style={{ width: `${width}%`, left: isLeft ? 0 : `${leftPct}%` }}
+            className={`group/half absolute top-0 bottom-0 flex items-end p-2 sm:p-3 ${ease} ${
+              dimmed ? "bg-[#000016]/60" : "bg-[#000016]/0 hover:bg-[#000016]/10"
+            } ${isLeft ? "justify-start" : "justify-end"} focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-white/80`}
+          >
+            <span
+              className={`rounded-md border border-white/15 bg-[#06041A]/75 px-2 py-1 text-[10px] sm:text-xs font-medium text-white whitespace-nowrap backdrop-blur-sm ${ease} ${
+                collapsed ? "opacity-0" : "opacity-100"
+              }`}
+            >
+              {link.label} ↗
+            </span>
+          </a>
+        );
+      })}
+      {/* divider between the halves */}
+      <span
+        aria-hidden="true"
+        style={{ left: `${leftPct}%` }}
+        className={`pointer-events-none absolute top-0 bottom-0 w-px -translate-x-1/2 bg-white/50 ${ease}`}
+      />
+    </div>
+  );
+};
+
 const ProjectCards = () => {
 
   // "Take a sneak peek" reveal is driven by scroll progress through the
@@ -109,56 +182,60 @@ const ProjectCards = () => {
     <div className="w-full px-2 sm:px-4 md:px-10 lg:px-16 xl:px-20">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 max-w-6xl mx-auto">
         {media_urls.map((media) => {
-          const [primary, ...more] = media.links;
+          const primary = media.links[0];
+          const split = media.links.length === 2 ? media.links : null;
+          const linkClass =
+            "group block w-full min-w-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/70 rounded-sm";
+          const titleClass =
+            "text-white text-xs sm:text-sm md:text-lg lg:text-xl font-semibold leading-tight w-fit break-words min-w-0 underline-offset-4 decoration-white/60 group-hover:underline";
           return (
             <div key={media.id} className="min-w-0 h-full">
               <Tilt3D
                 className="h-full"
-                innerClassName="rounded-sm flex flex-col justify-between h-full gap-2 sm:gap-3 md:gap-4 min-w-0"
+                innerClassName="rounded-sm flex flex-col justify-start h-full gap-2 sm:gap-2.5 md:gap-3 min-w-0"
                 maxTilt={6}
               >
-                <a
-                  href={primary.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Open the ${media.title} ${primary.label.toLowerCase()} in a new tab`}
-                  className="group block w-full min-w-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/70 rounded-sm"
-                >
-                  <img
-                    src={media.cover_image}
-                    alt={media.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-auto object-cover rounded-sm"
-                  />
-                  <h3 className="mt-2 sm:mt-3 md:mt-4 text-white text-xs sm:text-sm md:text-lg lg:text-xl font-semibold leading-tight w-fit break-words min-w-0 underline-offset-4 decoration-white/60 group-hover:underline">
-                    {media.title}
-                  </h3>
-                </a>
-                <div className="flex flex-wrap justify-between items-center gap-1.5 sm:gap-2 min-w-0">
-                  <div className="flex flex-wrap gap-1 sm:gap-1.5 md:gap-2 min-w-0 shrink">
-                    {media.tags.map((tag) => (
-                      <SubpageHeader key={tag} title={tag} variant="small" />
-                    ))}
-                  </div>
-                  {more.length > 0 && (
-                    <nav
-                      aria-label={`${media.title} links`}
-                      className="flex flex-wrap gap-2 sm:gap-3 text-[11px] sm:text-xs md:text-sm"
+                {split ? (
+                  <>
+                    <SplitCover
+                      title={media.title}
+                      cover={media.cover_image}
+                      links={[split[0], split[1]]}
+                    />
+                    <a
+                      href={primary.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Open the ${media.title} ${primary.label.toLowerCase()} in a new tab`}
+                      className={linkClass}
                     >
-                      {media.links.map((link) => (
-                        <a
-                          key={link.label}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#8E8E8E] hover:text-white underline-offset-4 hover:underline transition-colors whitespace-nowrap"
-                        >
-                          {link.label} ↗
-                        </a>
-                      ))}
-                    </nav>
-                  )}
+                      <h3 className={titleClass}>{media.title}</h3>
+                    </a>
+                  </>
+                ) : (
+                  <a
+                    href={primary.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Open the ${media.title} ${primary.label.toLowerCase()} in a new tab`}
+                    className={linkClass}
+                  >
+                    <img
+                      src={media.cover_image}
+                      alt={media.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-auto object-cover rounded-sm"
+                    />
+                    <h3 className={`mt-2 sm:mt-2.5 md:mt-3 ${titleClass}`}>
+                      {media.title}
+                    </h3>
+                  </a>
+                )}
+                <div className="flex flex-wrap gap-1 sm:gap-1.5 md:gap-2 min-w-0">
+                  {media.tags.map((tag) => (
+                    <SubpageHeader key={tag} title={tag} variant="small" />
+                  ))}
                 </div>
               </Tilt3D>
             </div>
