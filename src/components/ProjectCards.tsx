@@ -1,13 +1,13 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-import chaiCover from "../assets/chai_cover.webp";
+import chaiCover from "../assets/chai_site_cover.webp";
 import chitraVaaniCover from "../assets/chitravaani_cover.webp";
-import digiViscomCover from "../assets/DigiViscom_cover.webp";
+import digiViscomCover from "../assets/digiviscom_site_cover.webp";
 import deviceImage from "../assets/device.webp";
-import nmicpsCover from "../assets/nmicps_cover.webp";
-import rajenDentalCover from "../assets/rajen_dental_cover.webp";
-import shaktiDbCover from "../assets/ShaktiDB_cover.webp";
+import nmicpsCover from "../assets/nmicps_site_cover.webp";
+import rajenDentalCover from "../assets/rajan_dental_site_cover.webp";
+import shaktiDbCover from "../assets/shaktidb_site_cover.webp";
 import smartSutraCover from "../assets/smartsutra_cover.webp";
 import swayamPlusCover from "../assets/swayamplus_cover.webp";
 import sneakPeakImage1 from "../assets/SneakPeak_image1.webp";
